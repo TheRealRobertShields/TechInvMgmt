@@ -44,5 +44,30 @@ namespace TechInvMgmt.Models
                 }
             }
         }
+
+        public static async Task CreateDefaultAdmin(IServiceProvider serviceProvider)
+        {
+            const string email = "techinvmgmt@tim.com";
+            const string username = "admin";
+            const string password = "Admin1!!";
+
+            var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
+
+            // Check if any users are in the DB
+            if (userManager.Users.Count() == 0)
+            {
+                IdentityUser admin = new IdentityUser()
+                {
+                    Email = email,
+                    UserName = username
+                };
+
+                // Create admin
+                await userManager.CreateAsync(admin, password);
+
+                // Add to admin role
+                await userManager.AddToRoleAsync(admin, Admin);
+            }
+        }
     }
 }

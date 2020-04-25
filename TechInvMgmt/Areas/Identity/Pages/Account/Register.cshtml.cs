@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using TechInvMgmt.Models;
 
 namespace TechInvMgmt.Areas.Identity.Pages.Account
 {
@@ -62,6 +63,10 @@ namespace TechInvMgmt.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [Required]
+            [Display(Name = "Account type")]
+            public string AccountType { get; set; }
         }
 
         public void OnGet(string returnUrl = null)
@@ -79,6 +84,20 @@ namespace TechInvMgmt.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
+
+                    if (Input.AccountType == "ISP")
+                    {
+                        await _userManager.AddToRoleAsync(user, IdentityHelper.ISP);
+                    }
+                    if (Input.AccountType == "Tech")
+                    {
+                        await _userManager.AddToRoleAsync(user, IdentityHelper.Tech);
+                    }
+                    if (Input.AccountType == "FSM")
+                    {
+                        await _userManager.AddToRoleAsync(user, IdentityHelper.FSM);
+                    }
+
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));

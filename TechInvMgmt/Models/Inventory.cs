@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,6 +12,9 @@ namespace TechInvMgmt.Models
     /// </summary>
     public class Inventory
     {
+        [Key]
+        public int RowId { get; set; }
+
         public Part Part { get; set; }
 
         public Subinventory Subinv { get; set; }

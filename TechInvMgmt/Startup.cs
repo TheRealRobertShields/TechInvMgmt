@@ -72,7 +72,7 @@ namespace TechInvMgmt
 
             // Create roles
             IServiceScope serviceProvider = app.ApplicationServices.GetRequiredService<IServiceProvider>().CreateScope();
-            IdentityHelper.CreateRoles(serviceProvider.ServiceProvider, IdentityHelper.Technician, IdentityHelper.ISP, IdentityHelper.FSM, IdentityHelper.Admin).Wait();
+            IdentityHelper.CreateRoles(serviceProvider.ServiceProvider, IdentityHelper.Tech, IdentityHelper.ISP, IdentityHelper.FSM, IdentityHelper.Admin).Wait();
 
             IdentityHelper.CreateDefaultAdmin(serviceProvider.ServiceProvider).Wait();
         }

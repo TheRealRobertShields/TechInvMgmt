@@ -9,7 +9,7 @@ namespace TechInvMgmt.Models
 {
     public class IdentityHelper
     {
-        public const string Technician = "Technician";
+        public const string Tech = "Tech";
         public const string ISP = "ISP";
         public const string FSM = "FSM";
         public const string Admin = "Admin";

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TechInvMgmt.Data;
 
 namespace TechInvMgmt.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200426072402_AddPartSubinvInv")]
+    partial class AddPartSubinvInv
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -226,22 +228,20 @@ namespace TechInvMgmt.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("PartName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("PartNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<string>("Subinventory")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("SubInv")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("RowId");
+
+                    b.HasIndex("PartNumber");
+
+                    b.HasIndex("SubInv");
 
                     b.ToTable("Inventory");
                 });
@@ -271,14 +271,10 @@ namespace TechInvMgmt.Data.Migrations
 
             modelBuilder.Entity("TechInvMgmt.Models.Subinventory", b =>
                 {
-                    b.Property<string>("Subinv")
+                    b.Property<string>("SubInv")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("AssignedTech")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Subinv");
+                    b.HasKey("SubInv");
 
                     b.ToTable("Subinventories");
                 });
@@ -332,6 +328,17 @@ namespace TechInvMgmt.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("TechInvMgmt.Models.Inventory", b =>
+                {
+                    b.HasOne("TechInvMgmt.Models.Part", "Part")
+                        .WithMany()
+                        .HasForeignKey("PartNumber");
+
+                    b.HasOne("TechInvMgmt.Models.Subinventory", "Subinv")
+                        .WithMany()
+                        .HasForeignKey("SubInv");
                 });
 #pragma warning restore 612, 618
         }

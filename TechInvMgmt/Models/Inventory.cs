@@ -15,10 +15,20 @@ namespace TechInvMgmt.Models
         [Key]
         public int RowId { get; set; }
 
-        public Part Part { get; set; }
+        [Required]
+        [Display(Name = "Subinventory")]
+        public string Subinventory { get; set; }
 
-        public Subinventory Subinv { get; set; }
+        [Required]
+        [Display(Name = "Part Number")]
+        public string PartNumber { get; set; }
 
+        [Required]
+        [Display(Name = "Part Name")]
+        public string PartName { get; set; }
+
+        [Required]
+        [Display(Name = "Quantity")]
         public int Quantity { get; set; }
     }
 }

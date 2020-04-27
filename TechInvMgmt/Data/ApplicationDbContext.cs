@@ -16,8 +16,8 @@ namespace TechInvMgmt.Data
 
         public DbSet<Part> Parts { get; set; }
 
-        public DbSet<Subinventory> Subinventories { get; set; }
-
         public DbSet<Inventory> Inventory { get; set; }
+
+        public DbSet<Subinventory> Subinventories { get; set; }
     }
 }

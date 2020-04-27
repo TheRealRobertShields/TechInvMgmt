@@ -6,14 +6,18 @@ using System.Threading.Tasks;
 
 namespace TechInvMgmt.Models
 {
-    /// <summary>
-    /// A single sub-inventory.
-    /// </summary>
     public class Subinventory
     {
         [Key]
+        [Required]
         [Display(Name = "Subinventory")]
-        public string SubInv { get; set; }
+        public string Subinv { get; set; }
 
+        [Required]
+        [Display(Name = "Assigned Tech")]
+        public string AssignedTech { get; set; }
+
+
+        
     }
 }

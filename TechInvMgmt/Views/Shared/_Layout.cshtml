@@ -48,6 +48,11 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/tablesort-5.1.0/tablesort-5.1.0/dist/tablesort.min.js"></script>
+    <script src="~/lib/tablesort-5.1.0/tablesort-5.1.0/dist/sorts/tablesort.number.min.js"></script>
+    <script>
+        new Tablesort(document.getElementById('tablesort'));
+    </script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

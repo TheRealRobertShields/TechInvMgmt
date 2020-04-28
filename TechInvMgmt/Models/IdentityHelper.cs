@@ -51,12 +51,12 @@ namespace TechInvMgmt.Models
             const string username = "admin";
             const string password = "Admin1!!";
 
-            var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
+            var userManager = serviceProvider.GetRequiredService<UserManager<Employee>>();
 
             // Check if any users are in the DB
             if (userManager.Users.Count() == 0)
             {
-                IdentityUser admin = new IdentityUser()
+                Employee admin = new Employee()
                 {
                     Email = email,
                     UserName = username

@@ -16,8 +16,5 @@ namespace TechInvMgmt.Models
         [Required]
         [Display(Name = "Assigned Tech")]
         public string AssignedTech { get; set; }
-
-
-        
     }
 }

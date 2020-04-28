@@ -19,17 +19,22 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial" />
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Parts" asp-action="Index"><img class="nav-icon" src="~/img/Part.png" /> Parts</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Inventory" asp-action="Index"><img class="nav-icon" src="~/img/Inventory.png" /> Inventory</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Subinventories" asp-action="Index"><img class="nav-icon" src="~/img/Subinventory.png" /> Subinventory</a>
-                        </li>
-                    </ul>
+                    <!-- Only show nav links to other views if user is authenticated -->
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Parts" asp-action="Index"><img class="nav-icon" src="~/img/Part.png" /> Parts</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Inventory" asp-action="Index"><img class="nav-icon" src="~/img/Inventory.png" /> Inventory</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Subinventories" asp-action="Index"><img class="nav-icon" src="~/img/Subinventory.png" /> Subinventory</a>
+                            </li>
+                        </ul>
+                    }
+                    
                 </div>
             </div>
         </nav>

@@ -7,6 +7,8 @@
     <!--<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />-->
     <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <!-- MDBootstrap Datatables  -->
+    <link href="~/lib/MDB-4.17.0/css/addons/datatables.min.css" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -34,7 +36,7 @@
                             </li>
                         </ul>
                     }
-                    
+
                 </div>
             </div>
         </nav>
@@ -53,11 +55,14 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="~/lib/tablesort-5.1.0/tablesort-5.1.0/dist/tablesort.min.js"></script>
-    <script src="~/lib/tablesort-5.1.0/tablesort-5.1.0/dist/sorts/tablesort.number.min.js"></script>
-    <script>
-        new Tablesort(document.getElementById('tablesort'));
-    </script>
+
+    <!-- Make HTML select/input elements Searchable dropdown lists -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+
+    <!-- MDBootstrap Datatables  -->
+    <script type="text/javascript" src="~/lib/MDB-4.17.0/js/addons/datatables.min.js"></script>
+
     @RenderSection("Scripts", required: false)
 </body>
 </html>

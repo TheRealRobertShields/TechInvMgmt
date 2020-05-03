@@ -17,7 +17,7 @@
     }
 }
 
-<table class="table table-hover table-sm table-responsive-lg" id="tablesort">
+<table id="dtBasicExample" class="table table-striped table-bordered table-sm table-responsive-lg">
     <thead>
         <tr>
             <th>
@@ -30,7 +30,11 @@
             {
                 if (User.IsInRole("ISP") || User.IsInRole("FSM") || User.IsInRole("Admin"))
                 {
-                    <th data-sort-method='none'></th>
+                    <th></th>
+                }
+                else
+                {
+
                 }
             }
 
@@ -56,8 +60,11 @@
                             <a asp-action="Delete" asp-route-id="@item.Subinv">Delete</a>
                         </td>
                     }
-                }
+                    else
+                    {
 
+                    }
+                }
             </tr>
         }
     </tbody>

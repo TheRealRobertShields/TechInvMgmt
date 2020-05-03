@@ -2,106 +2,89 @@
 for details on configuring this project to bundle and minify static web assets. */
 
 
-th[role=columnheader]:not(.no-sort) {
-    cursor: pointer;
-}
 
-    th[role=columnheader]:not(.no-sort):after {
-        content: '';
-        float: right;
-        margin-top: 7px;
-        border-width: 0 4px 4px;
-        border-style: solid;
-        border-color: #404040 transparent;
-        visibility: hidden;
-        opacity: 0;
-        -ms-user-select: none;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
+    table.dataTable thead .sorting:after,
+    table.dataTable thead .sorting:before,
+    table.dataTable thead .sorting_asc:after,
+    table.dataTable thead .sorting_asc:before,
+    table.dataTable thead .sorting_asc_disabled:after,
+    table.dataTable thead .sorting_asc_disabled:before,
+    table.dataTable thead .sorting_desc:after,
+    table.dataTable thead .sorting_desc:before,
+    table.dataTable thead .sorting_desc_disabled:after,
+    table.dataTable thead .sorting_desc_disabled:before {
+        bottom: .5em;
     }
 
-th[aria-sort=ascending]:not(.no-sort):after {
-    border-bottom: none;
-    border-width: 4px 4px 0;
-}
 
-th[aria-sort]:not(.no-sort):after {
-    visibility: visible;
-    opacity: 0.4;
-}
+    a.navbar-brand {
+        white-space: normal;
+        text-align: center;
+        word-break: break-all;
+    }
 
-th[role=columnheader]:not(.no-sort):hover:after {
-    visibility: visible;
-    opacity: 1;
-}
+    /* Provide sufficient contrast against white background */
+    a {
+        color: #0366d6;
+    }
 
+    .btn-primary {
+        color: #fff;
+        background-color: #1b6ec2;
+        border-color: #1861ac;
+    }
 
-a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
-}
+    .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+        color: #fff;
+        background-color: #1b6ec2;
+        border-color: #1861ac;
+    }
 
-/* Provide sufficient contrast against white background */
-a {
-  color: #0366d6;
-}
-
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
-}
-
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
-}
-
-/* Sticky footer styles
+    /* Sticky footer styles
 -------------------------------------------------- */
-html {
-  font-size: 14px;
-}
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
+    html {
+        font-size: 14px;
+    }
 
-.border-top {
-  border-top: 1px solid #e5e5e5;
-}
-.border-bottom {
-  border-bottom: 1px solid #e5e5e5;
-}
+    @media (min-width: 768px) {
+        html {
+            font-size: 16px;
+        }
+    }
 
-.box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
-}
+    .border-top {
+        border-top: 1px solid #e5e5e5;
+    }
 
-button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
-}
+    .border-bottom {
+        border-bottom: 1px solid #e5e5e5;
+    }
 
-/* Sticky footer styles
+    .box-shadow {
+        box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    }
+
+    button.accept-policy {
+        font-size: 1rem;
+        line-height: inherit;
+    }
+
+    /* Sticky footer styles
 -------------------------------------------------- */
-html {
-  position: relative;
-  min-height: 100%;
-}
+    html {
+        position: relative;
+        min-height: 100%;
+    }
 
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
-}
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
-}
+    body {
+        /* Margin bottom by footer height */
+        margin-bottom: 60px;
+    }
+
+    .footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        white-space: nowrap;
+        line-height: 60px; /* Vertically center the text there */
+    }

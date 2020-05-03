@@ -9,7 +9,7 @@
 <p>
     <a asp-action="Create">Add To Inventory</a>
 </p>
-<table class="table table-hover table-sm table-responsive-lg" id="tablesort">
+<table id="dtBasicExample" class="table table-striped table-bordered table-sm table-responsive-lg">
     <thead>
         <tr>
             <th>
@@ -24,7 +24,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Quantity)
             </th>
-            <th data-sort-method='none'></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>

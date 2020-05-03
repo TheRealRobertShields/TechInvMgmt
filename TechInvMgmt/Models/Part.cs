@@ -31,5 +31,10 @@ namespace TechInvMgmt.Models
 
         [Display(Name = "Serial")]
         public string Serial { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Number} {Name}";
+        }
     }
 }

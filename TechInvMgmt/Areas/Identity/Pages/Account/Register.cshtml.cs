@@ -42,9 +42,18 @@ namespace TechInvMgmt.Areas.Identity.Pages.Account
 
         public string ReturnUrl { get; set; }
 
+        [BindProperties(SupportsGet = true)]
         public class InputModel
         {
             [Required]
+            [Display(Name = "First name")]
+            public string FirstName { get; set; }
+
+            [Required]
+            [Display(Name = "Last name")]
+            public string LastName { get; set; }
+
+
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
@@ -79,7 +88,7 @@ namespace TechInvMgmt.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var user = new Employee { UserName = Input.Username, Email = Input.Email };
+                var user = new Employee { UserName = Input.Username, Email = Input.Email, FirstName = Input.FirstName, LastName = Input.LastName };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
@@ -97,7 +106,7 @@ namespace TechInvMgmt.Areas.Identity.Pages.Account
                     {
                         await _userManager.AddToRoleAsync(user, IdentityHelper.FSM);
                     }
-
+                    
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));

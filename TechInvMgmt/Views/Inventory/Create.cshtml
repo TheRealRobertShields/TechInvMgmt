@@ -1,11 +1,13 @@
 ﻿@model TechInvMgmt.Models.Inventory
+@inject TechInvMgmt.Data.ApplicationDbContext context
 
 @{
     ViewData["Title"] = "Create";
+    List<Part> parts = await TechInvMgmt.Data.PartDb.GetPartsAsync(context);
 }
 
 <h1>Create</h1>
-
+ 
 <h4>Inventory</h4>
 <hr />
 <div class="row">
@@ -14,19 +16,32 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Subinventory" class="control-label"></label>
-                <input asp-for="Subinventory" class="form-control" value=""/>
+                <input asp-for="Subinventory" class="form-control" />
                 <span asp-validation-for="Subinventory" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="PartNumber" class="control-label"></label>
-                <input asp-for="PartNumber" class="form-control" />
+                <select asp-for="PartNumber" class="searchDropdown" id="selectPartNum" style="width:100%;">
+                    <option selected disabled>Select Part</option>
+                    @foreach (Part p in parts)
+                    {
+                        <option value="@p.Number">@p.ToString()</option>
+                    }
+                </select>
                 <span asp-validation-for="PartNumber" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" hidden>
                 <label asp-for="PartName" class="control-label"></label>
-                <input asp-for="PartName" class="form-control" />
+                <select asp-for="PartName" class="searchDropdown" id="selectPartName" style="width:100%;">
+                    <option selected disabled>Select Part</option>
+                    @foreach (Part p in parts)
+                    {
+                        <option value="@p.Name">@p.ToString()</option>
+                    }
+                </select>
                 <span asp-validation-for="PartName" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Quantity" class="control-label"></label>
                 <input asp-for="Quantity" class="form-control" />
@@ -42,6 +57,17 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+
+<script>
+    selectPartNum = document.getElementById("selectPartNum");
+    selectPartNum.onchange = function () {
+        var matchIndex = this.selectedIndex;
+        console.log("MatchIndex: " + matchIndex);
+        selectPartName = document.getElementById("selectPartName");
+        selectPartName.selectedIndex = matchIndex;
+        selectPartName.value = selectPartName.value;
+    };
+</script>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

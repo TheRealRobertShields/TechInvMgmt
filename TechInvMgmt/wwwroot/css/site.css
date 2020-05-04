@@ -3,25 +3,13 @@ for details on configuring this project to bundle and minify static web assets. 
 
 
 
-    table.dataTable thead .sorting:after,
-    table.dataTable thead .sorting:before,
-    table.dataTable thead .sorting_asc:after,
-    table.dataTable thead .sorting_asc:before,
-    table.dataTable thead .sorting_asc_disabled:after,
-    table.dataTable thead .sorting_asc_disabled:before,
-    table.dataTable thead .sorting_desc:after,
-    table.dataTable thead .sorting_desc:before,
-    table.dataTable thead .sorting_desc_disabled:after,
-    table.dataTable thead .sorting_desc_disabled:before {
-        bottom: .5em;
-    }
 
 
-    a.navbar-brand {
-        white-space: normal;
-        text-align: center;
-        word-break: break-all;
-    }
+a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    font-size: 2vw;
+}
 
     /* Provide sufficient contrast against white background */
     a {

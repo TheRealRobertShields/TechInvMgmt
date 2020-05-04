@@ -7,14 +7,13 @@
     <!--<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />-->
     <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    <!-- MDBootstrap Datatables  -->
-    <link href="~/lib/MDB-4.17.0/css/addons/datatables.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" />
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">TechInvMgmt</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Tech<wbr>Inv<wbr>Mgmt</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -61,7 +60,7 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 
     <!-- MDBootstrap Datatables  -->
-    <script type="text/javascript" src="~/lib/MDB-4.17.0/js/addons/datatables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 
     @RenderSection("Scripts", required: false)
 </body>

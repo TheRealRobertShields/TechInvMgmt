@@ -4,8 +4,7 @@
 // Write your JavaScript code.
 $(document).ready(function () {
     $('.searchDropdown').select2();
-    $('#dtBasicExample').DataTable();
-    $('.dataTables_length').addClass('bs-select');
+    $('#tableOfStuff').DataTable();
 });
 
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using TechInvMgmt.Models;
 
 namespace TechInvMgmt.Controllers
 {
+    [Authorize(Roles = "ISP, Admin, Tech")]
     public class InventoryController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -20,6 +22,7 @@ namespace TechInvMgmt.Controllers
         }
 
         // GET: Inventory
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             List<Part> partsList = new List<Part>();
@@ -33,6 +36,10 @@ namespace TechInvMgmt.Controllers
 
             return View(await _context.Inventory.ToListAsync());
         }
+
+
+        
+
 
         // GET: Inventory/Details/5
         public async Task<IActionResult> Details(int? id)

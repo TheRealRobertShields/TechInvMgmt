@@ -36,18 +36,22 @@ namespace TechInvMgmt.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+
+            public string Subinventory { get; set; }
         }
 
         private async Task LoadAsync(Employee user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            var subinventory = _userManager.GetUserAsync(User).Result?.Subinventory;
 
             Username = userName;
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                Subinventory = subinventory
             };
         }
 

@@ -29,8 +29,9 @@ namespace TechInvMgmt.Models
         [Display(Name = "Category")]
         public string Category { get; set; }
 
-        [Display(Name = "Serial")]
-        public string Serial { get; set; }
+        [Required]
+        [Display(Name = "Is serialized?")]
+        public bool IsSerialized { get; set; }
 
         public override string ToString()
         {

@@ -28,7 +28,11 @@ namespace TechInvMgmt.Models
         public string PartName { get; set; }
 
         [Required]
+        [Range(0, Double.PositiveInfinity)]
         [Display(Name = "Quantity")]
         public int Quantity { get; set; }
+
+        [Display(Name = "Serial Number")]
+        public string SerialNumber { get; set; }
     }
 }

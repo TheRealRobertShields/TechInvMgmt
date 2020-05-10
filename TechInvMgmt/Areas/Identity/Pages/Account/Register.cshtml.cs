@@ -76,6 +76,9 @@ namespace TechInvMgmt.Areas.Identity.Pages.Account
             [Required]
             [Display(Name = "Account type")]
             public string AccountType { get; set; }
+
+
+            public string Subinventory { get; set; }
         }
 
         public void OnGet(string returnUrl = null)
@@ -88,7 +91,7 @@ namespace TechInvMgmt.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var user = new Employee { UserName = Input.Username, Email = Input.Email, FirstName = Input.FirstName, LastName = Input.LastName };
+                var user = new Employee { UserName = Input.Username, Email = Input.Email, FirstName = Input.FirstName, LastName = Input.LastName, Subinventory = Input.Subinventory };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

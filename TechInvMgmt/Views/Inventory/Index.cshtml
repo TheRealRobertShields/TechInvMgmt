@@ -1,53 +1,71 @@
 ﻿@model IEnumerable<TechInvMgmt.Models.Inventory>
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<Employee> UserManager
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Inventory</h1>
+<h1 id="header">Inventory</h1>
 
-<p>
-    <a asp-action="Create">Add To Inventory</a>
-</p>
-<table id="tableOfStuff" class="display compact cell-border table table-responsive-lg">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Subinventory)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PartNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PartName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Quantity)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Subinventory)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PartNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PartName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Quantity)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.RowId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.RowId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.RowId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="nav justify-content-center">
+    <div>
+        <a class="text-dark" asp-controller="Subinventories" asp-action="Subinventories">
+            <div class="btn btn-outline-info btn-sm">
+                <img class="nav-icon" src="~/img/Subinventory.png" /> Subinventories
+            </div>
+        </a>
+    </div>
+    <div>
+        <a class="text-dark" asp-controller="Inventory" asp-action="Create">
+            <div class="btn btn-outline-success btn-sm">
+                <img class="nav-icon" src="~/img/Add.png" /> Add Part
+            </div>
+        </a>
+    </div>
+    <br /><br /><br />
+</div>
+
+
+    <table id="tableOfStuff" class="display compact cell-border">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Subinventory)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PartNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PartName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Quantity)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Subinventory)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PartNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PartName)
+                    </td>
+                    <td>
+                        <a class="btn btn-warning btn-sm text-dark" asp-action="Edit" asp-route-id="@item.RowId">
+                            @Html.DisplayFor(modelItem => item.Quantity)
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+

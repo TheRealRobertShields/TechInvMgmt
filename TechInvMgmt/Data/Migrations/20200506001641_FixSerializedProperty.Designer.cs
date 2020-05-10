@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TechInvMgmt.Data;
 
 namespace TechInvMgmt.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200506001641_FixSerializedProperty")]
+    partial class FixSerializedProperty
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -276,6 +278,20 @@ namespace TechInvMgmt.Data.Migrations
                     b.HasKey("Number");
 
                     b.ToTable("Parts");
+                });
+
+            modelBuilder.Entity("TechInvMgmt.Models.Subinventory", b =>
+                {
+                    b.Property<string>("Subinv")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("AssignedTech")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Subinv");
+
+                    b.ToTable("Subinventories");
                 });
 
             modelBuilder.Entity("TechInvMgmt.Models.Employee", b =>

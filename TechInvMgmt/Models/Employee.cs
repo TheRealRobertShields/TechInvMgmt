@@ -9,6 +9,7 @@ namespace TechInvMgmt.Models
 {
     public class Employee : IdentityUser
     {
+
         [Required]
         public string FirstName { get; set; }
         [Required]

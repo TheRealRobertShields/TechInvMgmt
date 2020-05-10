@@ -4,11 +4,22 @@
 // Write your JavaScript code.
 $(document).ready(function () {
     $('.searchDropdown').select2();
-    $('#tableOfStuff').DataTable();
+    if (document.getElementById("header") != null) {
+        if (document.getElementById("header").innerText != "INVENTORY") {
+            $('#tableOfStuff').DataTable();
+        }
+        else {
+            var subinv = document.getElementById("getSubInv").innerText;
+            $('#tableOfStuff').DataTable({
+                "search": {
+                    "search": subinv
+                }
+            });
+        }
+    }
+    
+    
 });
-
-
-
 
 
 

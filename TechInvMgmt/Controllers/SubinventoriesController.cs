@@ -11,6 +11,7 @@ using TechInvMgmt.Models;
 
 namespace TechInvMgmt.Controllers
 {
+    [Authorize(Roles = "ISP, FSM, Admin")]
     public class SubinventoriesController : Controller
     {
 

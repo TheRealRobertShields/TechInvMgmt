@@ -4,19 +4,26 @@
 // Write your JavaScript code.
 $(document).ready(function () {
     $('.searchDropdown').select2();
-    if (document.getElementById("header") != null) {
-        if (document.getElementById("header").innerText != "INVENTORY") {
-            $('#tableOfStuff').DataTable();
-        }
-        else {
+
+    
+    var invHeader = document.getElementById("header");
+    if (typeof (invHeader) != 'undefined' && invHeader != null) {
+        if (invHeader.innerText == "INVENTORY") {
             var subinv = document.getElementById("getSubInv").innerText;
             $('#tableOfStuff').DataTable({
+                responsive: true,
                 "search": {
                     "search": subinv
                 }
+            } );
+        }
+        else {
+            $('#tableOfStuff').DataTable({
+                responsive: true
             });
         }
     }
+    
     
     
 });

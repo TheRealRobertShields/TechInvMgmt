@@ -37,6 +37,12 @@ namespace TechInvMgmt.Areas.Identity.Pages.Account.Manage
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
 
+            [Display(Name = "First name")]
+            public string FirstName { get; set; }
+
+            [Display(Name = "Last name")]
+            public string LastName { get; set; }
+
             public string Subinventory { get; set; }
         }
 
@@ -45,13 +51,17 @@ namespace TechInvMgmt.Areas.Identity.Pages.Account.Manage
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             var subinventory = _userManager.GetUserAsync(User).Result?.Subinventory;
+            var fName = _userManager.GetUserAsync(User).Result?.FirstName;
+            var lName = _userManager.GetUserAsync(User).Result?.LastName;
 
             Username = userName;
 
             Input = new InputModel
             {
                 PhoneNumber = phoneNumber,
-                Subinventory = subinventory
+                Subinventory = subinventory,
+                FirstName = fName,
+                LastName = lName
             };
         }
 

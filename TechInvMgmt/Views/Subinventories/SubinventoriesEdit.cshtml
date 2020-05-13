@@ -13,28 +13,27 @@
     <div class="col-md-4">
         <form asp-action="SubinventoriesEdit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="FirstName" />
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="Subinventory" class="control-label"></label>
                 <input asp-for="Subinventory" class="form-control" />
                 <span asp-validation-for="Subinventory" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <!--<label asp-for="FirstName" class="control-label"></label>-->
-                <input type="hidden" asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
             </div>
-            <div class="form-group">
-                <!--<label asp-for="LastName" class="control-label"></label>-->
-                    <input type="hidden" asp-for="LastName" class="form-control" />
-                    <span asp-validation-for="LastName" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Save" class="btn btn-primary" />
-                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.FirstName">Delete</a>
-                </div>
-
-            </form>
+        </form>
         </div>
     </div>
 

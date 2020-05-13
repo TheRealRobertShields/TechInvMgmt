@@ -7,7 +7,7 @@
     <!--<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />-->
     <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.21/r-2.2.4/datatables.min.css" />
 </head>
 <body>
     <header>
@@ -25,10 +25,13 @@
                     {
                         <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Parts" asp-action="Index"><img class="nav-icon" src="~/img/Part.png" /> Parts</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Parts" asp-action="Index"><img class="nav-icon" src="~/img/Parts.png" /> Parts</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Inventory" asp-action="Index"><img class="nav-icon" src="~/img/Inventory.png" /> Inventory</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Inventory" asp-action="Index"><img class="nav-icon" src="~/img/Inventory.png" /> Inv</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Subinventories" asp-action="Subinventories"><img class="nav-icon" src="~/img/Van.png" /> Techs</a>
                             </li>
                         </ul>
                     }
@@ -42,12 +45,7 @@
             @RenderBody()
         </main>
     </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2020 - TechInvMgmt - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+    
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
@@ -56,8 +54,9 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    
 
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.21/r-2.2.4/datatables.min.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

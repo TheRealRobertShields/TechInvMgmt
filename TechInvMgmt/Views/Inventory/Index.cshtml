@@ -6,13 +6,20 @@
     ViewData["Title"] = "Index";
 }
 
-<h1 id="header">Inventory</h1>
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success alert-dismissible" role="alert">@TempData["Message"]</div>
+}
+
 
 <div class="nav justify-content-center">
+    <div style="width: 100%; text-align:center;">
+        <h1 id="header">Inventory</h1>
+    </div>
     <div>
         <a class="text-dark" asp-controller="Inventory" asp-action="Create">
             <div class="btn btn-outline-success btn-sm">
-                <img class="nav-icon" src="~/img/Add.png" /> Add Part
+                <img class="nav-icon" src="~/img/Add.png" /> Add Inventory
             </div>
         </a>
     </div>
@@ -20,45 +27,45 @@
 </div>
 
 
-    <table id="tableOfStuff" class="display compact cell-border">
-        <thead>
+<table id="tableOfStuff" class="display compact cell-border">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Subinventory)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PartNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PartName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
             <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Subinventory)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.PartNumber)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.PartName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Quantity)
-                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Subinventory)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PartNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PartName)
+                </td>
+                <td>
+                    <a class="btn btn-warning btn-sm text-dark" asp-action="Edit" asp-route-id="@item.RowId">
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </a>
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Subinventory)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PartNumber)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PartName)
-                    </td>
-                    <td>
-                        <a class="btn btn-warning btn-sm text-dark" asp-action="Edit" asp-route-id="@item.Subinventory@item.PartNumber">
-                            @Html.DisplayFor(modelItem => item.Quantity)
-                        </a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+        }
+    </tbody>
+</table>
 
 
 

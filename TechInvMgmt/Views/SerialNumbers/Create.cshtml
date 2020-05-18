@@ -1,0 +1,51 @@
+﻿@model TechInvMgmt.Models.SerialNumber
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>SerialNumber</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="SerialNum" class="control-label"></label>
+                <input asp-for="SerialNum" class="form-control" />
+                <span asp-validation-for="SerialNum" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PartNum" class="control-label"></label>
+                <input asp-for="PartNum" class="form-control" id="partNumInput" />
+                <span asp-validation-for="PartNum" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Subinv" class="control-label"></label>
+                <input asp-for="Subinv" class="form-control" id="subinvInput" />
+                <span asp-validation-for="Subinv" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<script>
+    var pathArray = window.location.pathname.split('/');
+    var tokens = pathArray[pathArray.length - 1];
+    console.log(tokens.substr(0, 8) + tokens.substr(8));
+    document.getElementById("partNumInput").value = tokens.substr(8);
+    document.getElementById("subinvInput").value = tokens.substr(0, 8);
+</script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

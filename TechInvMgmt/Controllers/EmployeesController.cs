@@ -12,20 +12,20 @@ using TechInvMgmt.Models;
 namespace TechInvMgmt.Controllers
 {
     [Authorize(Roles = "ISP, FSM, Admin")]
-    public class SubinventoriesController : Controller
+    public class EmployeesController : Controller
     {
 
 
         private readonly ApplicationDbContext _context;
 
-        public SubinventoriesController(ApplicationDbContext context)
+        public EmployeesController(ApplicationDbContext context)
         {
             _context = context;
         }
 
 
         [AllowAnonymous]
-        public async Task<IActionResult> Subinventories()
+        public async Task<IActionResult> Index()
         {
             List<Employee> employees = new List<Employee>();
 
@@ -39,9 +39,9 @@ namespace TechInvMgmt.Controllers
             return View(await _context.Employees.ToListAsync());
         }
 
-        // GET: Subinventory/Edit/5
+        // GET: /Edit/5
         [HttpGet]
-        public async Task<IActionResult> SubinventoriesEdit(string id)
+        public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
             {
@@ -56,12 +56,12 @@ namespace TechInvMgmt.Controllers
             return View(employeeId);
         }
 
-        // POST: Subinventory/Edit/5
+        // POST: /Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SubinventoriesEdit(Employee employee)
+        public async Task<IActionResult> Edit(Employee employee)
         {
             var user = await _context.Employees.FindAsync(employee.Id);
 
@@ -94,10 +94,39 @@ namespace TechInvMgmt.Controllers
                             throw;
                         }
                     }
-                    return RedirectToAction(nameof(Subinventories));
+                    return RedirectToAction(nameof(Index));
                 }
                 return View(user);
             }
+        }
+
+        // GET: Employees/Delete/5
+        public async Task<IActionResult> Delete(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var employee = await _context.Employees
+                .FirstOrDefaultAsync(e => e.Id == id);
+            if (employee == null)
+            {
+                return NotFound();
+            }
+
+            return View(employee);
+        }
+
+        // POST: Employees/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(string id)
+        {
+            var employee = await _context.Employees.FindAsync(id);
+            _context.Employees.Remove(employee);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
     }
 }

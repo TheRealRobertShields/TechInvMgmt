@@ -1,0 +1,30 @@
+﻿@model TechInvMgmt.Models.SerialNumber
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>SerialNumber</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PartNum)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PartNum)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Subinv)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Subinv)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.SerialNum">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

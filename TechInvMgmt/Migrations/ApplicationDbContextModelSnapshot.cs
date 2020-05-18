@@ -3,17 +3,15 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TechInvMgmt.Data;
 
-namespace TechInvMgmt.Data.Migrations
+namespace TechInvMgmt.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200427045556_AddedSubInvTableForeal")]
-    partial class AddedSubInvTableForeal
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -84,6 +82,10 @@ namespace TechInvMgmt.Data.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
@@ -135,6 +137,8 @@ namespace TechInvMgmt.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -228,6 +232,10 @@ namespace TechInvMgmt.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("CustomInventoryId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PartName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -259,11 +267,11 @@ namespace TechInvMgmt.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsSerialized")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Serial")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Number");
@@ -271,18 +279,38 @@ namespace TechInvMgmt.Data.Migrations
                     b.ToTable("Parts");
                 });
 
-            modelBuilder.Entity("TechInvMgmt.Models.Subinventory", b =>
+            modelBuilder.Entity("TechInvMgmt.Models.SerialNumber", b =>
                 {
-                    b.Property<string>("Subinv")
+                    b.Property<string>("SerialNum")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("AssignedTech")
+                    b.Property<string>("PartNum")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Subinv")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SerialNum");
+
+                    b.ToTable("SerialNumbers");
+                });
+
+            modelBuilder.Entity("TechInvMgmt.Models.Employee", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Subinv");
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("Subinventories");
+                    b.Property<string>("Subinventory")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("Employee");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -4,13 +4,25 @@
     ViewData["Title"] = "Index";
 }
 
-<h1 id="header">Parts List</h1>
+
 @if (User.Identity.IsAuthenticated && User.IsInRole("ISP"))
 {
-    <p>
-        <a asp-action="Create">Create New</a>
-    </p>
+    <div class="nav justify-content-center">
+        <div style="width: 100%; text-align:center;">
+            <h1 id="header">Parts List</h1>
+        </div>
+        <div>
+            <a class="text-dark" asp-controller="Parts" asp-action="Create">
+                <div class="btn btn-outline-success btn-sm">
+                    <img class="nav-icon" src="~/img/Add.png" /> Add Part
+                </div>
+            </a>
+        </div>
+        <br /><br /><br />
+    </div>
 }
+
+
 
 
     <table id="tableOfStuff" class="display compact cell-border">

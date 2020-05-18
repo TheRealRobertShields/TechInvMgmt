@@ -4,14 +4,14 @@
 
 
 @{
-    ViewData["Title"] = "SubinventoriesEdit";
+    ViewData["Title"] = "Edit";
 }
 
 <h1>@Model.FirstName @Model.LastName</h1>
 
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="SubinventoriesEdit">
+        <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
@@ -38,5 +38,5 @@
     </div>
 
     <div>
-        <a asp-action="Subinventories">Back to List</a>
+        <a asp-action="Index">Back to List</a>
     </div>

@@ -5,9 +5,12 @@
     ViewData["Title"] = "Create";
     List<Part> parts = await TechInvMgmt.Data.PartDb.GetPartsAsync(context);
 }
-
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-danger alert-dismissible" role="alert">@TempData["Message"]<a asp-action="Index" asp-controller="Inventory">go to your Subinventory.</a></div>
+}
 <h1>Create</h1>
- 
+
 <h4>Inventory</h4>
 <hr />
 <div class="row">
@@ -15,7 +18,7 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Subinventory" class="control-label"></label> 
+                <label asp-for="Subinventory" class="control-label"></label>
                 <input asp-for="Subinventory" class="form-control" id="subinvInput" />
                 <span asp-validation-for="Subinventory" class="text-danger"></span>
             </div>
@@ -46,6 +49,11 @@
                 <input asp-for="Quantity" class="form-control" />
                 <span asp-validation-for="Quantity" class="text-danger"></span>
             </div>
+            <div class="form-group" hidden>
+                <label asp-for="CustomInventoryId" class="control-label"></label>
+                <input asp-for="CustomInventoryId" class="form-control" id="custInvKey" />
+                <span asp-validation-for="CustomInventoryId" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -58,18 +66,23 @@
 </div>
 
 <script>
-    document.getElementById("subinvInput").value = document.getElementById("getSubInv").innerText;
-    selectPartNum = document.getElementById("selectPartNum");
+    var subinvNumber = document.getElementById("getSubInv").innerText;
+
+    document.getElementById("subinvInput").value = subinvNumber;
+    var selectPartNum = document.getElementById("selectPartNum");
     selectPartNum.onchange = function () {
+
+        // To get Subinv input field auto populated
         var matchIndex = this.selectedIndex;
-        console.log("MatchIndex: " + matchIndex);
         selectPartName = document.getElementById("selectPartName");
         selectPartName.selectedIndex = matchIndex;
         selectPartName.value = selectPartName.value;
-    };
-    if (true) {
 
-    }
+        // To get CustomInventoryId input field auto populated
+        var selectedpartNum = document.getElementById("selectPartNum").innerText;
+        document.getElementById("custInvKey").value = document.getElementById("subinvInput").value + selectPartNum[matchIndex].value;
+    };
+
 </script>
 
 @section Scripts {

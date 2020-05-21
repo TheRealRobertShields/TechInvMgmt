@@ -44,12 +44,14 @@
                         <input asp-for="Input.AccountType" value="ISP" class="form-control" type="radio" autocomplete="off">ISP
                     </label>
                     <label class="btn btn-secondary btn-lg">
-                        <input asp-for="Input.AccountType" value="Tech" class="form-control" type="radio" autocomplete="off" onclick="askForSubinv()">Tech
+                        <input asp-for="Input.AccountType" value="Tech" class="form-control" type="radio" autocomplete="off" id="techBtn">Tech
                     </label>
                     <label class="btn btn-secondary btn-lg">
                         <input asp-for="Input.AccountType" value="FSM" class="form-control" type="radio" autocomplete="off">FSM
                     </label>
                 </div>
+                <br />
+                <span asp-validation-for="Input.AccountType" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Input.Subinventory"></label>
@@ -62,6 +64,10 @@
     
 </div>
 
+
+<script>
+    document.getElementById('techBtn').inputMode
+</script>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

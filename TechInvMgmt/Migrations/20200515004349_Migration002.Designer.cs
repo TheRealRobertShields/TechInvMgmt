@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TechInvMgmt.Data;
 
-namespace TechInvMgmt.Data.Migrations
+namespace TechInvMgmt.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200506001641_FixSerializedProperty")]
-    partial class FixSerializedProperty
+    [Migration("20200515004349_Migration002")]
+    partial class Migration002
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -234,6 +234,10 @@ namespace TechInvMgmt.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("CustomInventoryId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PartName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -244,9 +248,6 @@ namespace TechInvMgmt.Data.Migrations
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
-
-                    b.Property<string>("SerialNumber")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Subinventory")
                         .IsRequired()
@@ -280,16 +281,33 @@ namespace TechInvMgmt.Data.Migrations
                     b.ToTable("Parts");
                 });
 
+            modelBuilder.Entity("TechInvMgmt.Models.SerialNumber", b =>
+                {
+                    b.Property<string>("SerialNum")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("PartNum")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Subinv")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SerialNum");
+
+                    b.ToTable("SerialNumbers");
+                });
+
             modelBuilder.Entity("TechInvMgmt.Models.Subinventory", b =>
                 {
                     b.Property<string>("Subinv")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("AssignedTech")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("EmployeeId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Subinv");
+
+                    b.HasIndex("EmployeeId");
 
                     b.ToTable("Subinventories");
                 });
@@ -361,6 +379,13 @@ namespace TechInvMgmt.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("TechInvMgmt.Models.Subinventory", b =>
+                {
+                    b.HasOne("TechInvMgmt.Models.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId");
                 });
 #pragma warning restore 612, 618
         }

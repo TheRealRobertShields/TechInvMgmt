@@ -3,17 +3,15 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TechInvMgmt.Data;
 
-namespace TechInvMgmt.Data.Migrations
+namespace TechInvMgmt.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200428065519_ExtendUserTest1")]
-    partial class ExtendUserTest1
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -234,6 +232,10 @@ namespace TechInvMgmt.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("CustomInventoryId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PartName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -265,11 +267,11 @@ namespace TechInvMgmt.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsSerialized")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Serial")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Number");
@@ -277,18 +279,28 @@ namespace TechInvMgmt.Data.Migrations
                     b.ToTable("Parts");
                 });
 
-            modelBuilder.Entity("TechInvMgmt.Models.Subinventory", b =>
+            modelBuilder.Entity("TechInvMgmt.Models.SerialNumber", b =>
                 {
-                    b.Property<string>("Subinv")
+                    b.Property<string>("SerialNum")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("AssignedTech")
-                        .IsRequired()
+                    b.Property<string>("CustomInventoryId")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Subinv");
+                    b.Property<int?>("InventoryRowId")
+                        .HasColumnType("int");
 
-                    b.ToTable("Subinventories");
+                    b.Property<string>("PartNum")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Subinv")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SerialNum");
+
+                    b.HasIndex("InventoryRowId");
+
+                    b.ToTable("SerialNumbers");
                 });
 
             modelBuilder.Entity("TechInvMgmt.Models.Employee", b =>
@@ -358,6 +370,13 @@ namespace TechInvMgmt.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("TechInvMgmt.Models.SerialNumber", b =>
+                {
+                    b.HasOne("TechInvMgmt.Models.Inventory", null)
+                        .WithMany("SerialNumbers")
+                        .HasForeignKey("InventoryRowId");
                 });
 #pragma warning restore 612, 618
         }

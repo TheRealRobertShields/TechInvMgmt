@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -32,7 +33,10 @@ namespace TechInvMgmt.Models
         [Display(Name = "Quantity")]
         public int Quantity { get; set; }
 
-        [Display(Name = "Serial Number")]
-        public string SerialNumber { get; set; }
+        [Required]
+        public string CustomInventoryId { get; set; }
+
+        public List<SerialNumber> SerialNumbers { get; set; }
+
     }
 }

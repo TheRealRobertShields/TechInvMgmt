@@ -4,64 +4,76 @@
     ViewData["Title"] = "Index";
 }
 
-<h1 id="header">Parts List</h1>
+
 @if (User.Identity.IsAuthenticated && User.IsInRole("ISP"))
 {
-    <p>
-        <a asp-action="Create">Create New</a>
-    </p>
+    <div class="nav justify-content-center">
+        <div style="width: 100%; text-align:center;">
+            <h1 id="header">Parts List</h1>
+        </div>
+        <div>
+            <a class="text-dark" asp-controller="Parts" asp-action="Create">
+                <div class="btn btn-outline-success btn-sm">
+                    <img class="nav-icon" src="~/img/Add.png" /> Add Part
+                </div>
+            </a>
+        </div>
+        <br /><br /><br />
+    </div>
 }
 
 
-    <table id="tableOfStuff" class="display compact cell-border">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Number)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Description)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Category)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.IsSerialized)
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-            <tr>
-                <td>
-                    <a class="btn btn-warning btn-sm text-dark" asp-action="Edit" asp-route-id="@item.Number">
-                        @Html.DisplayFor(modelItem => item.Number)
-                    </a>
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Category)
-                </td>
-                <td>
-                    @if (item.IsSerialized == true)
-                    {
-                        <div>Yes</div>
-                    }
-                    else
-                    {
-                        <div>No</div>
-                    }
-                </td>
-            </tr>
-            }
-        </tbody>
-    </table>
+
+
+<table id="tableOfStuff" class="display compact cell-border">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsSerialized)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                <a class="btn btn-warning btn-sm text-dark" asp-action="Edit" asp-route-id="@item.Number">
+                    @Html.DisplayFor(modelItem => item.Number)
+                </a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category)
+            </td>
+            <td>
+                @if (item.IsSerialized == true)
+                {
+                    <div>Yes</div>
+                }
+                else
+                {
+                    <div>No</div>
+                }
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

@@ -10,5 +10,12 @@ namespace TechInvMgmt.Models
         public string PartNum { get; set; }
 
         public string Subinv { get; set; }
+
+        public string CustomInventoryId { get; set; }
+
+        public override string ToString()
+        {
+            return $"{SerialNum}".ToUpper();
+        }
     }
 }

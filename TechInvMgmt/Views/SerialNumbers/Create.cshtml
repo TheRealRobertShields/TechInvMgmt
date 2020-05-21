@@ -1,0 +1,116 @@
+﻿@model TechInvMgmt.Models.SerialNumber
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>SerialNumber</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="SerialNum" class="control-label"></label>
+                <input asp-for="SerialNum" class="form-control" />
+                <span asp-validation-for="SerialNum" class="text-danger"></span>
+            </div>
+            <div class="form-group" hidden>
+                <label asp-for="PartNum" class="control-label"></label>
+                <input asp-for="PartNum" class="form-control" id="partNumInput" />
+                <span asp-validation-for="PartNum" class="text-danger"></span>
+            </div>
+            <div class="form-group" hidden>
+                <label asp-for="Subinv" class="control-label"></label>
+                <input asp-for="Subinv" class="form-control" id="subinvInput" />
+                <span asp-validation-for="Subinv" class="text-danger"></span>
+            </div>
+            <div class="form-group" hidden>
+                <label asp-for="CustomInventoryId" class="control-label"></label>
+                <input asp-for="CustomInventoryId" class="form-control" id="customInvId" />
+                <span asp-validation-for="CustomInventoryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+<div class="form-group" style="overflow:hidden">
+    <video id="video" width="640" height="480" autoplay></video>
+    <button id="snap">Snap Photo</button>
+    <canvas id="canvas" width="640" height="480"></canvas>
+</div>
+
+
+
+
+<script>
+    var pathArray = window.location.pathname.split('/');
+    var tokens = pathArray[pathArray.length - 1];
+    console.log(tokens.substr(0, 8) + tokens.substr(8));
+    document.getElementById("partNumInput").value = tokens.substr(8);
+    document.getElementById("subinvInput").value = tokens.substr(0, 8);
+    document.getElementById("customInvId").value = tokens.substr(0, 8) + tokens.substr(8);
+
+ 
+</script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+<script>
+
+    // Put event listeners into place
+    window.addEventListener("DOMContentLoaded", function () {
+        // Grab elements, create settings, etc.
+        var canvas = document.getElementById('canvas');
+        var context = canvas.getContext('2d');
+        var video = document.getElementById('video');
+        var mediaConfig = { video: true };
+        var errBack = function (e) {
+            console.log('An error has occurred!', e)
+        };
+
+        // Put video listeners into place
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia(mediaConfig).then(function (stream) {
+                //video.src = window.URL.createObjectURL(stream);
+                video.srcObject = stream;
+                video.play();
+            });
+        }
+
+        /* Legacy code below! */
+        else if (navigator.getUserMedia) { // Standard
+            navigator.getUserMedia(mediaConfig, function (stream) {
+                video.src = stream;
+                video.play();
+            }, errBack);
+        } else if (navigator.webkitGetUserMedia) { // WebKit-prefixed
+            navigator.webkitGetUserMedia(mediaConfig, function (stream) {
+                video.src = window.webkitURL.createObjectURL(stream);
+                video.play();
+            }, errBack);
+        } else if (navigator.mozGetUserMedia) { // Mozilla-prefixed
+            navigator.mozGetUserMedia(mediaConfig, function (stream) {
+                video.src = window.URL.createObjectURL(stream);
+                video.play();
+            }, errBack);
+        }
+
+        // Trigger photo take
+        document.getElementById('snap').addEventListener('click', function () {
+            context.drawImage(video, 0, 0, 640, 480);
+        });
+    }, false);
+
+</script>

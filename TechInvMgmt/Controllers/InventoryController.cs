@@ -37,8 +37,23 @@ namespace TechInvMgmt.Controllers
             return View(await _context.Inventory.ToListAsync());
         }
 
+        // GET: Inventory
+        [AllowAnonymous]
+        public async Task<IActionResult> SubIndex(string subinv)
+        {
+            subinv = "REMVAN11";
+            List<Inventory> inventories = new List<Inventory>();
 
-        
+            inventories = await (from inv in _context.Inventory
+                   where inv.Subinventory == subinv
+                   select inv).ToListAsync();
+
+
+            return View(inventories);
+        }
+
+
+
 
 
         // GET: Inventory/Details/5
@@ -70,12 +85,22 @@ namespace TechInvMgmt.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RowId,Subinventory,PartNumber,PartName,Quantity")] Inventory inventory)
+        public async Task<IActionResult> Create([Bind("RowId,Subinventory,PartNumber,PartName,Quantity,CustomInventoryId")] Inventory inventory)
         {
+
+            var inv = await _context.Inventory
+                .FirstOrDefaultAsync(i => i.CustomInventoryId == inventory.CustomInventoryId);
+            if (inv != null)
+            {
+                TempData["Message"] = $"{inventory.Subinventory} already has {inventory.PartName}s.\nTo edit the quantity of that part, ";
+                return View(inventory);
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(inventory);
                 await _context.SaveChangesAsync();
+                TempData["Message"] = $"{inventory.Quantity} {inventory.PartName}s added to {inventory.Subinventory}.";
                 return RedirectToAction(nameof(Index));
             }
             return View(inventory);
@@ -88,7 +113,6 @@ namespace TechInvMgmt.Controllers
             {
                 return NotFound();
             }
-
             var inventory = await _context.Inventory.FindAsync(id);
             if (inventory == null)
             {
@@ -102,7 +126,7 @@ namespace TechInvMgmt.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("RowId,Subinventory,PartNumber,PartName,Quantity")] Inventory inventory)
+        public async Task<IActionResult> Edit(int id, [Bind("RowId,Subinventory,PartNumber,PartName,Quantity,CustomInventoryId")] Inventory inventory)
         {
             if (id != inventory.RowId)
             {
@@ -132,6 +156,7 @@ namespace TechInvMgmt.Controllers
             return View(inventory);
         }
 
+        [Authorize(Roles ="ISP,Admin")]
         // GET: Inventory/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -150,6 +175,7 @@ namespace TechInvMgmt.Controllers
             return View(inventory);
         }
 
+        [Authorize(Roles = "ISP,Admin")]
         // POST: Inventory/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

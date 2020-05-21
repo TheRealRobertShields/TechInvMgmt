@@ -1,0 +1,43 @@
+﻿@model IEnumerable<TechInvMgmt.Models.SerialNumber>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table id="tableOfStuff" class="display cell-border">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SerialNum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PartNum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Subinv)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                <a class="btn btn-warning btn-sm text-dark" asp-action="Edit" asp-route-id="@item.SerialNum">
+                    @Html.DisplayFor(modelItem => item.SerialNum)
+                </a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PartNum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Subinv)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

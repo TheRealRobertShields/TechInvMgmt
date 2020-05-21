@@ -6,9 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\Subinventory\**" />
     <Compile Remove="wwwroot\lib\tablesort-5.1.0\**" />
+    <Content Remove="Views\Subinventory\**" />
     <Content Remove="wwwroot\lib\tablesort-5.1.0\**" />
+    <EmbeddedResource Remove="Views\Subinventory\**" />
     <EmbeddedResource Remove="wwwroot\lib\tablesort-5.1.0\**" />
+    <None Remove="Views\Subinventory\**" />
     <None Remove="wwwroot\lib\tablesort-5.1.0\**" />
   </ItemGroup>
 
@@ -23,7 +27,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Subinventory\" />
     <Folder Include="wwwroot\img\" />
   </ItemGroup>
 

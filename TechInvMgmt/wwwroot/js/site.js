@@ -4,8 +4,10 @@
 // Write your JavaScript code.
 $(document).ready(function () {
     $('.searchDropdown').select2();
-
-    
+    $('#tableOfStuff').DataTable({
+        responsive: true
+    });
+    /*
     var invHeader = document.getElementById("header");
     if (typeof (invHeader) != 'undefined' && invHeader != null) {
         if (invHeader.innerText == "INVENTORY") {
@@ -23,7 +25,7 @@ $(document).ready(function () {
             });
         }
     }
-    
+    */
     
     
 });

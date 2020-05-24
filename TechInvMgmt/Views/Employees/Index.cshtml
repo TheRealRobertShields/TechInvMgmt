@@ -19,14 +19,14 @@
                 Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Subinventory)
+                @Html.DisplayNameFor(model => model.SubinventoryId)
             </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            if (item.Subinventory != null)
+            if (item.SubinventoryId != null)
             {
                 <tr>
                     <td>
@@ -34,7 +34,7 @@
                     </td>
                     <td>
                         <a class="btn btn-warning btn-sm text-dark" asp-action="Edit" asp-controller="Employees" asp-route-id="@item.Id">
-                            @Html.DisplayFor(modelItem => item.Subinventory)
+                            @Html.DisplayFor(modelItem => item.SubinventoryId)
                         </a>
                     </td>
                 </tr>
@@ -65,7 +65,7 @@
     <tbody>
         @foreach (var item in Model)
         {
-            if (item.Subinventory == null && item.FirstName != null)
+            if (item.SubinventoryId == null && item.FirstName != null)
             {
                 <tr>
                     <td>

@@ -14,29 +14,23 @@ namespace TechInvMgmt.Models
     public class Inventory
     {
         [Key]
-        public int RowId { get; set; }
+        [Required]
+        public string InventoryId { get; set; }
 
         [Required]
         [Display(Name = "Subinventory")]
-        public string Subinventory { get; set; }
+        [ForeignKey("SubinventoryId")]
+        public string SubinventoryId { get; set; }
 
         [Required]
-        [Display(Name = "Part Number")]
-        public string PartNumber { get; set; }
-
-        [Required]
-        [Display(Name = "Part Name")]
-        public string PartName { get; set; }
+        [Display(Name = "PartId")]
+        [ForeignKey("PartId")]
+        public string PartId { get; set; }
 
         [Required]
         [Range(0, Double.PositiveInfinity)]
         [Display(Name = "Quantity")]
         public int Quantity { get; set; }
-
-        [Required]
-        public string CustomInventoryId { get; set; }
-
-        public List<SerialNumber> SerialNumbers { get; set; }
 
     }
 }

@@ -227,80 +227,78 @@ namespace TechInvMgmt.Migrations
 
             modelBuilder.Entity("TechInvMgmt.Models.Inventory", b =>
                 {
-                    b.Property<int>("RowId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("InventoryId")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("CustomInventoryId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PartName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PartNumber")
+                    b.Property<string>("PartId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<string>("Subinventory")
+                    b.Property<string>("SubinventoryId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("RowId");
+                    b.HasKey("InventoryId");
 
                     b.ToTable("Inventory");
                 });
 
             modelBuilder.Entity("TechInvMgmt.Models.Part", b =>
                 {
-                    b.Property<string>("Number")
+                    b.Property<string>("PartId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Category")
+                    b.Property<string>("PartCategory")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Description")
+                    b.Property<string>("PartDescription")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsSerialized")
+                    b.Property<bool>("PartIsSerialized")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("PartName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Number");
+                    b.HasKey("PartId");
 
                     b.ToTable("Parts");
                 });
 
             modelBuilder.Entity("TechInvMgmt.Models.SerialNumber", b =>
                 {
-                    b.Property<string>("SerialNum")
+                    b.Property<string>("SerialNumberId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CustomInventoryId")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("InventoryRowId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PartNum")
+                    b.Property<string>("PartId")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Subinv")
+                    b.Property<string>("SubinventoryId")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("SerialNum");
-
-                    b.HasIndex("InventoryRowId");
+                    b.HasKey("SerialNumberId");
 
                     b.ToTable("SerialNumbers");
+                });
+
+            modelBuilder.Entity("TechInvMgmt.Models.Subinventory", b =>
+                {
+                    b.Property<string>("SubinventoryId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("EmployeeId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SubinventoryId");
+
+                    b.ToTable("Subinventories");
                 });
 
             modelBuilder.Entity("TechInvMgmt.Models.Employee", b =>
@@ -315,7 +313,7 @@ namespace TechInvMgmt.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Subinventory")
+                    b.Property<string>("SubinventoryId")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("Employee");
@@ -370,13 +368,6 @@ namespace TechInvMgmt.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("TechInvMgmt.Models.SerialNumber", b =>
-                {
-                    b.HasOne("TechInvMgmt.Models.Inventory", null)
-                        .WithMany("SerialNumbers")
-                        .HasForeignKey("InventoryRowId");
                 });
 #pragma warning restore 612, 618
         }

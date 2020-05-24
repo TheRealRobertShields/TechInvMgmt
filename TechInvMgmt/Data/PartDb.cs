@@ -12,7 +12,7 @@ namespace TechInvMgmt.Data
 
         public static async Task<List<Part>> GetPartsAsync(ApplicationDbContext context)
         {
-            List<Part> parts = await context.Parts.OrderBy(p => p.Number).ToListAsync();
+            List<Part> parts = await context.Parts.OrderBy(p => p.PartId).ToListAsync();
             return parts;
         }
 

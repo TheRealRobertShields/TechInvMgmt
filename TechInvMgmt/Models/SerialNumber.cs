@@ -1,21 +1,25 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TechInvMgmt.Models
 {
     public class SerialNumber
     {
         [Key]
-        public string SerialNum { get; set; }
+        [Required]
+        public string SerialNumberId { get; set; }
 
-        public string PartNum { get; set; }
+        [ForeignKey("PartId")]
+        public string PartId { get; set; }
 
-        public string Subinv { get; set; }
+        [ForeignKey("SubinventoryId")]
+        public string SubinventoryId { get; set; }
 
         public string CustomInventoryId { get; set; }
 
         public override string ToString()
         {
-            return $"{SerialNum}".ToUpper();
+            return $"{SerialNumberId}".ToUpper();
         }
     }
 }

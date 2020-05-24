@@ -11,20 +11,20 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PartNum)
+            @Html.DisplayNameFor(model => model.PartId)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PartNum)
+            @Html.DisplayFor(model => model.PartId)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Subinv)
+            @Html.DisplayNameFor(model => model.SubinventoryId)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Subinv)
+            @Html.DisplayFor(model => model.SubinventoryId)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.SerialNum">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model.SerialNumberId">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>

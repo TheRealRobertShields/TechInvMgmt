@@ -31,7 +31,7 @@ namespace TechInvMgmt.Controllers
 
             employees = await (from e in _context.Employees
                                select e).ToListAsync();
-            employees.Insert(0, new Employee { Subinventory = "0", FirstName = "Select" });
+            employees.Insert(0, new Employee { Id = "0", FirstName = "Select" });
 
             ViewBag.ListofEmployees = employees;
 
@@ -72,7 +72,7 @@ namespace TechInvMgmt.Controllers
             }
             else
             {
-                user.Subinventory = employee.Subinventory;
+                user.SubinventoryId = employee.SubinventoryId;
                 user.FirstName = employee.FirstName;
                 user.LastName = employee.LastName;
 

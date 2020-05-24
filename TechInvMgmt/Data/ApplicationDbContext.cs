@@ -21,5 +21,7 @@ namespace TechInvMgmt.Data
         public DbSet<Employee> Employees { get; set; }
 
         public DbSet<SerialNumber> SerialNumbers { get; set; }
+
+        public DbSet<Subinventory> Subinventories { get; set; }
     }
 }

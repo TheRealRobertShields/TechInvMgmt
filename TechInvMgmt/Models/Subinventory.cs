@@ -1,27 +1,25 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using TechInvMgmt.Data;
 
 namespace TechInvMgmt.Models
 {
-    public class Employee : IdentityUser
+    public class Subinventory
     {
-
-        [Required]
-        public string FirstName { get; set; }
-        [Required]
-        public string LastName { get; set; }
-
-        [ForeignKey("SubinventoryId")]
+        [Key]
         public string SubinventoryId { get; set; }
+
+        [ForeignKey("Id")]
+        public string EmployeeId { get; set; }
 
         public override string ToString()
         {
-            return $"{FirstName} {LastName}".ToUpper();
+            return $"{SubinventoryId}".ToUpper();
         }
+
     }
 }

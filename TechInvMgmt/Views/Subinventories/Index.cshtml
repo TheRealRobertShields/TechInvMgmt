@@ -1,0 +1,41 @@
+﻿@model IEnumerable<TechInvMgmt.Models.Subinventory>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Subinventories</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table id="tableOfStuff" class="display compact cell-border">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SubinventoryId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmployeeId)
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+    
+        <tr>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.SubinventoryId">
+                    @Html.DisplayFor(modelItem => item.SubinventoryId)
+                </a>
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.EmployeeId">
+                    @Html.DisplayFor(modelItem => item.EmployeeId)
+                </a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

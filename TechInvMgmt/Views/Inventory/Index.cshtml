@@ -12,25 +12,13 @@
 }
 
 
-<div class="nav justify-content-center">
-    <div style="width: 100%; text-align:center;">
-        <h1 id="header">Inventory</h1>
-    </div>
-    <div>
-        <a class="text-dark" asp-controller="Inventory" asp-action="Create">
-            <div class="btn btn-outline-success btn-sm">
-                <img class="nav-icon" src="~/img/Add.png" /> Add Inventory
-            </div>
-        </a>
-    </div>
-    <div>
-        <a class="text-dark" asp-controller="Inventory" asp-action="Subindex" >
-            <div class="btn btn-outline-success btn-sm">
-                <img class="nav-icon" src="~/img/Van.png" /> Subinv
-            </div>
-        </a>
-    </div>
-    <br /><br /><br />
+<div class="nav justify-content-center" style="width: 100%; text-align:center;">
+    <h1 id="header">Inventory</h1>
+    <a class="text-dark hvr-icon-pulse" asp-controller="Inventory" asp-action="Create">
+        <div class="btn" style="color:green;">
+            <img class="nav-icon fa fa-home hvr-icon" src="~/img/AddGrn.png" /> Add
+        </div>
+    </a>
 </div>
 
 
@@ -38,13 +26,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Subinventory)
+                @Html.DisplayNameFor(model => model.SubinventoryId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PartNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PartName)
+                @Html.DisplayNameFor(model => model.PartId)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Quantity)
@@ -56,16 +41,13 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Subinventory)
+                    @Html.DisplayFor(modelItem => item.SubinventoryId)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.PartNumber)
+                    @Html.DisplayFor(modelItem => item.PartId)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.PartName)
-                </td>
-                <td>
-                    <a class="btn btn-warning btn-sm text-dark" asp-action="Edit" asp-route-id="@item.RowId">
+                    <a class="btn btn-warning btn-sm text-dark" asp-action="Edit" asp-route-id="@item.InventoryId">
                         @Html.DisplayFor(modelItem => item.Quantity)
                     </a>
                 </td>

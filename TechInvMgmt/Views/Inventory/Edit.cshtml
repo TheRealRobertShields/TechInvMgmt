@@ -1,86 +1,91 @@
 ﻿@model TechInvMgmt.Models.Inventory
 @inject TechInvMgmt.Data.ApplicationDbContext _context
 @{
-    Part part = await _context.Parts.FindAsync(Model.PartNumber);
-    var serialNumbers = await TechInvMgmt.Data.SerialNumberDb.GetSNById(Model.CustomInventoryId, _context);
+    Part part = await _context.Parts.FindAsync(Model.PartId);
+    var serialNumbers = await TechInvMgmt.Data.SerialNumberDb.GetSNById(Model.InventoryId, _context);
     ViewData["Title"] = "Edit";
 }
 
-<div class="justify-content-center">
-    <div style="width: 100%; text-align:center;">
-        <h1>@Model.Subinventory</h1>
-
-        <h4>@part.Name</h4>
-        <h5>@part.Number</h5>
-        <hr />
-
-
-
-        <div class="row justify-content-center">
-            <div class="col-md-4">
-                <form asp-action="Edit">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <input type="hidden" asp-for="RowId" />
-                    <div class="form-group" hidden>
-                        <label asp-for="Subinventory" class="control-label"></label>
-                        <input asp-for="Subinventory" class="form-control" />
-                        <span asp-validation-for="Subinventory" class="text-danger"></span>
-                    </div>
-                    <div class="form-group" hidden>
-                        <label asp-for="PartNumber" class="control-label"></label>
-                        <input asp-for="PartNumber" class="form-control" id="partNumInput" />
-                        <span asp-validation-for="PartNumber" class="text-danger"></span>
-                    </div>
-                    <div class="form-group" hidden>
-                        <label asp-for="PartName" class="control-label"></label>
-                        <input asp-for="PartName" class="form-control" />
-                        <span asp-validation-for="PartName" class="text-danger"></span>
-                    </div>
+<div class="justify-content-center" style="width:100%; text-align:center;">
+    <h1>@Model.SubinventoryId</h1>
+    <h4>@part.PartName</h4>
+    <h5>@part.PartId</h5>
+    <hr />
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="InventoryId" />
+                <div class="form-group" hidden>
+                    <label asp-for="SubinventoryId" class="control-label"></label>
+                    <input asp-for="SubinventoryId" class="form-control" />
+                    <span asp-validation-for="SubinventoryId" class="text-danger"></span>
+                </div>
+                <div class="form-group" hidden>
+                    <label asp-for="PartId" class="control-label"></label>
+                    <input asp-for="PartId" class="form-control" id="partNumInput" />
+                    <span asp-validation-for="PartId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Quantity" class="control-label"></label>
+                    <input asp-for="Quantity" class="form-control" />
+                    <span asp-validation-for="Quantity" class="text-danger"></span>
+                </div>
+                @if (part.PartIsSerialized)
+                {
                     <div class="form-group">
-                        <label asp-for="Quantity" class="control-label"></label>
-                        <input asp-for="Quantity" class="form-control" />
-                        <span asp-validation-for="Quantity" class="text-danger"></span>
-                    </div>
-                    <div class="form-group" hidden>
-                        <label asp-for="CustomInventoryId" class="control-label"></label>
-                        <input asp-for="CustomInventoryId" class="form-control" />
-                        <span asp-validation-for="CustomInventoryId" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" value="Save" class="btn btn-primary" />
-                        @if (User.IsInRole("ISP"))
-                        {
-                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.RowId">Delete</a>
-                        }
-                    </div>
+                        <label class="control-label">Serial Numbers</label>
+                        <ul class="list-group">
+                            @foreach (SerialNumber sn in serialNumbers)
+                            {
 
+                                <li style="list-style-type:none;"><a class="btn btn-outline-info" asp-action="Edit" asp-controller="SerialNumbers" asp-route-id="@sn.SerialNumberId">@sn.ToString()</a></li>
 
-                    @if (part.IsSerialized)
+                            }
+                        </ul>
+                    </div>
+                }
+                <div class="form-group" hidden>
+                    <label asp-for="InventoryId" class="control-label"></label>
+                    <input asp-for="InventoryId" class="form-control" />
+                    <span asp-validation-for="InventoryId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-success" />
+                    @if (User.IsInRole("ISP"))
                     {
-                        <div class="form-group">
-                            <label asp-for="SerialNumbers" class="control-label"></label>
-                            <ul class="list-group">
-                                @foreach (SerialNumber sn in serialNumbers)
-                                {
-                                    <li class="list-group-item">@sn.ToString()</li>
-                                }
-                            </ul>
-                        </div>
-                        <div class="form-group">
-                            <a class="btn btn-info" asp-action="Create" asp-controller="SerialNumbers" asp-route-id="@Model.Subinventory@Model.PartNumber">Add Serial Numbers</a>
-                        </div>
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.InventoryId">Delete</a>
                     }
-                    </form>
-            </div>
+                </div>
+
+                <!--
+                        f@if (part.PartIsSerialized)
+    {
+        <div class="form-group">
+            <label class="control-label"></label>
+            <ul class="list-group">
+                f@foreach (SerialNumber sn in serialNumbers)
+                {
+
+                        <li style="list-style-type:none;"><a class="btn btn-outline-info" asp-action="Edit" asp-controller="SerialNumbers" asp-route-id="f@sn.SerialNumberId">f@sn.ToString()</a></li>
+
+                }
+            </ul>
         </div>
-
-        <div>
-            <a asp-action="Index">Back to List</a>
+        <div class="form-group">
+            <a class="btn btn-outline-warning" asp-action="Create" asp-controller="SerialNumbers" asp-route-id="f@Model.SubinventoryId@Model.PartId">Add Serial Numbers</a>
         </div>
+    }
+    -->
 
-
-
+            </form>
+        </div>
     </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+
 </div>
 
 

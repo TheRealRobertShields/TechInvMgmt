@@ -50,7 +50,7 @@ namespace TechInvMgmt.Areas.Identity.Pages.Account.Manage
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-            var subinventory = _userManager.GetUserAsync(User).Result?.Subinventory;
+            var subinventory = _userManager.GetUserAsync(User).Result?.SubinventoryId;
             var fName = _userManager.GetUserAsync(User).Result?.FirstName;
             var lName = _userManager.GetUserAsync(User).Result?.LastName;
 

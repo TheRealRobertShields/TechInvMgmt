@@ -7,13 +7,13 @@
     <!--<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />-->
     <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    
+    <link rel="stylesheet" href="~/lib/Hover/hover-min.css" />
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Tech<wbr>Inv<wbr>Mgmt</a>
+                <a class="navbar-brand hvr-float-shadow" asp-area="" asp-controller="Home" asp-action="Index">Tech<wbr>Inv<wbr>Mgmt</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -23,17 +23,23 @@
                     <!-- Only show nav links to other views if user is authenticated -->
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Parts" asp-action="Index"><img class="nav-icon" src="~/img/Parts.png" /> Parts</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Inventory" asp-action="Index"><img class="nav-icon" src="~/img/Inventory.png" /> Inv</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Employees" asp-action="Index"><img class="nav-icon" src="~/img/Van.png" /> Techs</a>
-                            </li>
-                        </ul>
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark hvr-float-shadow hvr-icon-grow-rotate" asp-controller="Parts" asp-action="Index"><img class="nav-icon fa fa-phone hvr-icon" src="~/img/Parts.png" /> Parts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark hvr-float-shadow hvr-icon-pop" asp-controller="SerialNumbers" asp-action="Index"><img class="nav-icon fa fa-star hvr-icon" src="~/img/Barcode.png" /> Serial</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark hvr-float-shadow hvr-icon-bob" asp-controller="Inventory" asp-action="Index"><img class="nav-icon fa fa-chevron-up hvr-icon" src="~/img/Inventory.png" /> Inv</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark hvr-float-shadow hvr-icon-buzz" asp-controller="Subinventories" asp-action="Index"><img class="nav-icon fa fa-clock-o hvr-icon" src="~/img/Van.png" /> Subinv</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark hvr-float-shadow hvr-icon-grow" asp-controller="Employees" asp-action="Index"><img class="nav-icon fa fa-smile-o hvr-icon" src="~/img/Techs.png" /> Techs</a>
+                    </li>
+                </ul>
                     }
 
                 </div>

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,23 +10,22 @@ using TechInvMgmt.Models;
 
 namespace TechInvMgmt.Controllers
 {
-    [Authorize(Roles = "ISP, Admin")]
-    public class PartsController : Controller
+    public class SubinventoriesController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public PartsController(ApplicationDbContext context)
+        public SubinventoriesController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        [AllowAnonymous]
+        // GET: Subinventories
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Parts.ToListAsync());
+            return View(await _context.Subinventories.ToListAsync());
         }
 
-        // GET: Parts/Details/5
+        // GET: Subinventories/Details/5
         public async Task<IActionResult> Details(string id)
         {
             if (id == null)
@@ -35,39 +33,39 @@ namespace TechInvMgmt.Controllers
                 return NotFound();
             }
 
-            var part = await _context.Parts
-                .FirstOrDefaultAsync(m => m.PartId == id);
-            if (part == null)
+            var subinventory = await _context.Subinventories
+                .FirstOrDefaultAsync(m => m.SubinventoryId == id);
+            if (subinventory == null)
             {
                 return NotFound();
             }
 
-            return View(part);
+            return View(subinventory);
         }
 
-        // GET: Parts/Create
+        // GET: Subinventories/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Parts/Create
+        // POST: Subinventories/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PartId,PartName,PartDescription,PartCategory,PartIsSerialized")] Part part)
+        public async Task<IActionResult> Create([Bind("SubinventoryId,EmployeeId")] Subinventory subinventory)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(part);
+                _context.Add(subinventory);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(part);
+            return View(subinventory);
         }
 
-        // GET: Parts/Edit/5
+        // GET: Subinventories/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
@@ -75,22 +73,22 @@ namespace TechInvMgmt.Controllers
                 return NotFound();
             }
 
-            var part = await _context.Parts.FindAsync(id);
-            if (part == null)
+            var subinventory = await _context.Subinventories.FindAsync(id);
+            if (subinventory == null)
             {
                 return NotFound();
             }
-            return View(part);
+            return View(subinventory);
         }
 
-        // POST: Parts/Edit/5
+        // POST: Subinventories/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("PartId,PartName,PartDescription,PartCategory,PartIsSerialized")] Part part)
+        public async Task<IActionResult> Edit(string id, [Bind("SubinventoryId,EmployeeId")] Subinventory subinventory)
         {
-            if (id != part.PartId)
+            if (id != subinventory.SubinventoryId)
             {
                 return NotFound();
             }
@@ -99,12 +97,12 @@ namespace TechInvMgmt.Controllers
             {
                 try
                 {
-                    _context.Update(part);
+                    _context.Update(subinventory);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PartExists(part.PartId))
+                    if (!SubinventoryExists(subinventory.SubinventoryId))
                     {
                         return NotFound();
                     }
@@ -115,10 +113,10 @@ namespace TechInvMgmt.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(part);
+            return View(subinventory);
         }
 
-        // GET: Parts/Delete/5
+        // GET: Subinventories/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -126,30 +124,30 @@ namespace TechInvMgmt.Controllers
                 return NotFound();
             }
 
-            var part = await _context.Parts
-                .FirstOrDefaultAsync(m => m.PartId == id);
-            if (part == null)
+            var subinventory = await _context.Subinventories
+                .FirstOrDefaultAsync(m => m.SubinventoryId == id);
+            if (subinventory == null)
             {
                 return NotFound();
             }
 
-            return View(part);
+            return View(subinventory);
         }
 
-        // POST: Parts/Delete/5
+        // POST: Subinventories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var part = await _context.Parts.FindAsync(id);
-            _context.Parts.Remove(part);
+            var subinventory = await _context.Subinventories.FindAsync(id);
+            _context.Subinventories.Remove(subinventory);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool PartExists(string id)
+        private bool SubinventoryExists(string id)
         {
-            return _context.Parts.Any(e => e.PartId == id);
+            return _context.Subinventories.Any(e => e.SubinventoryId == id);
         }
     }
 }

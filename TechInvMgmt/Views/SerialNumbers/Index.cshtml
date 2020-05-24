@@ -4,22 +4,25 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+    <div style="width: 100%; text-align:center;">
+        <h1 id="header">Serial Numbers</h1>
+        <p>
+            <a asp-action="Create">Create New</a>
+        </p>
+    </div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+
 <table id="tableOfStuff" class="display cell-border">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.SerialNum)
+                @Html.DisplayNameFor(model => model.SerialNumberId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PartNum)
+                @Html.DisplayNameFor(model => model.PartId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Subinv)
+                @Html.DisplayNameFor(model => model.SubinventoryId)
             </th>
         </tr>
     </thead>
@@ -27,15 +30,15 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                <a class="btn btn-warning btn-sm text-dark" asp-action="Edit" asp-route-id="@item.SerialNum">
-                    @Html.DisplayFor(modelItem => item.SerialNum)
+                <a class="btn btn-warning btn-sm text-dark" asp-action="Edit" asp-route-id="@item.SerialNumberId">
+                    @Html.DisplayFor(modelItem => item.SerialNumberId)
                 </a>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PartNum)
+                @Html.DisplayFor(modelItem => item.PartId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Subinv)
+                @Html.DisplayFor(modelItem => item.SubinventoryId)
             </td>
         </tr>
 }

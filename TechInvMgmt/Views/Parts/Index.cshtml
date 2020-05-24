@@ -5,22 +5,25 @@
 }
 
 
-@if (User.Identity.IsAuthenticated && User.IsInRole("ISP"))
-{
-    <div class="nav justify-content-center">
-        <div style="width: 100%; text-align:center;">
-            <h1 id="header">Parts List</h1>
-        </div>
+
+
+<div class="nav justify-content-center">
+    @if (User.Identity.IsAuthenticated && User.IsInRole("ISP"))
+    {
         <div>
             <a class="text-dark" asp-controller="Parts" asp-action="Create">
                 <div class="btn btn-outline-success btn-sm">
-                    <img class="nav-icon" src="~/img/Add.png" /> Add Part
+                    <img class="nav-icon" src="~/img/Add.png" /> Add
                 </div>
             </a>
         </div>
-        <br /><br /><br />
+    }
+    <div style="width: 100%; text-align:center;">
+        <h1 id="header">Parts</h1>
     </div>
-}
+
+</div>
+
 
 
 
@@ -29,19 +32,19 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Number)
+                @Html.DisplayNameFor(model => model.PartId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.PartName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                @Html.DisplayNameFor(model => model.PartDescription)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Category)
+                @Html.DisplayNameFor(model => model.PartCategory)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IsSerialized)
+                @Html.DisplayNameFor(model => model.PartIsSerialized)
             </th>
         </tr>
     </thead>
@@ -50,21 +53,21 @@
         {
         <tr>
             <td>
-                <a class="btn btn-warning btn-sm text-dark" asp-action="Edit" asp-route-id="@item.Number">
-                    @Html.DisplayFor(modelItem => item.Number)
+                <a class="btn btn-warning btn-sm text-dark" asp-action="Edit" asp-route-id="@item.PartId">
+                    @Html.DisplayFor(modelItem => item.PartId)
                 </a>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.PartName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Description)
+                @Html.DisplayFor(modelItem => item.PartDescription)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Category)
+                @Html.DisplayFor(modelItem => item.PartCategory)
             </td>
             <td>
-                @if (item.IsSerialized == true)
+                @if (item.PartIsSerialized == true)
                 {
                     <div>Yes</div>
                 }

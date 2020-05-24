@@ -17,25 +17,25 @@ namespace TechInvMgmt.Models
         [Key]
         [Required]
         [Display(Name = "Number")]
-        public string Number { get; set; }
+        public string PartId { get; set; }
 
         [Required]
         [Display(Name = "Name")]
-        public string Name { get; set; }
+        public string PartName { get; set; }
 
         [Display(Name = "Description")]
-        public string Description { get; set; }
+        public string PartDescription { get; set; }
 
         [Display(Name = "Category")]
-        public string Category { get; set; }
+        public string PartCategory { get; set; }
 
         [Required]
         [Display(Name = "Is serialized?")]
-        public bool IsSerialized { get; set; }
+        public bool PartIsSerialized { get; set; }
 
         public override string ToString()
         {
-            return $"{Number} {Name}";
+            return $"{PartId} {PartName}".ToUpper();
         }
     }
 }

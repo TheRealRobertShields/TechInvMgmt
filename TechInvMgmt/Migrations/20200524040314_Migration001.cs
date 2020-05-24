@@ -43,7 +43,7 @@ namespace TechInvMgmt.Migrations
                     Discriminator = table.Column<string>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
-                    Subinventory = table.Column<string>(nullable: true)
+                    SubinventoryId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -54,32 +54,55 @@ namespace TechInvMgmt.Migrations
                 name: "Inventory",
                 columns: table => new
                 {
-                    RowId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Subinventory = table.Column<string>(nullable: false),
-                    PartNumber = table.Column<string>(nullable: false),
-                    PartName = table.Column<string>(nullable: false),
-                    Quantity = table.Column<int>(nullable: false),
-                    CustomInventoryId = table.Column<string>(nullable: false)
+                    InventoryId = table.Column<string>(nullable: false),
+                    SubinventoryId = table.Column<string>(nullable: false),
+                    PartId = table.Column<string>(nullable: false),
+                    Quantity = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Inventory", x => x.RowId);
+                    table.PrimaryKey("PK_Inventory", x => x.InventoryId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Parts",
                 columns: table => new
                 {
-                    Number = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: false),
-                    Description = table.Column<string>(nullable: true),
-                    Category = table.Column<string>(nullable: true),
-                    IsSerialized = table.Column<bool>(nullable: false)
+                    PartId = table.Column<string>(nullable: false),
+                    PartName = table.Column<string>(nullable: false),
+                    PartDescription = table.Column<string>(nullable: true),
+                    PartCategory = table.Column<string>(nullable: true),
+                    PartIsSerialized = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Parts", x => x.Number);
+                    table.PrimaryKey("PK_Parts", x => x.PartId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SerialNumbers",
+                columns: table => new
+                {
+                    SerialNumberId = table.Column<string>(nullable: false),
+                    PartId = table.Column<string>(nullable: true),
+                    SubinventoryId = table.Column<string>(nullable: true),
+                    CustomInventoryId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SerialNumbers", x => x.SerialNumberId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Subinventories",
+                columns: table => new
+                {
+                    SubinventoryId = table.Column<string>(nullable: false),
+                    EmployeeId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Subinventories", x => x.SubinventoryId);
                 });
 
             migrationBuilder.CreateTable(
@@ -188,26 +211,6 @@ namespace TechInvMgmt.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "SerialNumbers",
-                columns: table => new
-                {
-                    SerialNum = table.Column<string>(nullable: false),
-                    PartNum = table.Column<string>(nullable: true),
-                    Subinv = table.Column<string>(nullable: true),
-                    InventoryRowId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SerialNumbers", x => x.SerialNum);
-                    table.ForeignKey(
-                        name: "FK_SerialNumbers_Inventory_InventoryRowId",
-                        column: x => x.InventoryRowId,
-                        principalTable: "Inventory",
-                        principalColumn: "RowId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -246,11 +249,6 @@ namespace TechInvMgmt.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SerialNumbers_InventoryRowId",
-                table: "SerialNumbers",
-                column: "InventoryRowId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -271,19 +269,22 @@ namespace TechInvMgmt.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Inventory");
+
+            migrationBuilder.DropTable(
                 name: "Parts");
 
             migrationBuilder.DropTable(
                 name: "SerialNumbers");
 
             migrationBuilder.DropTable(
+                name: "Subinventories");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "Inventory");
         }
     }
 }

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -34,7 +36,7 @@ namespace TechInvMgmt.Controllers
             }
 
             var serialNumber = await _context.SerialNumbers
-                .FirstOrDefaultAsync(m => m.SerialNum == id);
+                .FirstOrDefaultAsync(m => m.SerialNumberId == id);
             if (serialNumber == null)
             {
                 return NotFound();
@@ -54,7 +56,7 @@ namespace TechInvMgmt.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("SerialNum,PartNum,Subinv,CustomInventoryId")] SerialNumber serialNumber)
+        public async Task<IActionResult> Create([Bind("SerialNumberId,PartId,SubinventoryId,CustomInventoryId")] SerialNumber serialNumber)
         {
             if (ModelState.IsValid)
             {
@@ -86,9 +88,9 @@ namespace TechInvMgmt.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("SerialNum,PartNum,Subinv,CustomInventoryId")] SerialNumber serialNumber)
+        public async Task<IActionResult> Edit(string id, [Bind("SerialNumberId,PartId,SubinventoryId,CustomInventoryId")] SerialNumber serialNumber)
         {
-            if (id != serialNumber.SerialNum)
+            if (id != serialNumber.SerialNumberId)
             {
                 return NotFound();
             }
@@ -102,7 +104,7 @@ namespace TechInvMgmt.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SerialNumberExists(serialNumber.SerialNum))
+                    if (!SerialNumberExists(serialNumber.SerialNumberId))
                     {
                         return NotFound();
                     }
@@ -125,7 +127,7 @@ namespace TechInvMgmt.Controllers
             }
 
             var serialNumber = await _context.SerialNumbers
-                .FirstOrDefaultAsync(m => m.SerialNum == id);
+                .FirstOrDefaultAsync(m => m.SerialNumberId == id);
             if (serialNumber == null)
             {
                 return NotFound();
@@ -142,12 +144,15 @@ namespace TechInvMgmt.Controllers
             var serialNumber = await _context.SerialNumbers.FindAsync(id);
             _context.SerialNumbers.Remove(serialNumber);
             await _context.SaveChangesAsync();
+
+            string returnUrl = HttpUtility.UrlDecode(Request.QueryString.ToString());
+
             return RedirectToAction(nameof(Index));
         }
 
         private bool SerialNumberExists(string id)
         {
-            return _context.SerialNumbers.Any(e => e.SerialNum == id);
+            return _context.SerialNumbers.Any(e => e.SerialNumberId == id);
         }
     }
 }

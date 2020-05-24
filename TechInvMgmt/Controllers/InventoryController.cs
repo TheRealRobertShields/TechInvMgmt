@@ -29,7 +29,7 @@ namespace TechInvMgmt.Controllers
 
             partsList = await (from part in _context.Parts
                                select part).ToListAsync();
-            partsList.Insert(0, new Part { Number = "0", Name = "Select" });
+            partsList.Insert(0, new Part { PartId = "0", PartName = "Select" });
 
             ViewBag.ListofParts = partsList;
 
@@ -39,25 +39,31 @@ namespace TechInvMgmt.Controllers
 
         // GET: Inventory
         [AllowAnonymous]
-        public async Task<IActionResult> SubIndex(string subinv)
+        public async Task<IActionResult> SubIndexx(string subinv)
         {
-            subinv = "REMVAN11";
+            //subinv = "REMVAN11";
             List<Inventory> inventories = new List<Inventory>();
 
             inventories = await (from inv in _context.Inventory
-                   where inv.Subinventory == subinv
+                   where inv.SubinventoryId == subinv
                    select inv).ToListAsync();
 
 
             return View(inventories);
         }
 
+        /*
+        public async Task<IActionResult> SubIndex(Subinventory subinv, ApplicationDbContext context)
+        {
+            List<Inventory> inventories = new List<Inventory>();
 
-
-
+            inventories = await SubinventoryDb.GetSubinvParts(subinv, context);
+            return View(inventories);
+        }
+        */
 
         // GET: Inventory/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(string id)
         {
             if (id == null)
             {
@@ -65,7 +71,7 @@ namespace TechInvMgmt.Controllers
             }
 
             var inventory = await _context.Inventory
-                .FirstOrDefaultAsync(m => m.RowId == id);
+                .FirstOrDefaultAsync(m => m.InventoryId == id);
             if (inventory == null)
             {
                 return NotFound();
@@ -85,14 +91,14 @@ namespace TechInvMgmt.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RowId,Subinventory,PartNumber,PartName,Quantity,CustomInventoryId")] Inventory inventory)
+        public async Task<IActionResult> Create([Bind("InventoryId,SubinventoryId,PartId,Quantity")] Inventory inventory)
         {
 
             var inv = await _context.Inventory
-                .FirstOrDefaultAsync(i => i.CustomInventoryId == inventory.CustomInventoryId);
+                .FirstOrDefaultAsync(i => i.InventoryId == inventory.InventoryId);
             if (inv != null)
             {
-                TempData["Message"] = $"{inventory.Subinventory} already has {inventory.PartName}s.\nTo edit the quantity of that part, ";
+                TempData["Message"] = $"{inventory.SubinventoryId} already has {inventory.PartId}s.\nTo edit the quantity of that part, ";
                 return View(inventory);
             }
 
@@ -100,14 +106,14 @@ namespace TechInvMgmt.Controllers
             {
                 _context.Add(inventory);
                 await _context.SaveChangesAsync();
-                TempData["Message"] = $"{inventory.Quantity} {inventory.PartName}s added to {inventory.Subinventory}.";
+                TempData["Message"] = $"{inventory.Quantity} {inventory.PartId}s added to {inventory.SubinventoryId}.";
                 return RedirectToAction(nameof(Index));
             }
             return View(inventory);
         }
 
         // GET: Inventory/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
             {
@@ -126,9 +132,9 @@ namespace TechInvMgmt.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("RowId,Subinventory,PartNumber,PartName,Quantity,CustomInventoryId")] Inventory inventory)
+        public async Task<IActionResult> Edit(string id, [Bind("InventoryId,SubinventoryId,PartId,Quantity")] Inventory inventory)
         {
-            if (id != inventory.RowId)
+            if (id != inventory.InventoryId)
             {
                 return NotFound();
             }
@@ -142,7 +148,7 @@ namespace TechInvMgmt.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!InventoryExists(inventory.RowId))
+                    if (!InventoryExists(inventory.InventoryId))
                     {
                         return NotFound();
                     }
@@ -158,7 +164,7 @@ namespace TechInvMgmt.Controllers
 
         [Authorize(Roles ="ISP,Admin")]
         // GET: Inventory/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
             {
@@ -166,7 +172,7 @@ namespace TechInvMgmt.Controllers
             }
 
             var inventory = await _context.Inventory
-                .FirstOrDefaultAsync(m => m.RowId == id);
+                .FirstOrDefaultAsync(m => m.InventoryId == id);
             if (inventory == null)
             {
                 return NotFound();
@@ -179,7 +185,7 @@ namespace TechInvMgmt.Controllers
         // POST: Inventory/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var inventory = await _context.Inventory.FindAsync(id);
             _context.Inventory.Remove(inventory);
@@ -187,9 +193,9 @@ namespace TechInvMgmt.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool InventoryExists(int id)
+        private bool InventoryExists(string id)
         {
-            return _context.Inventory.Any(e => e.RowId == id);
+            return _context.Inventory.Any(e => e.InventoryId == id);
         }
     }
 }

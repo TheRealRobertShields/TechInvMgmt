@@ -23,6 +23,11 @@ namespace TechInvMgmt.Controllers
             _context = context;
         }
 
+        [AllowAnonymous]
+        public IActionResult EmpMenu()
+        {
+            return View();
+        }
 
         [AllowAnonymous]
         public async Task<IActionResult> Index()

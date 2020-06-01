@@ -3,70 +3,86 @@
 @{
     ViewData["Title"] = "Register";
 }
+<div class="justify-content-center" style="width:100%; text-align:center;">
+    <h1>@ViewData["Title"]</h1>
 
-<h1>@ViewData["Title"]</h1>
-
-<div class="row">
-    <div class="col-md-4">
-        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h4>Create a new account.</h4>
-            <hr />
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Input.FirstName"></label>
-                <input asp-for="Input.FirstName" class="form-control" />
-                <span asp-validation-for="Input.FirstName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.LastName"></label>
-                <input asp-for="Input.LastName" class="form-control" />
-                <span asp-validation-for="Input.LastName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.Username"></label>
-                <input asp-for="Input.Username" class="form-control" />
-                <span asp-validation-for="Input.Username" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.Password"></label>
-                <input asp-for="Input.Password" class="form-control" />
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.ConfirmPassword"></label>
-                <input asp-for="Input.ConfirmPassword" class="form-control" />
-                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.AccountType"></label><br />
-                <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                    <label class="btn btn-secondary btn-lg">
-                        <input asp-for="Input.AccountType" value="ISP" class="form-control" type="radio" autocomplete="off">ISP
-                    </label>
-                    <label class="btn btn-secondary btn-lg">
-                        <input asp-for="Input.AccountType" value="Tech" class="form-control" type="radio" autocomplete="off" id="techBtn">Tech
-                    </label>
-                    <label class="btn btn-secondary btn-lg">
-                        <input asp-for="Input.AccountType" value="FSM" class="form-control" type="radio" autocomplete="off">FSM
-                    </label>
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                <h4>Create a new account.</h4>
+                <hr />
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Input.FirstName"></label>
+                    <input asp-for="Input.FirstName" class="form-control" />
+                    <span asp-validation-for="Input.FirstName" class="text-danger"></span>
                 </div>
-                <br />
-                <span asp-validation-for="Input.AccountType" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.SubinventoryId"></label>
-                <input asp-for="Input.SubinventoryId" class="form-control" />
-                <span asp-validation-for="Input.SubinventoryId" class="text-danger"></span>
-            </div>
-            <button type="submit" class="btn btn-primary">Register</button>
-        </form>
-    </div>
+                <div class="form-group">
+                    <label asp-for="Input.LastName"></label>
+                    <input asp-for="Input.LastName" class="form-control" />
+                    <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Username"></label>
+                    <input asp-for="Input.Username" class="form-control" />
+                    <span asp-validation-for="Input.Username" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Password"></label>
+                    <input asp-for="Input.Password" class="form-control" />
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.ConfirmPassword"></label>
+                    <input asp-for="Input.ConfirmPassword" class="form-control" />
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.AccountType"></label><br />
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-info btn-lg" onclick="hideSubinvSectionForISP()">
+                            <input asp-for="Input.AccountType" value="ISP" class="form-control" type="radio" autocomplete="off">ISP
+                        </label>
+                        <label class="btn btn-primary btn-lg" onclick="showSubinvSection()">
+                            <input asp-for="Input.AccountType" value="Tech" class="form-control" type="radio" autocomplete="off" id="techBtn">Tech
+                        </label>
+                        <label class="btn btn-success btn-lg" onclick="hideSubinvSectionForFSM()">
+                            <input asp-for="Input.AccountType" value="FSM" class="form-control" type="radio" autocomplete="off">FSM
+                        </label>
+                    </div>
+                    <br />
+                    <span asp-validation-for="Input.AccountType" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="subinvSection" hidden>
+                    <label asp-for="Input.SubinventoryId"></label>
+                    <input asp-for="Input.SubinventoryId" class="form-control" id="subinvInput"/>
+                    <span asp-validation-for="Input.SubinventoryId" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+        </div>
     
+    </div>
 </div>
 
 
 <script>
-    document.getElementById('techBtn').inputMode
+    var subinvSection = document.getElementById("subinvSection");
+    function showSubinvSection() {
+        subinvSection.hidden = false;
+        document.getElementById("subinvInput").value = "REMVAN";
+        console.log(subinvSection.hidden);
+    }
+    function hideSubinvSectionForISP() {
+        subinvSection.hidden = true;
+        document.getElementById("subinvInput").value = "ISP";
+        console.log(subinvSection.hidden);
+    }
+    function hideSubinvSectionForFSM() {
+        subinvSection.hidden = true;
+        document.getElementById("subinvInput").value = "FSM";
+        console.log(subinvSection.hidden);
+    }
 </script>
 
 @section Scripts {

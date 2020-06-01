@@ -43,14 +43,13 @@ namespace TechInvMgmt.Areas.Identity.Pages.Account.Manage
             [Display(Name = "Last name")]
             public string LastName { get; set; }
 
-            public string Subinventory { get; set; }
+
         }
 
         private async Task LoadAsync(Employee user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-            var subinventory = _userManager.GetUserAsync(User).Result?.SubinventoryId;
             var fName = _userManager.GetUserAsync(User).Result?.FirstName;
             var lName = _userManager.GetUserAsync(User).Result?.LastName;
 
@@ -59,7 +58,6 @@ namespace TechInvMgmt.Areas.Identity.Pages.Account.Manage
             Input = new InputModel
             {
                 PhoneNumber = phoneNumber,
-                Subinventory = subinventory,
                 FirstName = fName,
                 LastName = lName
             };

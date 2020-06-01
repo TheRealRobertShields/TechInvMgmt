@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using TechInvMgmt.Models;
 
 namespace TechInvMgmt.Controllers
 {
+    [Authorize(Roles = "ISP, Tech, FSM, Admin")]
     public class SubinventoriesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -17,6 +19,11 @@ namespace TechInvMgmt.Controllers
         public SubinventoriesController(ApplicationDbContext context)
         {
             _context = context;
+        }
+
+        public IActionResult SubinvMenu()
+        {
+            return View();
         }
 
         // GET: Subinventories
@@ -43,6 +50,7 @@ namespace TechInvMgmt.Controllers
             return View(subinventory);
         }
 
+        [Authorize(Roles = "ISP, FSM, Admin")]
         // GET: Subinventories/Create
         public IActionResult Create()
         {
@@ -54,6 +62,7 @@ namespace TechInvMgmt.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "ISP, FSM, Admin")]
         public async Task<IActionResult> Create([Bind("SubinventoryId,EmployeeId")] Subinventory subinventory)
         {
             if (ModelState.IsValid)
@@ -66,6 +75,7 @@ namespace TechInvMgmt.Controllers
         }
 
         // GET: Subinventories/Edit/5
+        [Authorize(Roles = "ISP, FSM, Admin")]
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
@@ -86,6 +96,7 @@ namespace TechInvMgmt.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "ISP, FSM, Admin")]
         public async Task<IActionResult> Edit(string id, [Bind("SubinventoryId,EmployeeId")] Subinventory subinventory)
         {
             if (id != subinventory.SubinventoryId)
@@ -116,7 +127,11 @@ namespace TechInvMgmt.Controllers
             return View(subinventory);
         }
 
+
+
+
         // GET: Subinventories/Delete/5
+        [Authorize(Roles = "ISP, FSM, Admin")]
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -137,6 +152,7 @@ namespace TechInvMgmt.Controllers
         // POST: Subinventories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "ISP, FSM, Admin")]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var subinventory = await _context.Subinventories.FindAsync(id);

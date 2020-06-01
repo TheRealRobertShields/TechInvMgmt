@@ -31,31 +31,44 @@
                     <input asp-for="Quantity" class="form-control" />
                     <span asp-validation-for="Quantity" class="text-danger"></span>
                 </div>
-                @if (part.PartIsSerialized)
-                {
-                    <div class="form-group">
-                        <label class="control-label">Serial Numbers</label>
-                        <ul class="list-group">
-                            @foreach (SerialNumber sn in serialNumbers)
-                            {
-
-                                <li style="list-style-type:none;"><a class="btn btn-outline-info" asp-action="Edit" asp-controller="SerialNumbers" asp-route-id="@sn.SerialNumberId">@sn.ToString()</a></li>
-
-                            }
-                        </ul>
-                    </div>
-                }
-                <div class="form-group" hidden>
-                    <label asp-for="InventoryId" class="control-label"></label>
-                    <input asp-for="InventoryId" class="form-control" />
-                    <span asp-validation-for="InventoryId" class="text-danger"></span>
-                </div>
                 <div class="form-group">
                     <input type="submit" value="Save" class="btn btn-success" />
                     @if (User.IsInRole("ISP"))
                     {
                         <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.InventoryId">Delete</a>
                     }
+                </div>
+                @if (part.PartIsSerialized)
+                {
+            <div style="width:100%;">
+                <h3 class="control-label">Serial Numbers</h3>
+                <ul class="list-group" style="list-style-type:none;">
+                    @foreach (SerialNumber sn in serialNumbers)
+                    {
+                        <li style="list-style-type:none;"><a class="btn btn-sm text-dark hvr-wobble-skew" asp-action="Edit" asp-controller="SerialNumbers" asp-route-id="@sn.SerialNumberId" style="width:100%; font-size:15px;"><img class="nav-icon" src="~/img/Barcode.png" /> @sn.ToString() <img class="nav-icon" src="~/img/Barcode.png" /></a></li>
+                    }
+                </ul>
+                @if (serialNumbers.Count == 0 && Model.Quantity > 0)
+                {
+                    <p>There are no @part.PartName serial numbers assigned to @Model.SubinventoryId</p>
+                    <h6>You need to add @TechInvMgmt.Data.InventoryDb.GetNumOfSNsNeeded(Model.Quantity, serialNumbers.Count) more serial numbers.</h6>
+                    <div class="form-group">
+                        <a class="btn btn-outline-warning" asp-action="Create" asp-controller="SerialNumbers" asp-route-id="@Model.SubinventoryId@Model.PartId">Add Serial Numbers</a>
+                    </div>
+                }
+                else if (serialNumbers.Count < Model.Quantity)
+                {
+                    <h6>You need to add @TechInvMgmt.Data.InventoryDb.GetNumOfSNsNeeded(Model.Quantity, serialNumbers.Count) more serial numbers.</h6>
+                    <div class="form-group">
+                        <a class="btn btn-warning" asp-action="Create" asp-controller="SerialNumbers" asp-route-id="@Model.SubinventoryId@Model.PartId">Add Serial Numbers</a>
+                    </div>
+                }
+            </div>
+                }
+                <div class="form-group" hidden>
+                    <label asp-for="InventoryId" class="control-label"></label>
+                    <input asp-for="InventoryId" class="form-control" />
+                    <span asp-validation-for="InventoryId" class="text-danger"></span>
                 </div>
 
                 <!--
@@ -72,9 +85,7 @@
                 }
             </ul>
         </div>
-        <div class="form-group">
-            <a class="btn btn-outline-warning" asp-action="Create" asp-controller="SerialNumbers" asp-route-id="f@Model.SubinventoryId@Model.PartId">Add Serial Numbers</a>
-        </div>
+
     }
     -->
 

@@ -19,5 +19,10 @@ namespace TechInvMgmt.Data
 
         }
                           */
+
+        public static int GetNumOfSNsNeeded(int howManyTechSaysHeHas, int howManyTechEntered)
+        {
+            return howManyTechSaysHeHas - howManyTechEntered;
+        }
     }
 }

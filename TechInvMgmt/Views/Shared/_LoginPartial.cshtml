@@ -7,25 +7,25 @@
 
 
 
-<ul class="navbar-nav">
+<ul class="luxbar-navigation" style="list-style-type:none; display: flex;">
 @if (SignInManager.IsSignedIn(User))
 {
-    <li class="nav-item">
-        <a class="nav-link text-dark hvr-float-shadow hvr-icon-spin" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><img class="nav-icon fa fa-refresh hvr-icon" src="~/img/Smile.png" />  @User.Identity.Name! <div id="getSubInv">@UserManager.GetUserAsync(User).Result?.SubinventoryId</div></a>
+    <li class="luxbar-item">
+        <a class="hvr-icon-spin" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" style="text-align:center; display:inline-block;"><img class="nav-icon fa fa-refresh hvr-icon" src="~/img/Smile.png" />  @User.Identity.Name <div id="getSubInv" style="line-height: 0.5;">@UserManager.GetUserAsync(User).Result?.SubinventoryId</div></a>
     </li>
-    <li class="nav-item">
-        <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button type="submit" class="nav-link btn btn-link text-dark hvr-float-shadow hvr-icon-shrink"><img class="nav-icon fa fa-frown-o hvr-icon" src="~/img/Logout.png" /> Logout</button>
+    <li class="luxbar-item">
+        <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" style="height:100%;">
+            <button type="submit" class="btn hvr-icon-shrink" style="text-align:center; display:inline-block; height:100%;"><img class="nav-icon fa fa-frown-o hvr-icon" src="~/img/Logout.png" /> Logout</button>
         </form>
     </li>
 }
 else
 {
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register"><img class="nav-icon" src="~/img/Register.png" /> Register</a>
+    <li class="luxbar-item">
+        <a class="nav-link text-light hvr-bob" asp-area="Identity" asp-page="/Account/Register"><img class="nav-icon" src="~/img/Register.png" /> Register</a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login"><img class="nav-icon" src="~/img/Login.png" /> Login</a>
+    <li class="luxbar-item">
+        <a class="nav-link text-light hvr-bob" asp-area="Identity" asp-page="/Account/Login"><img class="nav-icon" src="~/img/Login.png" /> Login</a>
     </li>
 }
 </ul>

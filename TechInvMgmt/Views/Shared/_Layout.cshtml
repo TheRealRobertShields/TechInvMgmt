@@ -8,46 +8,80 @@
     <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/lib/Hover/hover-min.css" />
+    <link rel="stylesheet" href="https://cdn.rawgit.com/balzss/luxbar/ae5835e2/build/luxbar.min.css">
+
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand hvr-float-shadow" asp-area="" asp-controller="Home" asp-action="Index">Tech<wbr>Inv<wbr>Mgmt</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <partial name="_LoginPartial" />
-                    <!-- Only show nav links to other views if user is authenticated -->
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                <ul class="navbar-nav flex-grow-1">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark hvr-float-shadow hvr-icon-grow-rotate" asp-controller="Parts" asp-action="Index"><img class="nav-icon fa fa-phone hvr-icon" src="~/img/Parts.png" /> Parts</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark hvr-float-shadow hvr-icon-pop" asp-controller="SerialNumbers" asp-action="Index"><img class="nav-icon fa fa-star hvr-icon" src="~/img/Barcode.png" /> Serial</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark hvr-float-shadow hvr-icon-bob" asp-controller="Inventory" asp-action="Index"><img class="nav-icon fa fa-chevron-up hvr-icon" src="~/img/Inventory.png" /> Inv</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark hvr-float-shadow hvr-icon-buzz" asp-controller="Subinventories" asp-action="Index"><img class="nav-icon fa fa-clock-o hvr-icon" src="~/img/Van.png" /> Subinv</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark hvr-float-shadow hvr-icon-grow" asp-controller="Employees" asp-action="Index"><img class="nav-icon fa fa-smile-o hvr-icon" src="~/img/Techs.png" /> Techs</a>
-                    </li>
-                </ul>
+    <body style="background-color:#c5cbd3;" id="theBody">
+        <!--<header style="background-color:#dda448;">
+            <nav class="navbar navbar-expand-lg navbar-toggleable-lg navbar-dark box-shadow ">
+                <div class="container">
+                    <a class="navbar-brand hvr-float-shadow" asp-area="" asp-controller="Home" asp-action="Index">Tech<wbr>Inv<wbr>Mgmt</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                        <partial name="_LoginPartial" />
+                        <!-- Only show nav links to other views if user is authenticated -->
+    {
+    <!--<ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-light hvr-float-shadow hvr-icon-bob" asp-controller="Parts" asp-action="PartsMenu" style="text-align:center;"><img class="nav-icon fa fa-phone hvr-icon" src="~/img/Parts.png" /> Parts</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light hvr-float-shadow hvr-icon-bob" asp-controller="SerialNumbers" asp-action="SNMenu" style="text-align:center;"><img class="nav-icon fa fa-star hvr-icon" src="~/img/Barcode.png" /> Serial</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light hvr-float-shadow hvr-icon-bob" asp-controller="Inventory" asp-action="InvMenu" style="text-align:center;"><img class="nav-icon fa fa-chevron-up hvr-icon" src="~/img/Inventory.png" /> Inv</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light hvr-float-shadow hvr-icon-buzz" asp-controller="Subinventories" asp-action="SubinvMenu" style="text-align:center;"><img class="nav-icon fa fa-clock-o hvr-icon" src="~/img/Van.png" /> Subinv</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light hvr-float-shadow hvr-icon-bob" asp-controller="Employees" asp-action="EmpMenu" style="text-align:center;"><img class="nav-icon fa fa-smile-o hvr-icon" src="~/img/Employees.png" /> Employees</a>
+                            </li>
+                        </ul>
                     }
 
                 </div>
             </div>
         </nav>
+    </header>-->
+    <header id="luxbar" class="luxbar-fixed">
+        <input type="checkbox" class="luxbar-checkbox" id="luxbar-checkbox" />
+        <div class="luxbar-menu luxbar-menu-right luxbar-menu-light" style="background-color:#dda448;">
+            <ul class="luxbar-navigation">
+                <li class="luxbar-header">
+                    <a class="luxbar-brand hvr-bob" asp-area="" asp-controller="Home" asp-action="Index">Tech<wbr>Inv<wbr>Mgmt</a>
+                    <label class="luxbar-hamburger luxbar-hamburger-doublespin"
+                           id="luxbar-hamburger" for="luxbar-checkbox"> <span></span> </label>
+                </li>
+                <!-- Only show nav links to other views if user is authenticated -->
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li class="luxbar-item">
+                        <a class="nav-link hvr-icon-bob" asp-controller="Parts" asp-action="PartsMenu" style="text-align:center; display:inline-block;"><img class="nav-icon fa fa-phone hvr-icon" src="~/img/Parts.png" /> Parts</a>
+                    </li>
+                    <li class="luxbar-item">
+                        <a class="nav-link hvr-icon-bob" asp-controller="SerialNumbers" asp-action="SNMenu" style="text-align:center; display:inline-block;"><img class="nav-icon fa fa-star hvr-icon" src="~/img/Barcode.png" /> Serial</a>
+                    </li>
+                    <li class="luxbar-item">
+                        <a class="nav-link hvr-icon-bob" asp-controller="Inventory" asp-action="InvMenu" style="text-align:center; display:inline-block;"><img class="nav-icon fa fa-chevron-up hvr-icon" src="~/img/Inventory.png" /> Inv</a>
+                    </li>
+                    <li class="luxbar-item">
+                        <a class="nav-link hvr-icon-buzz" asp-controller="Subinventories" asp-action="SubinvMenu" style="text-align:center; display:inline-block;"><img class="nav-icon fa fa-clock-o hvr-icon" src="~/img/Van.png" /> Subinv</a>
+                    </li>
+                    <li class="luxbar-item">
+                        <a class="nav-link hvr-icon-bob" asp-controller="Employees" asp-action="EmpMenu" style="text-align:center; display:inline-block;"><img class="nav-icon fa fa-smile-o hvr-icon" src="~/img/Employees.png" /> Employees</a>
+                    </li>
+                }
+                <partial name="_LoginPartial" />
+            </ul>
+        </div>
     </header>
+
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main" class="pb-3" style="padding-top:80px;">
             @RenderBody()
         </main>
     </div>
@@ -62,6 +96,8 @@
 
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.21/r-2.2.4/datatables.min.css" />
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.21/r-2.2.4/datatables.min.js"></script>
+
+
     @RenderSection("Scripts", required: false)
-</body>
+    </body>
 </html>

@@ -39,17 +39,9 @@ namespace TechInvMgmt.Controllers
 
         // GET: Inventory
         [AllowAnonymous]
-        public async Task<IActionResult> SubIndexx(string subinv)
+        public IActionResult InvMenu()
         {
-            //subinv = "REMVAN11";
-            List<Inventory> inventories = new List<Inventory>();
-
-            inventories = await (from inv in _context.Inventory
-                   where inv.SubinventoryId == subinv
-                   select inv).ToListAsync();
-
-
-            return View(inventories);
+            return View();
         }
 
         /*

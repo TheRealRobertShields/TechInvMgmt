@@ -24,6 +24,8 @@ namespace TechInvMgmt.Models
             // Set password options
             idOptions.Password.RequiredLength = 8;
             idOptions.Password.RequireNonAlphanumeric = false;
+            idOptions.Password.RequireDigit = false;
+            idOptions.Password.RequiredUniqueChars = 0;
 
             // Set lockout options
             idOptions.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
@@ -47,9 +49,11 @@ namespace TechInvMgmt.Models
 
         public static async Task CreateDefaultAdmin(IServiceProvider serviceProvider)
         {
-            const string email = "techinvmgmt@tim.com";
             const string username = "admin";
-            const string password = "Admin1!!";
+            const string password = "techinvmgmtadmin";
+            const string firstName = "admin";
+            const string lastName = "McAdminface";
+            const string accountType = "admin";
 
             var userManager = serviceProvider.GetRequiredService<UserManager<Employee>>();
 
@@ -58,8 +62,10 @@ namespace TechInvMgmt.Models
             {
                 Employee admin = new Employee()
                 {
-                    Email = email,
-                    UserName = username
+                    UserName = username,
+                    FirstName = firstName,
+                    LastName = lastName,
+                    AccountType = accountType
                 };
 
                 // Create admin

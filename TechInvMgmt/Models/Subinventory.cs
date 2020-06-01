@@ -11,6 +11,7 @@ namespace TechInvMgmt.Models
     public class Subinventory
     {
         [Key]
+        [Required]
         public string SubinventoryId { get; set; }
 
         [ForeignKey("Id")]

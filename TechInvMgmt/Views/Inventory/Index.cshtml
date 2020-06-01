@@ -14,15 +14,10 @@
 
 <div class="nav justify-content-center" style="width: 100%; text-align:center;">
     <h1 id="header">Inventory</h1>
-    <a class="text-dark hvr-icon-pulse" asp-controller="Inventory" asp-action="Create">
-        <div class="btn" style="color:green;">
-            <img class="nav-icon fa fa-home hvr-icon" src="~/img/AddGrn.png" /> Add
-        </div>
-    </a>
 </div>
 
 
-<table id="tableOfStuff" class="display compact cell-border">
+<table id="tableOfStuff" class="display compact cell-border hover" style="text-align:center;">
     <thead>
         <tr>
             <th>
@@ -39,15 +34,19 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
+            <tr class="hvr-forward">
                 <td>
-                    @Html.DisplayFor(modelItem => item.SubinventoryId)
+                    <a class="btn" asp-action="Edit" asp-route-id="@item.InventoryId" style="width:100%;">
+                        @Html.DisplayFor(modelItem => item.SubinventoryId)
+                    </a>
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.PartId)
+                    <a class="btn" asp-action="Edit" asp-route-id="@item.InventoryId" style="width:100%;">
+                        @Html.DisplayFor(modelItem => item.PartId)
+                    </a>
                 </td>
                 <td>
-                    <a class="btn btn-warning btn-sm text-dark" asp-action="Edit" asp-route-id="@item.InventoryId">
+                    <a class="btn" asp-action="Edit" asp-route-id="@item.InventoryId" style="width:100%;">
                         @Html.DisplayFor(modelItem => item.Quantity)
                     </a>
                 </td>

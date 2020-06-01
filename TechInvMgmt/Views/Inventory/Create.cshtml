@@ -63,12 +63,11 @@
 </div>
 <script>
     // Auto-populate Subinventory input field w/ user's
-    if (document.getElementById("getSubInv").innerHTML != null || document.getElementById("getSubInv").innerHTML != "") {
-        var subinvNumber = document.getElementById("getSubInv").innerText;
-        document.getElementById("selectSubinv").value = subinvNumber;
+    var subinv = document.getElementById("getSubInv").innerHTML;
+    if (subinv != null || subinv != "" || subinv != "ISP" || subinv != "FSM") {
+        document.getElementById("selectSubinv").value = subinv;
     }
     
-    console.log(document.getElementById("getSubInv").innerHTML);
 
     var selectPartNum = document.getElementById("selectPartId");
     selectPartNum.onchange = function () {

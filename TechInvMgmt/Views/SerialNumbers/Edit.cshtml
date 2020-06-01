@@ -1,7 +1,9 @@
 ﻿@model TechInvMgmt.Models.SerialNumber
-
+@inject TechInvMgmt.Data.ApplicationDbContext context
 @{
     ViewData["Title"] = "Edit";
+    List<Part> parts = await TechInvMgmt.Data.PartDb.GetPartsAsync(context);
+    List<Subinventory> subinventories = await TechInvMgmt.Data.SubinventoryDb.GetSubinvParts(context);
 }
 <div class="justify-content-center" style="width:100%; text-align:center;">
     <h1>@Model.SerialNumberId</h1>
@@ -18,19 +20,34 @@
                     <input asp-for="SerialNumberId" class="form-control" />
                     <span asp-validation-for="SerialNumberId" class="text-danger"></span>
                 </div>
-                <div class="form-group">
-                    <label asp-for="PartId" class="control-label"></label>
-                    <input asp-for="PartId" class="form-control" />
-                    <span asp-validation-for="PartId" class="text-danger"></span>
-                </div>
-                <div class="form-group">
+                <div class="form-group" id="subinvInputDiv">
                     <label asp-for="SubinventoryId" class="control-label"></label>
-                    <input asp-for="SubinventoryId" class="form-control" />
+                    <select asp-for="SubinventoryId" class="searchDropdown" id="selectSubinv" style="width:100%;">
+                        <option selected disabled>Select Subinventory</option>
+                        @foreach (Subinventory s in subinventories)
+                        {
+                            <option value="@s.SubinventoryId">@s.ToString()</option>
+                        }
+                    </select>
                     <span asp-validation-for="SubinventoryId" class="text-danger"></span>
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="partNumInputDiv">
+                    <label asp-for="PartId" class="control-label"></label>
+                    <select asp-for="PartId" class="searchDropdown" id="selectPartId" style="width:100%;">
+                        <option selected disabled>Select Part</option>
+                        @foreach (Part p in parts)
+                        {
+                            if (p.PartIsSerialized)
+                            {
+                                <option value="@p.PartId">@p.ToString()</option>
+                            } 
+                        }
+                    </select>
+                    <span asp-validation-for="PartId" class="text-danger"></span>
+                </div>
+                <div class="form-group" hidden>
                     <label asp-for="CustomInventoryId" class="control-label"></label>
-                    <input asp-for="CustomInventoryId" class="form-control" />
+                    <input asp-for="CustomInventoryId" class="form-control" id="invId"/>
                     <span asp-validation-for="CustomInventoryId" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -44,6 +61,20 @@
         <a asp-action="Index">Back to List</a>
     </div>
 </div>
+
+<script>
+
+
+    document.getElementById("selectPartId").onchange = function () {
+        document.getElementById("invId").value = document.getElementById("selectSubinv").value + document.getElementById("selectPartId").value;
+    };
+    document.getElementById("selectSubinv").onchange = function () {
+        document.getElementById("invId").value = document.getElementById("selectSubinv").value + document.getElementById("selectPartId").value;
+    };
+
+</script>
+
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

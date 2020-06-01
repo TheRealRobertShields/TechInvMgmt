@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,6 +13,7 @@ using TechInvMgmt.Models;
 
 namespace TechInvMgmt.Controllers
 {
+    [Authorize(Roles = "ISP, Tech, Admin")]
     public class SerialNumbersController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -19,6 +21,11 @@ namespace TechInvMgmt.Controllers
         public SerialNumbersController(ApplicationDbContext context)
         {
             _context = context;
+        }
+
+        public IActionResult SNMenu()
+        {
+            return View();
         }
 
         // GET: SerialNumbers

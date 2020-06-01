@@ -8,27 +8,16 @@
 
 
 <div class="nav justify-content-center">
-    @if (User.Identity.IsAuthenticated && User.IsInRole("ISP"))
-    {
-        <div>
-            <a class="text-dark" asp-controller="Parts" asp-action="Create">
-                <div class="btn btn-outline-success btn-sm">
-                    <img class="nav-icon" src="~/img/Add.png" /> Add
-                </div>
-            </a>
-        </div>
-    }
     <div style="width: 100%; text-align:center;">
         <h1 id="header">Parts</h1>
     </div>
-
 </div>
 
 
 
 
 
-<table id="tableOfStuff" class="display compact cell-border">
+<table id="tableOfStuff" class="display compact cell-border hover" style="text-align:center;">
     <thead>
         <tr>
             <th>
@@ -51,30 +40,38 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
+        <tr class="hvr-forward">
             <td>
-                <a class="btn btn-warning btn-sm text-dark" asp-action="Edit" asp-route-id="@item.PartId">
+                <a class="btn" asp-action="Edit" asp-route-id="@item.PartId" style="width:100%;">
                     @Html.DisplayFor(modelItem => item.PartId)
                 </a>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PartName)
+                <a class="btn" asp-action="Edit" asp-route-id="@item.PartId" style="width:100%;">
+                    @Html.DisplayFor(modelItem => item.PartName)
+                </a>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PartDescription)
+                <a class="btn" asp-action="Edit" asp-route-id="@item.PartId" style="width:100%;">
+                    @Html.DisplayFor(modelItem => item.PartDescription)
+                </a>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PartCategory)
+                <a class="btn" asp-action="Edit" asp-route-id="@item.PartId" style="width:100%;">
+                    @Html.DisplayFor(modelItem => item.PartCategory)
+                </a>
             </td>
             <td>
-                @if (item.PartIsSerialized == true)
-                {
-                    <div>Yes</div>
-                }
-                else
-                {
-                    <div>No</div>
-                }
+                <a class="btn" asp-action="Edit" asp-route-id="@item.PartId" style="width:100%;">
+                    @if (item.PartIsSerialized == true)
+                    {
+                        <div>Yes</div>
+                    }
+                    else
+                    {
+                        <div>No</div>
+                    }
+                </a>
             </td>
         </tr>
         }

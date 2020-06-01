@@ -1,15 +1,14 @@
 ﻿@model IEnumerable<TechInvMgmt.Models.Subinventory>
-
+@inject TechInvMgmt.Data.ApplicationDbContext context
 @{
     ViewData["Title"] = "Index";
+    List<Employee> employees = await TechInvMgmt.Data.EmployeeDb.GetEmployeesAsync(context);
 }
+<div style="width: 100%; text-align:center;">
+    <h1>Subinventories</h1>
+</div>
 
-<h1>Subinventories</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table id="tableOfStuff" class="display compact cell-border">
+<table id="tableOfStuff" class="display compact cell-border hover" style="text-align:center;">
     <thead>
         <tr>
             <th>
@@ -22,20 +21,27 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-    
-        <tr>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.SubinventoryId">
-                    @Html.DisplayFor(modelItem => item.SubinventoryId)
-                </a>
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.EmployeeId">
-                    @Html.DisplayFor(modelItem => item.EmployeeId)
-                </a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+
+            <tr class="hvr-forward">
+                <td>
+                    <a class="btn" asp-action="Edit" asp-route-id="@item.SubinventoryId" style="width:100%;">
+                        @Html.DisplayFor(modelItem => item.SubinventoryId)
+                    </a>
+                </td>
+                <td>
+                    <a class="btn" asp-action="Edit" asp-route-id="@item.SubinventoryId" style="width:100%;">
+                        @foreach (Employee e in employees)
+                        {
+                            if (item.EmployeeId == e.Id)
+                            {
+                                <p>@e.FirstName @e.LastName</p>
+                            }
+                        }
+                    </a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

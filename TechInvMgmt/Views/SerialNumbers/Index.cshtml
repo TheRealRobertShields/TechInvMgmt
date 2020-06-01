@@ -6,13 +6,10 @@
 
     <div style="width: 100%; text-align:center;">
         <h1 id="header">Serial Numbers</h1>
-        <p>
-            <a asp-action="Create">Create New</a>
-        </p>
     </div>
 
 
-<table id="tableOfStuff" class="display cell-border">
+<table id="tableOfStuff" class="display compact cell-border hover" style="text-align:center";>
     <thead>
         <tr>
             <th>
@@ -28,17 +25,21 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
+        <tr class="hvr-forward">
             <td>
-                <a class="btn btn-warning btn-sm text-dark" asp-action="Edit" asp-route-id="@item.SerialNumberId">
+                <a class="btn" asp-action="Edit" asp-route-id="@item.SerialNumberId" style="width:100%;">
                     @Html.DisplayFor(modelItem => item.SerialNumberId)
                 </a>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PartId)
+                <a class="btn" asp-action="Edit" asp-route-id="@item.SerialNumberId" style="width:100%;">
+                    @Html.DisplayFor(modelItem => item.PartId)
+                </a>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SubinventoryId)
+                <a class="btn" asp-action="Edit" asp-route-id="@item.SerialNumberId" style="width:100%;">
+                    @Html.DisplayFor(modelItem => item.SubinventoryId)
+                </a>
             </td>
         </tr>
 }

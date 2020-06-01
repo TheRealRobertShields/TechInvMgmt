@@ -88,10 +88,10 @@ namespace TechInvMgmt.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl = returnUrl ?? Url.Content("~/");
+            returnUrl ??= Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var user = new Employee { UserName = Input.Username, FirstName = Input.FirstName, LastName = Input.LastName, SubinventoryId = Input.SubinventoryId };
+                var user = new Employee { UserName = Input.Username, FirstName = Input.FirstName, LastName = Input.LastName, SubinventoryId = Input.SubinventoryId, AccountType = Input.AccountType };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
@@ -116,7 +116,7 @@ namespace TechInvMgmt.Areas.Identity.Pages.Account
                     var callbackUrl = Url.Page(
                         "/Account/ConfirmEmail",
                         pageHandler: null,
-                        values: new { area = "Identity", userId = user.Id, code = code },
+                        values: new { area = "Identity", userId = user.Id, code },
                         protocol: Request.Scheme);
 
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",

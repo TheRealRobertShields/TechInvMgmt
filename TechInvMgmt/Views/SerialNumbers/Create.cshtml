@@ -37,12 +37,15 @@
                         <option selected disabled>Select Part</option>
                         @foreach (Part p in parts)
                         {
-                            <option value="@p.PartId">@p.ToString()</option>
+                            if (p.PartIsSerialized)
+                            {
+                                <option value="@p.PartId">@p.ToString()</option>
+                            }
                         }
                     </select>
                     <span asp-validation-for="PartId" class="text-danger"></span>
                 </div>
-                <div class="form-group" id="InvIdDiv">
+                <div class="form-group" id="InvIdDiv" hidden>
                     <label asp-for="CustomInventoryId" class="control-label"></label>
                     <input asp-for="CustomInventoryId" class="form-control" id="invId" />
                     <span asp-validation-for="CustomInventoryId" class="text-danger"></span>

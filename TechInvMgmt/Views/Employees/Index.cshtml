@@ -1,18 +1,18 @@
 ﻿@model IEnumerable<TechInvMgmt.Models.Employee>
 
 @{
-    ViewData["Title"] = "Remote Techs";
+    ViewData["Title"] = "Employees";
 }
 
 
 <div class="nav justify-content-center">
     <div style="width: 100%; text-align:center;">
-        <h1 id="header">Remote Techs</h1>
+        <h1 id="header">Employees</h1>
     </div>
 </div>
 
 
-<table class="table table-sm table-hover">
+<table id="tableOfStuff" class="display compact cell-border hover" style="text-align:center;">
     <thead>
         <tr>
             <th>
@@ -21,60 +21,47 @@
             <th>
                 @Html.DisplayNameFor(model => model.SubinventoryId)
             </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            if (item.SubinventoryId != null)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
-                    </td>
-                    <td>
-                        <a class="btn btn-warning btn-sm text-dark" asp-action="Edit" asp-controller="Employees" asp-route-id="@item.Id">
-                            @Html.DisplayFor(modelItem => item.SubinventoryId)
-                        </a>
-                    </td>
-                </tr>
-            }
-        }
-    </tbody>
-</table>
-
-
-
-
-
-<div class="nav justify-content-center">
-    <div style="width: 100%; text-align:center;">
-        <h1 id="header">Inventory Specialists</h1>
-    </div>
-</div>
-
-
-<table class="table table-sm table-hover">
-    <thead>
-        <tr>
             <th>
-                Name
+                AccountType
             </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            if (item.SubinventoryId == null && item.FirstName != null)
-            {
-                <tr>
-                    <td>
-                        <a class="btn btn-warning btn-sm text-dark" asp-action="Edit" asp-controller="Employees" asp-route-id="@item.Id">
-                            @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
+            <tr class="hvr-forward">
+                <td>
+                    <a class="btn" asp-action="Edit" asp-controller="Employees" asp-route-id="@item.Id" style="width:100%;">
+                        @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
+                    </a>
+                </td>
+                <td>
+                    <a class="btn" asp-action="Edit" asp-controller="Employees" asp-route-id="@item.Id" style="width:100%;">
+                        @Html.DisplayFor(modelItem => item.SubinventoryId)
+                    </a>
+                </td>
+                <td>
+                    @if (item.AccountType == "Tech")
+                    {
+                        <a class="btn" asp-action="Edit" asp-controller="Employees" asp-route-id="@item.Id" style="width:100%;">
+                            <p>Tech</p>
                         </a>
-                    </td>
-                </tr>
-            }
+                    }
+                    else if (item.AccountType == "ISP")
+                    {
+                        <a class="btn" asp-action="Edit" asp-controller="Employees" asp-route-id="@item.Id" style="width:100%;">
+                            <p>ISP</p>
+                        </a>
+                    }
+                    else
+                    {
+                        <a class="btn" asp-action="Edit" asp-controller="Employees" asp-route-id="@item.Id" style="width:100%;">
+                            <p>ADMIN</p>
+                        </a>
+                    }
+                </td>
+            </tr>
         }
     </tbody>
 </table>
+

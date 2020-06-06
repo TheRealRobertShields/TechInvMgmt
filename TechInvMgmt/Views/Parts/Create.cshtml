@@ -3,59 +3,61 @@
 @{
     ViewData["Title"] = "Create";
 }
-<div class="justify-content-center" style="width:100%; text-align:center;">
-    <h1>Create</h1>
-    <h4>Part</h4>
-    <hr />
-    <div class="row justify-content-center">
-        <div class="col-md-4">
-            <form asp-action="Create">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="PartId" class="control-label"></label>
-                    <input asp-for="PartId" class="form-control" />
-                    <span asp-validation-for="PartId" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="PartName" class="control-label"></label>
-                    <input asp-for="PartName" class="form-control" />
-                    <span asp-validation-for="PartName" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="PartDescription" class="control-label"></label>
-                    <input asp-for="PartDescription" class="form-control" />
-                    <span asp-validation-for="PartDescription" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="PartCategory" class="control-label"></label>
-                    <input asp-for="PartCategory" class="form-control" />
-                    <span asp-validation-for="PartCategory" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="PartIsSerialized"></label><br />
-                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                        <label class="btn btn-secondary btn-lg">
-                            <input asp-for="PartIsSerialized" value="True" class="form-control" type="radio" autocomplete="off">Yes
-                        </label>
-                        <label class="btn btn-secondary btn-lg">
-                            <input asp-for="PartIsSerialized" value="False" class="form-control" type="radio" autocomplete="off">No
-                        </label>
+    <div class="justify-content-center" style="width:100%; text-align:center;">
+        <h1>New</h1>
+        <h4>Part</h4>
+        <hr />
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="PartId" class="control-label"></label>
+                        <input asp-for="PartId" class="form-control" style="text-align:center;opacity:0.85;" />
+                        <span asp-validation-for="PartId" class="text-danger"></span>
                     </div>
                     <div class="form-group">
+                        <label asp-for="PartName" class="control-label"></label>
+                        <input asp-for="PartName" class="form-control" style="text-align:center;opacity:0.85;" />
+                        <span asp-validation-for="PartName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PartDescription" class="control-label"></label>
+                        <input asp-for="PartDescription" class="form-control" style="text-align:center;opacity:0.85;" />
+                        <span asp-validation-for="PartDescription" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PartCategory" class="control-label"></label>
+                        <input asp-for="PartCategory" class="form-control" style="text-align:center;opacity:0.85;" />
+                        <span asp-validation-for="PartCategory" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PartIsSerialized"></label><br />
+                        <div class="btn-group btn-group-toggle" data-toggle="toggle" style="width:100%;z-index: 2;">
+                            <label class="hvr-buzz-out" style="width:100%;z-index: -1;">
+                                <input asp-for="PartIsSerialized" data-on="True" data-off="False" class="form-control" type="checkbox" data-toggle="toggle" data-onstyle="warning">
+                            </label>
+                        </div>
                         <span asp-validation-for="PartIsSerialized" class="text-danger"></span>
                     </div>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" />
-                </div>
-</form>
+                    <div class="form-group">
+                        <label asp-for="RemoteBaseStock" class="control-label"></label>
+                        <input asp-for="RemoteBaseStock" class="form-control" style="text-align:center;opacity:0.85;" />
+                        <span asp-validation-for="RemoteBaseStock" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="LocalBaseStock" class="control-label"></label>
+                        <input asp-for="LocalBaseStock" class="form-control" style="text-align:center;opacity:0.85;" />
+                        <span asp-validation-for="LocalBaseStock" class="text-danger"></span>
+                    </div>
+                    <input type="submit" value="Create" class="btn text-light btn-lg hvr-glow" style="background-color:#5fad56;width:45%;" />
+                </form>
+            </div>
+        </div>
+        <div class="form-group" style="background-color: lightseagreen; padding: 5px; margin: 10px auto; width: fit-content; border: 1px solid black; border-radius: 40px;">
+            <a class="hvr-backward" asp-action="Index"><img src="~/img/LeftArrow.png" style="height:50px;" /></a>
         </div>
     </div>
-
-    <div>
-        <a asp-action="Index">Back to List</a>
-    </div>
-</div>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

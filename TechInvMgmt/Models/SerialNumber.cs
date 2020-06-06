@@ -7,17 +7,21 @@ namespace TechInvMgmt.Models
     {
         [Key]
         [Required]
+        [Display(Name = "Serial Number")]
         public string SerialNumberId { get; set; }
 
-        [ForeignKey("PartId")]
+
         [Required]
+        [Display(Name = "Part")]
         public string PartId { get; set; }
 
-        [ForeignKey("SubinventoryId")]
+
         [Required]
+        [Display(Name = "Subinventory")]
         public string SubinventoryId { get; set; }
 
         [Required]
+        [Display(Name = "CustomInventory Id")]
         public string CustomInventoryId { get; set; }
 
         public override string ToString()

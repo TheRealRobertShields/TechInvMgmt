@@ -12,9 +12,11 @@ namespace TechInvMgmt.Models
     {
         [Key]
         [Required]
+        [Display(Name = "Subinventory Id")]
         public string SubinventoryId { get; set; }
 
-        [ForeignKey("Id")]
+
+        [Display(Name ="Employee")]
         public string EmployeeId { get; set; }
 
         public override string ToString()

@@ -15,16 +15,15 @@ namespace TechInvMgmt.Models
     {
         [Key]
         [Required]
+        [Display(Name = "Inventory Id")]
         public string InventoryId { get; set; }
 
         [Required]
         [Display(Name = "Subinventory")]
-        [ForeignKey("SubinventoryId")]
         public string SubinventoryId { get; set; }
 
         [Required]
-        [Display(Name = "PartId")]
-        [ForeignKey("PartId")]
+        [Display(Name = "Part")]
         public string PartId { get; set; }
 
         [Required]

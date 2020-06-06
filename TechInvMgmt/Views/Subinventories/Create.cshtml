@@ -5,7 +5,7 @@
     List<Employee> employees = await TechInvMgmt.Data.EmployeeDb.GetEmployeesAsync(context);
 }
 <div class="justify-content-center" style="width:100%; text-align:center;">
-    <h1>Create</h1>
+    <h1>New</h1>
 
     <h4>Subinventory</h4>
     <hr />
@@ -15,13 +15,14 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="SubinventoryId" class="control-label"></label>
-                    <input asp-for="SubinventoryId" class="form-control" />
+                    <input asp-for="SubinventoryId" class="form-control" style="text-align:center;opacity:0.85;" />
                     <span asp-validation-for="SubinventoryId" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="EmployeeId" class="control-label"></label>
                     <select asp-for="EmployeeId" class="searchDropdown" id="selectEmployee" style="width:100%;">
                         <option selected disabled>Select Employee</option>
+                        <option>NONE</option>
                         @foreach (Employee e in employees)
                         {
                             <option value="@e.Id">@e.ToString()</option>
@@ -29,15 +30,15 @@
                     </select>
                     <span asp-validation-for="EmployeeId" class="text-danger"></span>
                 </div>
-                <div class="form-group">
+                <div>
                     <input type="submit" value="Create" class="btn btn-primary" />
                 </div>
             </form>
         </div>
     </div>
 
-    <div>
-        <a asp-action="Index">Back to List</a>
+    <div class="form-group" style="background-color: lightseagreen; padding: 5px; margin: 10px auto; width: fit-content; border: 1px solid black; border-radius: 40px;">
+        <a class="hvr-backward" asp-action="Index"><img src="~/img/LeftArrow.png" style="height:50px;" /></a>
     </div>
 </div>
 

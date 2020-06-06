@@ -29,7 +29,7 @@ namespace TechInvMgmt.Controllers
 
             partsList = await (from part in _context.Parts
                                select part).ToListAsync();
-            partsList.Insert(0, new Part { PartId = "0", PartName = "Select" });
+            partsList.Insert(0, new Part { PartId = "", PartName = "Select" });
 
             ViewBag.ListofParts = partsList;
 
@@ -44,15 +44,21 @@ namespace TechInvMgmt.Controllers
             return View();
         }
 
-        /*
-        public async Task<IActionResult> SubIndex(Subinventory subinv, ApplicationDbContext context)
+        
+        public async Task<IActionResult> MyInventory()
         {
-            List<Inventory> inventories = new List<Inventory>();
+            List<Part> partsList = new List<Part>();
 
-            inventories = await SubinventoryDb.GetSubinvParts(subinv, context);
-            return View(inventories);
+            partsList = await (from part in _context.Parts
+                               select part).ToListAsync();
+            partsList.Insert(0, new Part { PartId = "", PartName = "Select" });
+
+            ViewBag.ListofParts = partsList;
+
+
+            return View(await _context.Inventory.ToListAsync());
         }
-        */
+        
 
         // GET: Inventory/Details/5
         public async Task<IActionResult> Details(string id)
@@ -149,7 +155,8 @@ namespace TechInvMgmt.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                TempData["Message"] = $"Changes Saved!";
+                return RedirectToAction(nameof(Edit));
             }
             return View(inventory);
         }

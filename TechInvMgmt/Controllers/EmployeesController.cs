@@ -69,7 +69,7 @@ namespace TechInvMgmt.Controllers
         public async Task<IActionResult> Edit(Employee employee)
         {
             var user = await _context.Employees.FindAsync(employee.Id);
-
+            var subinventory = await _context.Subinventories.FindAsync(employee.SubinventoryId);
             if (user == null)
             {
                 ViewBag.ErrorMessage = $"User with Id = {employee.Id} cannot be found";
@@ -80,11 +80,19 @@ namespace TechInvMgmt.Controllers
                 user.SubinventoryId = employee.SubinventoryId;
                 user.FirstName = employee.FirstName;
                 user.LastName = employee.LastName;
-
+                if (subinventory != null)
+                {
+                    subinventory.EmployeeId = employee.Id;
+                }
+                
                 if (ModelState.IsValid)
                 {
                     try
                     {
+                        if (subinventory != null)
+                        {
+                            _context.Update(subinventory);
+                        }
                         _context.Update(user);
                         await _context.SaveChangesAsync();
                     }

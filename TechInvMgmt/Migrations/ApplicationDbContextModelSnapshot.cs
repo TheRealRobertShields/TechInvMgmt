@@ -251,6 +251,9 @@ namespace TechInvMgmt.Migrations
                     b.Property<string>("PartId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int>("LocalBaseStock")
+                        .HasColumnType("int");
+
                     b.Property<string>("PartCategory")
                         .HasColumnType("nvarchar(max)");
 
@@ -263,6 +266,9 @@ namespace TechInvMgmt.Migrations
                     b.Property<string>("PartName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RemoteBaseStock")
+                        .HasColumnType("int");
 
                     b.HasKey("PartId");
 
@@ -321,7 +327,6 @@ namespace TechInvMgmt.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SubinventoryId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("Employee");

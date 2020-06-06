@@ -12,15 +12,18 @@ namespace TechInvMgmt.Models
     {
 
         [Required]
+        [Display(Name ="First Name")]
         public string FirstName { get; set; }
+
         [Required]
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
-        [ForeignKey("SubinventoryId")]
-        [Required]
+        [Display(Name = "Subinventory")]
         public string SubinventoryId { get; set; }
 
         [Required]
+        [Display(Name = "Account Type")]
         public string AccountType { get; set; }
 
         public override string ToString()

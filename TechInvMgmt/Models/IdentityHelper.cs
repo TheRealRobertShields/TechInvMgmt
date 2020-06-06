@@ -22,7 +22,7 @@ namespace TechInvMgmt.Models
             idOptions.SignIn.RequireConfirmedPhoneNumber = false;
 
             // Set password options
-            idOptions.Password.RequiredLength = 8;
+            idOptions.Password.RequiredLength = 7;
             idOptions.Password.RequireNonAlphanumeric = false;
             idOptions.Password.RequireDigit = false;
             idOptions.Password.RequiredUniqueChars = 0;
@@ -49,11 +49,11 @@ namespace TechInvMgmt.Models
 
         public static async Task CreateDefaultAdmin(IServiceProvider serviceProvider)
         {
-            const string username = "admin";
-            const string password = "techinvmgmtadmin";
-            const string firstName = "admin";
-            const string lastName = "McAdminface";
-            const string accountType = "admin";
+            const string username = "Bobocado";
+            const string password = "Bob91193!";
+            const string firstName = "Robert";
+            const string lastName = "Shields";
+            const string accountType = "Admin";
 
             var userManager = serviceProvider.GetRequiredService<UserManager<Employee>>();
 

@@ -11,53 +11,49 @@
             <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
                 <h4>Create a new account.</h4>
                 <hr />
-                <div asp-validation-summary="All" class="text-danger"></div>
-                <div class="form-group">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group" style="background-color:#f9c784;">
                     <label asp-for="Input.FirstName"></label>
-                    <input asp-for="Input.FirstName" class="form-control" />
+                    <input asp-for="Input.FirstName" class="form-control" style="text-align:center;opacity:0.8;" />
                     <span asp-validation-for="Input.FirstName" class="text-danger"></span>
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="background-color:#f9c784;">
                     <label asp-for="Input.LastName"></label>
-                    <input asp-for="Input.LastName" class="form-control" />
+                    <input asp-for="Input.LastName" class="form-control" style="text-align:center;opacity:0.8;" />
                     <span asp-validation-for="Input.LastName" class="text-danger"></span>
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="background-color:#f9c784;">
                     <label asp-for="Input.Username"></label>
-                    <input asp-for="Input.Username" class="form-control" />
+                    <input asp-for="Input.Username" class="form-control" style="text-align:center;opacity:0.8;" />
                     <span asp-validation-for="Input.Username" class="text-danger"></span>
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="background-color:#f9c784;">
                     <label asp-for="Input.Password"></label>
-                    <input asp-for="Input.Password" class="form-control" />
+                    <input asp-for="Input.Password" class="form-control" style="text-align:center;opacity:0.8;" />
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="background-color:#f9c784;">
                     <label asp-for="Input.ConfirmPassword"></label>
-                    <input asp-for="Input.ConfirmPassword" class="form-control" />
+                    <input asp-for="Input.ConfirmPassword" class="form-control" style="text-align:center;opacity:0.8;" />
                     <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Input.AccountType"></label><br />
-                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                        <label class="btn btn-info btn-lg" onclick="hideSubinvSectionForISP()">
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons" style="width:100%;flex-flow: wrap;">
+                        <label class="btn text-light" onclick="hideSubinvSectionForISP()" style="background-color:#93b7be;">
                             <input asp-for="Input.AccountType" value="ISP" class="form-control" type="radio" autocomplete="off">ISP
                         </label>
-                        <label class="btn btn-primary btn-lg" onclick="showSubinvSection()">
-                            <input asp-for="Input.AccountType" value="Tech" class="form-control" type="radio" autocomplete="off" id="techBtn">Tech
-                        </label>
-                        <label class="btn btn-success btn-lg" onclick="hideSubinvSectionForFSM()">
+                        <label class="btn text-light" onclick="hideSubinvSectionForFSM()" style="background-color:#a799b7;">
                             <input asp-for="Input.AccountType" value="FSM" class="form-control" type="radio" autocomplete="off">FSM
+                        </label>
+                        <label class="btn text-light" onclick="showSubinvSection()" style="background-color:#d36135;">
+                            <input asp-for="Input.AccountType" value="Tech" class="form-control" type="radio" autocomplete="off" id="techBtn">Tech
                         </label>
                     </div>
                     <br />
                     <span asp-validation-for="Input.AccountType" class="text-danger"></span>
                 </div>
-                <div class="form-group" id="subinvSection" hidden>
-                    <label asp-for="Input.SubinventoryId"></label>
-                    <input asp-for="Input.SubinventoryId" class="form-control" id="subinvInput"/>
-                    <span asp-validation-for="Input.SubinventoryId" class="text-danger"></span>
-                </div>
+
                 <button type="submit" class="btn btn-primary">Register</button>
             </form>
         </div>
@@ -75,12 +71,12 @@
     }
     function hideSubinvSectionForISP() {
         subinvSection.hidden = true;
-        document.getElementById("subinvInput").value = "ISP";
+        document.getElementById("subinvInput").value = "NONE";
         console.log(subinvSection.hidden);
     }
     function hideSubinvSectionForFSM() {
         subinvSection.hidden = true;
-        document.getElementById("subinvInput").value = "FSM";
+        document.getElementById("subinvInput").value = "NONE";
         console.log(subinvSection.hidden);
     }
 </script>

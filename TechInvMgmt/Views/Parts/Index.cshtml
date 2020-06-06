@@ -27,12 +27,6 @@
                 @Html.DisplayNameFor(model => model.PartName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PartDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PartCategory)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.PartIsSerialized)
             </th>
         </tr>
@@ -49,16 +43,6 @@
             <td>
                 <a class="btn" asp-action="Edit" asp-route-id="@item.PartId" style="width:100%;">
                     @Html.DisplayFor(modelItem => item.PartName)
-                </a>
-            </td>
-            <td>
-                <a class="btn" asp-action="Edit" asp-route-id="@item.PartId" style="width:100%;">
-                    @Html.DisplayFor(modelItem => item.PartDescription)
-                </a>
-            </td>
-            <td>
-                <a class="btn" asp-action="Edit" asp-route-id="@item.PartId" style="width:100%;">
-                    @Html.DisplayFor(modelItem => item.PartCategory)
                 </a>
             </td>
             <td>

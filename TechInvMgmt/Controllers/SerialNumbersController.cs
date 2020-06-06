@@ -37,10 +37,10 @@ namespace TechInvMgmt.Controllers
         // GET: SerialNumbers/Details/5
         public async Task<IActionResult> Details(string id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            //if (id == null)
+            //{
+            //    return NotFound();
+            //}
 
             var serialNumber = await _context.SerialNumbers
                 .FirstOrDefaultAsync(m => m.SerialNumberId == id);
@@ -63,8 +63,9 @@ namespace TechInvMgmt.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("SerialNumberId,PartId,SubinventoryId,CustomInventoryId")] SerialNumber serialNumber)
+        public async Task<IActionResult> Create([Bind("SerialNumberId,SerialNum,PartId,SubinventoryId,CustomInventoryId")] SerialNumber serialNumber)
         {
+            serialNumber.SerialNumberId = serialNumber.SerialNumberId.ToUpper();
             if (ModelState.IsValid)
             {
                 _context.Add(serialNumber);
@@ -95,8 +96,9 @@ namespace TechInvMgmt.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("SerialNumberId,PartId,SubinventoryId,CustomInventoryId")] SerialNumber serialNumber)
+        public async Task<IActionResult> Edit(string id, [Bind("SerialNumberId,SerialNum,PartId,SubinventoryId,CustomInventoryId")] SerialNumber serialNumber)
         {
+            serialNumber.SerialNumberId = serialNumber.SerialNumberId.ToUpper();
             if (id != serialNumber.SerialNumberId)
             {
                 return NotFound();

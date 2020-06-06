@@ -10,8 +10,8 @@ using TechInvMgmt.Data;
 namespace TechInvMgmt.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200526084747_Migration002")]
-    partial class Migration002
+    [Migration("20200605082938_Mig001")]
+    partial class Mig001
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -253,6 +253,9 @@ namespace TechInvMgmt.Migrations
                     b.Property<string>("PartId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int>("LocalBaseStock")
+                        .HasColumnType("int");
+
                     b.Property<string>("PartCategory")
                         .HasColumnType("nvarchar(max)");
 
@@ -266,6 +269,9 @@ namespace TechInvMgmt.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("RemoteBaseStock")
+                        .HasColumnType("int");
+
                     b.HasKey("PartId");
 
                     b.ToTable("Parts");
@@ -277,13 +283,14 @@ namespace TechInvMgmt.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CustomInventoryId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PartId")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("PartId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("SubinventoryId")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("SubinventoryId")
+                        .HasColumnType("int");
 
                     b.HasKey("SerialNumberId");
 

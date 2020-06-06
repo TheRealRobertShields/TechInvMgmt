@@ -15,12 +15,18 @@ namespace TechInvMgmt.Data
             List<Employee> employees = await context.Employees.OrderBy(e => e.Id).ToListAsync();
             return employees;
         }
+
+
+
+
         public static async Task<Employee> GetEmployeeName(ApplicationDbContext context, string employeeId)
         {
 
             var employee = await context.Employees.FindAsync(employeeId);
             return employee;
         }
+
+
 
     }
 }

@@ -1,0 +1,62 @@
+﻿@model IEnumerable<TechInvMgmt.Models.Inventory>
+
+
+@{
+    ViewData["Title"] = "MyInventory";
+}
+
+
+
+
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success alert-dismissible" role="alert">@TempData["Message"]</div>
+}
+
+
+<div class="nav justify-content-center" style="width: 100%; text-align:center;">
+    <h1 id="header">My Inventory</h1>
+</div>
+
+
+<table id="tableOfStuff" class="display compact cell-border hover" style="text-align:center;">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SubinventoryId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PartId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="hvr-forward">
+                <td>
+                    <a class="btn" asp-action="Edit" asp-route-id="@item.InventoryId" style="width:100%;">
+                        @Html.DisplayFor(modelItem => item.SubinventoryId)
+                    </a>
+                </td>
+                <td>
+                    <a class="btn" asp-action="Edit" asp-route-id="@item.InventoryId" style="width:100%;">
+                        @Html.DisplayFor(modelItem => item.PartId)
+                    </a>
+                </td>
+                <td>
+                    <a class="btn" asp-action="Edit" asp-route-id="@item.InventoryId" style="width:100%;">
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+

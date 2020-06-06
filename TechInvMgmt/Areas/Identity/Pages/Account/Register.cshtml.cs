@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using System.ComponentModel.DataAnnotations;
+using System.Text;
+using System.Text.Encodings.Web;
+using System.Threading.Tasks;
 using TechInvMgmt.Models;
 
 namespace TechInvMgmt.Areas.Identity.Pages.Account
@@ -77,8 +73,6 @@ namespace TechInvMgmt.Areas.Identity.Pages.Account
             [Display(Name = "Account type")]
             public string AccountType { get; set; }
 
-
-            public string SubinventoryId { get; set; }
         }
 
         public void OnGet(string returnUrl = null)
@@ -91,7 +85,7 @@ namespace TechInvMgmt.Areas.Identity.Pages.Account
             returnUrl ??= Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var user = new Employee { UserName = Input.Username, FirstName = Input.FirstName, LastName = Input.LastName, SubinventoryId = Input.SubinventoryId, AccountType = Input.AccountType };
+                var user = new Employee { UserName = Input.Username, FirstName = Input.FirstName, LastName = Input.LastName, AccountType = Input.AccountType };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
@@ -109,7 +103,7 @@ namespace TechInvMgmt.Areas.Identity.Pages.Account
                     {
                         await _userManager.AddToRoleAsync(user, IdentityHelper.FSM);
                     }
-                    
+
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));

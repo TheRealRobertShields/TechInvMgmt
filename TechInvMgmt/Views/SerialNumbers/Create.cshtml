@@ -7,7 +7,7 @@
     List<Subinventory> subinventories = await TechInvMgmt.Data.SubinventoryDb.GetSubinvParts(context);
 }
 <div class="justify-content-center" style="width:100%; text-align:center;">
-    <h1>Create</h1>
+    <h1>New</h1>
     <h4>SerialNumber</h4>
     <hr />
     <div class="row justify-content-center">
@@ -16,7 +16,7 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="SerialNumberId" class="control-label"></label>
-                    <input asp-for="SerialNumberId" class="form-control" />
+                    <input asp-for="SerialNumberId" class="form-control" style="text-align:center;opacity:0.85;" />
                     <span asp-validation-for="SerialNumberId" class="text-danger"></span>
                 </div>
                 <div class="form-group" id="subinvInputDiv">
@@ -45,41 +45,43 @@
                     </select>
                     <span asp-validation-for="PartId" class="text-danger"></span>
                 </div>
-                <div class="form-group" id="InvIdDiv" hidden>
+                <div class="form-group" id="InvIdDiv" >
                     <label asp-for="CustomInventoryId" class="control-label"></label>
                     <input asp-for="CustomInventoryId" class="form-control" id="invId" />
                     <span asp-validation-for="CustomInventoryId" class="text-danger"></span>
                 </div>
-                <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" />
-                </div>
+                <input type="submit" value="Create" class="btn btn-primary hvr-glow btn-lg" style="width:45%;" />
             </form>
         </div>
     </div>
-    <div>
-        <a asp-action="Index">Back to List</a>
+    <div class="form-group" style="background-color:lightseagreen;padding: 5px; margin: 10px auto; width: fit-content;border:1px solid black;border-radius:40px;">
+        <a class="hvr-backward" asp-action="Index"><img src="~/img/LeftArrow.png" style="height:50px;" /></a>
     </div>
 </div>
 
 
 
 <script>
+
+
+    
+
+
+    // IF ACCESSING SERIALNUMBER/EDIT THRU INVENTORY/EDIT
     // Get the url.
     var pathArray = window.location.pathname.split('/');
-
     // Get the last part of url.
     var tokens = pathArray[pathArray.length - 1];
-
     // If this part of the url is more than 6 chars, auto-fill form.
     if (tokens.length > 6) {
         console.log(tokens.substr(0, 8) + tokens.substr(8));
-        document.getElementById("partNumInputDiv").hidden = true;
+        //document.getElementById("partNumInputDiv").hidden = true;
         document.getElementById("selectPartId").value = tokens.substr(8);
 
-        document.getElementById("subinvInputDiv").hidden = true;
+        //document.getElementById("subinvInputDiv").hidden = true;
         document.getElementById("selectSubinv").value = tokens.substr(0, 8);
 
-        document.getElementById("InvIdDiv").hidden = true;
+        //document.getElementById("InvIdDiv").hidden = true;
         document.getElementById("invId").value = tokens.substr(0, 8) + tokens.substr(8);
     }
     else {

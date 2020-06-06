@@ -63,8 +63,9 @@ namespace TechInvMgmt.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "ISP, FSM, Admin")]
-        public async Task<IActionResult> Create([Bind("SubinventoryId,EmployeeId")] Subinventory subinventory)
+        public async Task<IActionResult> Create([Bind("SubinventoryId,SubinventoryName,EmployeeId")] Subinventory subinventory)
         {
+            //subinventory.SubinventoryName = subinventory.SubinventoryName.ToUpper();
             if (ModelState.IsValid)
             {
                 _context.Add(subinventory);
@@ -97,17 +98,28 @@ namespace TechInvMgmt.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "ISP, FSM, Admin")]
-        public async Task<IActionResult> Edit(string id, [Bind("SubinventoryId,EmployeeId")] Subinventory subinventory)
+        public async Task<IActionResult> Edit(string id, [Bind("SubinventoryId,SubinventoryName,EmployeeId")] Subinventory subinventory)
         {
+            //subinventory.SubinventoryName = subinventory.SubinventoryName.ToUpper();
+            var employee = await _context.Employees.FindAsync(subinventory.EmployeeId);
             if (id != subinventory.SubinventoryId)
             {
                 return NotFound();
+            }
+
+            if (employee != null)
+            {
+                employee.SubinventoryId = subinventory.SubinventoryId;
             }
 
             if (ModelState.IsValid)
             {
                 try
                 {
+                    if (employee != null)
+                    {
+                        _context.Update(employee);
+                    }
                     _context.Update(subinventory);
                     await _context.SaveChangesAsync();
                 }

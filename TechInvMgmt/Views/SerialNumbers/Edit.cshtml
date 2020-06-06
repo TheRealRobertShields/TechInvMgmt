@@ -15,14 +15,9 @@
             <form asp-action="Edit">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="SerialNumberId" />
-                <div class="form-group">
-                    <label asp-for="SerialNumberId" class="control-label"></label>
-                    <input asp-for="SerialNumberId" class="form-control" />
-                    <span asp-validation-for="SerialNumberId" class="text-danger"></span>
-                </div>
                 <div class="form-group" id="subinvInputDiv">
                     <label asp-for="SubinventoryId" class="control-label"></label>
-                    <select asp-for="SubinventoryId" class="searchDropdown" id="selectSubinv" style="width:100%;">
+                    <select asp-for="SubinventoryId" class="searchDropdown" id="selectSubinv" style="width:100%;text-align:center;">
                         <option selected disabled>Select Subinventory</option>
                         @foreach (Subinventory s in subinventories)
                         {
@@ -33,32 +28,32 @@
                 </div>
                 <div class="form-group" id="partNumInputDiv">
                     <label asp-for="PartId" class="control-label"></label>
-                    <select asp-for="PartId" class="searchDropdown" id="selectPartId" style="width:100%;">
+                    <select asp-for="PartId" class="searchDropdown" id="selectPartId" style="width:100%;text-align:center;">
                         <option selected disabled>Select Part</option>
                         @foreach (Part p in parts)
                         {
                             if (p.PartIsSerialized)
                             {
                                 <option value="@p.PartId">@p.ToString()</option>
-                            } 
+                            }
                         }
                     </select>
                     <span asp-validation-for="PartId" class="text-danger"></span>
                 </div>
                 <div class="form-group" hidden>
                     <label asp-for="CustomInventoryId" class="control-label"></label>
-                    <input asp-for="CustomInventoryId" class="form-control" id="invId"/>
+                    <input asp-for="CustomInventoryId" class="form-control" id="invId" />
                     <span asp-validation-for="CustomInventoryId" class="text-danger"></span>
                 </div>
-                <div class="form-group">
-                    <input type="submit" value="Save" class="btn btn-primary" />
-                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.SerialNumberId">Delete</a>
+                <div>
+                    <input type="submit" value="Save" class="btn btn-primary btn-lg hvr-glow" style="width:45%;" />
+                    <a class="btn btn-danger btn-lg hvr-glow" asp-action="Delete" asp-route-id="@Model.SerialNumberId" style="width:45%;">Delete</a>
                 </div>
             </form>
         </div>
     </div>
-    <div>
-        <a asp-action="Index">Back to List</a>
+    <div class="form-group" style="background-color: lightseagreen; padding: 5px; margin: 10px auto; width: fit-content; border: 1px solid black; border-radius: 40px;">
+        <a class="hvr-backward" asp-action="Index"><img src="~/img/LeftArrow.png" style="height:50px;" /></a>
     </div>
 </div>
 

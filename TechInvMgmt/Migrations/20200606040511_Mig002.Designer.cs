@@ -10,8 +10,8 @@ using TechInvMgmt.Data;
 namespace TechInvMgmt.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200526091525_Migration003")]
-    partial class Migration003
+    [Migration("20200606040511_Mig002")]
+    partial class Mig002
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -253,6 +253,9 @@ namespace TechInvMgmt.Migrations
                     b.Property<string>("PartId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int>("LocalBaseStock")
+                        .HasColumnType("int");
+
                     b.Property<string>("PartCategory")
                         .HasColumnType("nvarchar(max)");
 
@@ -265,6 +268,9 @@ namespace TechInvMgmt.Migrations
                     b.Property<string>("PartName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RemoteBaseStock")
+                        .HasColumnType("int");
 
                     b.HasKey("PartId");
 
@@ -323,7 +329,6 @@ namespace TechInvMgmt.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SubinventoryId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("Employee");

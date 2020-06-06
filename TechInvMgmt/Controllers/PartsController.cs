@@ -36,10 +36,10 @@ namespace TechInvMgmt.Controllers
         // GET: Parts/Details/5
         public async Task<IActionResult> Details(string id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            //if (id == null)
+            //{
+            //    return NotFound();
+            //}
 
             var part = await _context.Parts
                 .FirstOrDefaultAsync(m => m.PartId == id);
@@ -62,8 +62,9 @@ namespace TechInvMgmt.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PartId,PartName,PartDescription,PartCategory,PartIsSerialized")] Part part)
+        public async Task<IActionResult> Create([Bind("PartId,PartName,PartDescription,PartCategory,PartIsSerialized,RemoteBaseStock,LocalBaseStock")] Part part)
         {
+            part.PartName = part.PartName.ToUpper();
             if (ModelState.IsValid)
             {
                 _context.Add(part);
@@ -94,8 +95,9 @@ namespace TechInvMgmt.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("PartId,PartName,PartDescription,PartCategory,PartIsSerialized")] Part part)
+        public async Task<IActionResult> Edit(string id, [Bind("PartId,PartName,PartDescription,PartCategory,PartIsSerialized,RemoteBaseStock,LocalBaseStock")] Part part)
         {
+            part.PartName = part.PartName.ToUpper();
             if (id != part.PartId)
             {
                 return NotFound();

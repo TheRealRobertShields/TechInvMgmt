@@ -9,8 +9,8 @@ namespace TechInvMgmt.Data
 {
     public class InventoryDb
     {
-            /*
-        public static async Task<List<Inventory>> GetInvById(Subinventory subinv, ApplicationDbContext context)
+           
+        public static async Task<List<Inventory>> GetInvById(string subinv, ApplicationDbContext context)
         {
 
             return await (from inv in context.Inventory
@@ -18,7 +18,7 @@ namespace TechInvMgmt.Data
                           select inv).ToListAsync();
 
         }
-                          */
+                         
 
         public static int GetNumOfSNsNeeded(int howManyTechSaysHeHas, int howManyTechEntered)
         {

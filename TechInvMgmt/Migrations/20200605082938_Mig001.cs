@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TechInvMgmt.Migrations
 {
-    public partial class Migration001 : Migration
+    public partial class Mig001 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -43,7 +43,8 @@ namespace TechInvMgmt.Migrations
                     Discriminator = table.Column<string>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
-                    SubinventoryId = table.Column<string>(nullable: true)
+                    SubinventoryId = table.Column<string>(nullable: true),
+                    AccountType = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -72,7 +73,9 @@ namespace TechInvMgmt.Migrations
                     PartName = table.Column<string>(nullable: false),
                     PartDescription = table.Column<string>(nullable: true),
                     PartCategory = table.Column<string>(nullable: true),
-                    PartIsSerialized = table.Column<bool>(nullable: false)
+                    PartIsSerialized = table.Column<bool>(nullable: false),
+                    RemoteBaseStock = table.Column<int>(nullable: false),
+                    LocalBaseStock = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -84,9 +87,9 @@ namespace TechInvMgmt.Migrations
                 columns: table => new
                 {
                     SerialNumberId = table.Column<string>(nullable: false),
-                    PartId = table.Column<string>(nullable: true),
-                    SubinventoryId = table.Column<string>(nullable: true),
-                    CustomInventoryId = table.Column<string>(nullable: true)
+                    PartId = table.Column<int>(nullable: false),
+                    SubinventoryId = table.Column<int>(nullable: false),
+                    CustomInventoryId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {

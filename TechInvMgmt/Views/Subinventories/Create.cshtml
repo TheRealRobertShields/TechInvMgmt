@@ -13,12 +13,12 @@
         <div class="col-md-4">
             <form asp-action="Create">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
+                <div class="form-group subinvColor">
                     <label asp-for="SubinventoryId" class="control-label"></label>
                     <input asp-for="SubinventoryId" class="form-control" style="text-align:center;opacity:0.85;" />
                     <span asp-validation-for="SubinventoryId" class="text-danger"></span>
                 </div>
-                <div class="form-group">
+                <div class="form-group subinvColor">
                     <label asp-for="EmployeeId" class="control-label"></label>
                     <select asp-for="EmployeeId" class="searchDropdown" id="selectEmployee" style="width:100%;">
                         <option selected disabled>Select Employee</option>
@@ -31,17 +31,21 @@
                     <span asp-validation-for="EmployeeId" class="text-danger"></span>
                 </div>
                 <div>
-                    <input type="submit" value="Create" class="btn btn-primary" />
+                    <a class="hvr-icon-back hvr-shadow" style="width:7rem;height:5rem;border-radius:12px;border: 1px solid #000000;background-color:#80558c;" asp-action="Index"><img class="fa fa-chevron-circle-left hvr-icon" src="/img/Back.png" style="height:5rem;" /></a>
+                    <input type="submit" value="Create" class="btn btn-lg hvr-shadow" style="width:7rem;height:5rem;border-radius:12px;border: 1px solid #000000;background-color:#709e6f;color: white;" />
                 </div>
             </form>
         </div>
     </div>
 
-    <div class="form-group" style="background-color: lightseagreen; padding: 5px; margin: 10px auto; width: fit-content; border: 1px solid black; border-radius: 40px;">
-        <a class="hvr-backward" asp-action="Index"><img src="~/img/LeftArrow.png" style="height:50px;" /></a>
-    </div>
+    
 </div>
 
+<script>
+    document.body.style.backgroundImage = "url(/img/Van09bg.jpg)";
+    document.body.style.backgroundSize = "cover";
+    document.body.style.backgroundPosition = "center";
+</script>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

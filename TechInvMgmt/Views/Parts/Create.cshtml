@@ -4,34 +4,33 @@
     ViewData["Title"] = "Create";
 }
     <div class="justify-content-center" style="width:100%; text-align:center;">
-        <h1>New</h1>
-        <h4>Part</h4>
+        <h1 class="partHeaders">New Part</h1>
         <hr />
         <div class="row justify-content-center">
             <div class="col-md-4">
                 <form asp-action="Create">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <div class="form-group">
+                    <div class="form-group" style="background-color: #d4b999; border: 3px solid #b39e86;">
                         <label asp-for="PartId" class="control-label"></label>
                         <input asp-for="PartId" class="form-control" style="text-align:center;opacity:0.85;" />
                         <span asp-validation-for="PartId" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" style="background-color: #d4b999; border: 3px solid #b39e86;">
                         <label asp-for="PartName" class="control-label"></label>
                         <input asp-for="PartName" class="form-control" style="text-align:center;opacity:0.85;" />
                         <span asp-validation-for="PartName" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" style="background-color: #d4b999; border: 3px solid #b39e86;">
                         <label asp-for="PartDescription" class="control-label"></label>
                         <input asp-for="PartDescription" class="form-control" style="text-align:center;opacity:0.85;" />
                         <span asp-validation-for="PartDescription" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" style="background-color: #d4b999; border: 3px solid #b39e86;">
                         <label asp-for="PartCategory" class="control-label"></label>
                         <input asp-for="PartCategory" class="form-control" style="text-align:center;opacity:0.85;" />
                         <span asp-validation-for="PartCategory" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" style="background-color: #d4b999; border: 3px solid #b39e86;">
                         <label asp-for="PartIsSerialized"></label><br />
                         <div class="btn-group btn-group-toggle" data-toggle="toggle" style="width:100%;z-index: 2;">
                             <label class="hvr-buzz-out" style="width:100%;z-index: -1;">
@@ -40,24 +39,32 @@
                         </div>
                         <span asp-validation-for="PartIsSerialized" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" style="background-color: #d4b999; border: 3px solid #b39e86;">
                         <label asp-for="RemoteBaseStock" class="control-label"></label>
                         <input asp-for="RemoteBaseStock" class="form-control" style="text-align:center;opacity:0.85;" />
                         <span asp-validation-for="RemoteBaseStock" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" style="background-color: #d4b999; border: 3px solid #b39e86;">
                         <label asp-for="LocalBaseStock" class="control-label"></label>
                         <input asp-for="LocalBaseStock" class="form-control" style="text-align:center;opacity:0.85;" />
                         <span asp-validation-for="LocalBaseStock" class="text-danger"></span>
                     </div>
-                    <input type="submit" value="Create" class="btn text-light btn-lg hvr-glow" style="background-color:#5fad56;width:45%;" />
+                    <div>
+                        <a class="hvr-icon-back hvr-shadow" style="width:7rem;height:5rem;border-radius:12px;border: 1px solid #000000;background-color:#ccac88;"  asp-action="Index"><img class="fa fa-chevron-circle-left hvr-icon" src="/img/Back.png" style="height:75px;" /></a>
+                        <input type="submit" value="Create" class="btn btn-primary btn-lg hvr-shadow" style="width:7rem;height:5rem;border-radius:12px;border: 1px solid #000000;background-color:#709e6f;" />
+                    </div>
                 </form>
             </div>
         </div>
-        <div class="form-group" style="background-color: lightseagreen; padding: 5px; margin: 10px auto; width: fit-content; border: 1px solid black; border-radius: 40px;">
-            <a class="hvr-backward" asp-action="Index"><img src="~/img/LeftArrow.png" style="height:50px;" /></a>
-        </div>
+        
     </div>
+
+    <script>
+        document.body.style.backgroundImage = "url(/img/Partbg.jpg)";
+        document.body.style.backgroundPosition = "center";
+        document.body.style.backgroundSize = "cover";
+    </script>
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

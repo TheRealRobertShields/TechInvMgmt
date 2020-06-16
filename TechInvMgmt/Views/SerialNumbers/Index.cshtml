@@ -5,7 +5,7 @@
 }
 
     <div style="width: 100%; text-align:center;">
-        <h1 id="header">Serial Numbers</h1>
+        <h1 id="header" class="serialNumHeaders">Serial Numbers</h1>
     </div>
 
 
@@ -26,18 +26,18 @@
     <tbody>
 @foreach (var item in Model) {
         <tr class="hvr-forward">
-            <td>
-                <a class="btn" asp-action="Edit" asp-route-id="@item.SerialNumberId" style="width:100%;">
+            <td style="background-color:#858f9b;">
+                <a class="btn" asp-action="Edit" asp-route-id="@item.SerialNumberId" style="width:100%;color:wheat;">
                     @Html.DisplayFor(modelItem => item.SerialNumberId)
                 </a>
             </td>
-            <td>
+            <td style="background-color:#ccac88;">
                 <a class="btn" asp-action="Edit" asp-route-id="@item.SerialNumberId" style="width:100%;">
                     @Html.DisplayFor(modelItem => item.PartId)
                 </a>
             </td>
-            <td>
-                <a class="btn" asp-action="Edit" asp-route-id="@item.SerialNumberId" style="width:100%;">
+            <td style="background-color:#80558c;">
+                <a class="btn" asp-action="Edit" asp-route-id="@item.SerialNumberId" style="width:100%;color:wheat;">
                     @Html.DisplayFor(modelItem => item.SubinventoryId)
                 </a>
             </td>
@@ -45,3 +45,8 @@
 }
     </tbody>
 </table>
+<script>
+    document.body.style.backgroundImage = "url(/img/HopperDuos.jpg)"
+    document.body.style.backgroundSize = "cover";
+    document.body.style.backgroundPosition = "center";
+</script>

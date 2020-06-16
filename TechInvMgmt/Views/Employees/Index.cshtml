@@ -30,33 +30,33 @@
         @foreach (var item in Model)
         {
             <tr class="hvr-forward">
-                <td>
+                <td style="background-color: #f0ad4e;">
                     <a class="btn" asp-action="Edit" asp-controller="Employees" asp-route-id="@item.Id" style="width:100%;">
                         @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
                     </a>
                 </td>
-                <td>
-                    <a class="btn" asp-action="Edit" asp-controller="Employees" asp-route-id="@item.Id" style="width:100%;">
+                <td style="background-color:#80558c;">
+                    <a class="btn" asp-action="Edit" asp-controller="Employees" asp-route-id="@item.Id" style="width:100%;color:wheat;">
                         @Html.DisplayFor(modelItem => item.SubinventoryId)
                     </a>
                 </td>
-                <td>
+                <td style="background-color:#989898;">
                     @if (item.AccountType == "Tech")
                     {
-                        <a class="btn" asp-action="Edit" asp-controller="Employees" asp-route-id="@item.Id" style="width:100%;">
-                            <p>Tech</p>
+                        <a class="btn" asp-action="Edit" asp-controller="Employees" asp-route-id="@item.Id" style="width:100%;color:wheat;">
+                            Tech
                         </a>
                     }
                     else if (item.AccountType == "ISP")
                     {
-                        <a class="btn" asp-action="Edit" asp-controller="Employees" asp-route-id="@item.Id" style="width:100%;">
-                            <p>ISP</p>
+                        <a class="btn" asp-action="Edit" asp-controller="Employees" asp-route-id="@item.Id" style="width:100%;color:wheat;">
+                            ISP
                         </a>
                     }
                     else
                     {
-                        <a class="btn" asp-action="Edit" asp-controller="Employees" asp-route-id="@item.Id" style="width:100%;">
-                            <p>ADMIN</p>
+                        <a class="btn" asp-action="Edit" asp-controller="Employees" asp-route-id="@item.Id" style="width:100%;color:wheat;">
+                            ADMIN
                         </a>
                     }
                 </td>
@@ -65,3 +65,8 @@
     </tbody>
 </table>
 
+<script>
+    document.body.style.backgroundImage = "url(/img/CementFloorbg.jpg)";
+    document.body.style.backgroundPosition = "center";
+    document.body.style.backgroundSize = "cover";
+</script>

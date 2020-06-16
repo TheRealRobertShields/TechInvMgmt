@@ -6,7 +6,11 @@ $(document).ready(function () {
 
     // dropdown lists for CREATE forms
     $('.searchDropdown').select2();
+    $('#tableOfStuff').DataTable({
+        responsive: true
+    });
 
+    /*
     // DATATABLES
     var invHeader = document.getElementById("header");
     if (typeof (invHeader) != 'undefined' && invHeader != null) {
@@ -27,7 +31,7 @@ $(document).ready(function () {
             });
         }
     }
-
+    */
 
     
     

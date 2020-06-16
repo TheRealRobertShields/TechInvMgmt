@@ -63,14 +63,15 @@ namespace TechInvMgmt.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("SerialNumberId,SerialNum,PartId,SubinventoryId,CustomInventoryId")] SerialNumber serialNumber)
+        public async Task<IActionResult> Create([Bind("SerialNumberId,PartId,SubinventoryId,CustomInventoryId")] SerialNumber serialNumber)
         {
             serialNumber.SerialNumberId = serialNumber.SerialNumberId.ToUpper();
             if (ModelState.IsValid)
             {
+                TempData["Message"] = serialNumber.SerialNumberId;
                 _context.Add(serialNumber);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Create));
             }
             return View(serialNumber);
         }
@@ -96,7 +97,7 @@ namespace TechInvMgmt.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("SerialNumberId,SerialNum,PartId,SubinventoryId,CustomInventoryId")] SerialNumber serialNumber)
+        public async Task<IActionResult> Edit(string id, [Bind("SerialNumberId,PartId,SubinventoryId,CustomInventoryId")] SerialNumber serialNumber)
         {
             serialNumber.SerialNumberId = serialNumber.SerialNumberId.ToUpper();
             if (id != serialNumber.SerialNumberId)

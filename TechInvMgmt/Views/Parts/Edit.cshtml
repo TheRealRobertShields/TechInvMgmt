@@ -4,30 +4,30 @@
     ViewData["Title"] = "Edit";
 }
 <div class="justify-content-center" style="width:100%; text-align:center;">
-    <h1>@Model.PartName</h1>
-    <h4>@Model.PartId</h4>
+    <h1 class="partHeaders">@Model.PartName</h1>
+    <h4 class="partHeaders">@Model.PartId</h4>
     <hr />
     <div class="row justify-content-center">
         <div class="col-md-4">
             <form asp-action="Edit">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="PartId" />
-                <div class="form-group">
+                <div class="form-group partColor">
                     <label asp-for="PartName" class="control-label"></label>
                     <input asp-for="PartName" class="form-control" style="text-align:center;opacity:0.85;" />
                     <span asp-validation-for="PartName" class="text-danger"></span>
                 </div>
-                <div class="form-group">
+                <div class="form-group partColor">
                     <label asp-for="PartDescription" class="control-label"></label>
                     <input asp-for="PartDescription" class="form-control" style="text-align:center;opacity:0.85;" />
                     <span asp-validation-for="PartDescription" class="text-danger"></span>
                 </div>
-                <div class="form-group">
+                <div class="form-group partColor">
                     <label asp-for="PartCategory" class="control-label"></label>
                     <input asp-for="PartCategory" class="form-control" style="text-align:center;opacity:0.85;" />
                     <span asp-validation-for="PartCategory" class="text-danger"></span>
                 </div>
-                <div class="form-group">
+                <div class="form-group partColor">
                     <label asp-for="PartIsSerialized"></label><br />
                     <div class="btn-group btn-group-toggle" data-toggle="toggle" style="width:100%;z-index: 2;">
                         <label class="hvr-buzz-out" style="width:100%;z-index: -1;">
@@ -36,26 +36,34 @@
                     </div>
                     <span asp-validation-for="PartIsSerialized" class="text-danger"></span>
                 </div>
-                <div class="form-group">
+                <div class="form-group partColor">
                     <label asp-for="RemoteBaseStock" class="control-label"></label>
                     <input asp-for="RemoteBaseStock" class="form-control" style="text-align:center;opacity:0.85;" />
                     <span asp-validation-for="RemoteBaseStock" class="text-danger"></span>
                 </div>
-                <div class="form-group">
+                <div class="form-group partColor">
                     <label asp-for="LocalBaseStock" class="control-label"></label>
                     <input asp-for="LocalBaseStock" class="form-control" style="text-align:center;opacity:0.85;" />
                     <span asp-validation-for="LocalBaseStock" class="text-danger"></span>
                 </div>
-                <input type="submit" value="Save" class="btn btn-primary btn-lg hvr-glow" style="width:45%;" />
-                <a class="btn btn-danger btn-lg hvr-glow" asp-action="Delete" asp-route-id="@Model.PartId" style="width:45%;">Delete</a>
+                <div>
+                    <a class="hvr-icon-back hvr-shadow" style="width:7rem;height:5rem;border-radius:12px;border: 1px solid #000000;background-color:#b39e86;" asp-action="Index"><img class="fa fa-chevron-circle-left hvr-icon" src="/img/Back.png" style="height:5rem;" /></a>
+                    <input type="submit" value="Save" class="btn btn-lg hvr-shadow" style="width:7rem;height:5rem;border-radius:12px;border: 1px solid #000000;background-color:#709e6f;color: white;" />
+                    <a class="btn btn-danger btn-lg hvr-shadow" asp-action="Delete" asp-route-id="@Model.PartId" style="width: 7rem; border-radius: 12px; border: 1px solid #000000;background-color:#c36b57;height: 5rem;">Delete</a>
+                </div>
 
             </form>
         </div>
     </div>
-    <div class="form-group" style="background-color: lightseagreen; padding: 5px; margin: 10px auto; width: fit-content; border: 1px solid black; border-radius: 40px;">
-        <a class="hvr-backward" asp-action="Index"><img src="~/img/LeftArrow.png" style="height:50px;" /></a>
-    </div>
+
 </div>
+
+<script>
+    document.body.style.backgroundImage = "url(/img/Partbg.jpg)";
+    document.body.style.backgroundPosition = "center";
+    document.body.style.backgroundSize = "cover";
+</script>
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

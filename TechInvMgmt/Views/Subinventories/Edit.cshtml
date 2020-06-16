@@ -6,14 +6,13 @@
 }
 <div class="justify-content-center" style="width:100%; text-align:center;">
     <h1>@Model.SubinventoryId</h1>
-    <h4>@Model.EmployeeId</h4>
     <hr />
     <div class="row justify-content-center">
         <div class="col-md-4">
             <form asp-action="Edit">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="SubinventoryId" />
-                <div class="form-group">
+                <div class="form-group subinvColor">
                     <label asp-for="EmployeeId" class="control-label"></label>
                     <select asp-for="EmployeeId" class="searchDropdown" id="selectEmployee" style="width:100%;">
                         <option selected disabled>Select Employee</option>
@@ -25,17 +24,21 @@
                     </select>
                     <span asp-validation-for="EmployeeId" class="text-danger"></span>
                 </div>
-                <div >
-                    <input type="submit" value="Save" class="btn btn-primary" />
-                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.SubinventoryId">Delete</a>
+                <div>
+                    <a class="hvr-icon-back hvr-shadow" style="width:7rem;height:5rem;border-radius:12px;border: 1px solid #000000;background-color:#80558c;" asp-action="Index"><img class="fa fa-chevron-circle-left hvr-icon" src="/img/Back.png" style="height:5rem;" /></a>
+                    <input type="submit" value="Save" class="btn btn-lg hvr-shadow" style="width:7rem;height:5rem;border-radius:12px;border: 1px solid #000000;background-color:#709e6f;color: white;" />
+                    <a class="btn btn-danger btn-lg hvr-shadow" asp-action="Delete" asp-route-id="@Model.SubinventoryId" style="width: 7rem; border-radius: 12px; border: 1px solid #000000;background-color:#c36b57;height: 5rem;">Delete</a>
                 </div>
             </form>
         </div>
     </div>
-    <div class="form-group" style="background-color: lightseagreen; padding: 5px; margin: 10px auto; width: fit-content; border: 1px solid black; border-radius: 40px;">
-        <a class="hvr-backward" asp-action="Index"><img src="~/img/LeftArrow.png" style="height:50px;" /></a>
-    </div>
 </div>
+
+<script>
+    document.body.style.backgroundImage = "url(/img/Van09bg.jpg)";
+    document.body.style.backgroundSize = "cover";
+    document.body.style.backgroundPosition = "center";
+</script>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

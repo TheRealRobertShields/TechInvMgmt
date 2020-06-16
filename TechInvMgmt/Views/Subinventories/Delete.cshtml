@@ -21,7 +21,12 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="SubinventoryId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <a class="hvr-icon-back hvr-shadow" style="width:7rem;height:5rem;border-radius:12px;border: 1px solid #000000;background-color:#80558c;" asp-action="Index"><img class="fa fa-chevron-circle-left hvr-icon" src="/img/Back.png" style="height:5rem;" /></a>
+        <input type="submit" value="Delete" class="btn btn-lg hvr-shadow" style="width:7rem;height:5rem;border-radius:12px;border: 1px solid #000000;background-color:#c36b57;color: white;" />
     </form>
 </div>
+<script>
+    document.body.style.backgroundImage = "url(/img/Van09bg.jpg)";
+    document.body.style.backgroundSize = "cover";
+    document.body.style.backgroundPosition = "center";
+</script>

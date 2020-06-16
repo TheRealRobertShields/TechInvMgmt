@@ -6,16 +6,16 @@
     List<Subinventory> subinventories = await TechInvMgmt.Data.SubinventoryDb.GetSubinvParts(context);
 }
 <div class="justify-content-center" style="width:100%; text-align:center;">
-    <h1>@Model.SerialNumberId</h1>
-    <h4>@Model.SubinventoryId</h4>
-    <h5>@Model.PartId</h5>
+    <h1 class="serialNumHeaders">@Model.SerialNumberId</h1>
+    <h4 class="serialNumHeaders">@Model.SubinventoryId</h4>
+    <h5 class="serialNumHeaders">@Model.PartId</h5>
     <hr />
     <div class="row justify-content-center">
         <div class="col-md-4">
             <form asp-action="Edit">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="SerialNumberId" />
-                <div class="form-group" id="subinvInputDiv">
+                <div class="form-group snColor" id="subinvInputDiv">
                     <label asp-for="SubinventoryId" class="control-label"></label>
                     <select asp-for="SubinventoryId" class="searchDropdown" id="selectSubinv" style="width:100%;text-align:center;">
                         <option selected disabled>Select Subinventory</option>
@@ -26,7 +26,7 @@
                     </select>
                     <span asp-validation-for="SubinventoryId" class="text-danger"></span>
                 </div>
-                <div class="form-group" id="partNumInputDiv">
+                <div class="form-group snColor" id="partNumInputDiv">
                     <label asp-for="PartId" class="control-label"></label>
                     <select asp-for="PartId" class="searchDropdown" id="selectPartId" style="width:100%;text-align:center;">
                         <option selected disabled>Select Part</option>
@@ -46,19 +46,19 @@
                     <span asp-validation-for="CustomInventoryId" class="text-danger"></span>
                 </div>
                 <div>
-                    <input type="submit" value="Save" class="btn btn-primary btn-lg hvr-glow" style="width:45%;" />
-                    <a class="btn btn-danger btn-lg hvr-glow" asp-action="Delete" asp-route-id="@Model.SerialNumberId" style="width:45%;">Delete</a>
+                    <a class="hvr-icon-back hvr-shadow" style="width:7rem;height:5rem;border-radius:12px;border: 1px solid #000000;background-color:#858f9b;" asp-action="Index"><img class="fa fa-chevron-circle-left hvr-icon" src="/img/Back.png" style="height:5rem;" /></a>
+                    <input type="submit" value="Save" class="btn btn-lg hvr-shadow" style="width:7rem;height:5rem;border-radius:12px;border: 1px solid #000000;background-color:#709e6f;color: white;" />
+                    <a class="btn btn-danger btn-lg hvr-shadow" asp-action="Delete" asp-route-id="@Model.SerialNumberId" style="width: 7rem; border-radius: 12px; border: 1px solid #000000;background-color:#c36b57;height: 5rem;">Delete</a>
                 </div>
             </form>
         </div>
     </div>
-    <div class="form-group" style="background-color: lightseagreen; padding: 5px; margin: 10px auto; width: fit-content; border: 1px solid black; border-radius: 40px;">
-        <a class="hvr-backward" asp-action="Index"><img src="~/img/LeftArrow.png" style="height:50px;" /></a>
-    </div>
 </div>
 
 <script>
-
+    document.body.style.backgroundImage = "url(/img/HopperDuos.jpg)";
+    document.body.style.backgroundSize = "cover";
+    document.body.style.backgroundPosition = "center";
 
     document.getElementById("selectPartId").onchange = function () {
         document.getElementById("invId").value = document.getElementById("selectSubinv").value + document.getElementById("selectPartId").value;

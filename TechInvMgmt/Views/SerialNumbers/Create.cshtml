@@ -6,20 +6,25 @@
     List<Part> parts = await TechInvMgmt.Data.PartDb.GetPartsAsync(context);
     List<Subinventory> subinventories = await TechInvMgmt.Data.SubinventoryDb.GetSubinvParts(context);
 }
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success alert-dismissible" role="alert" style="text-align:center;line-height:1.3;">@TempData["Message"]<div>created successfully!</div><a asp-action="Edit" asp-controller="SerialNumbers" asp-route-id="@TempData["Message"]">Edit</a></div>
+}
 <div class="justify-content-center" style="width:100%; text-align:center;">
-    <h1>New</h1>
-    <h4>SerialNumber</h4>
+    <h1 class="serialNumHeaders">New</h1>
+    <h4 class="serialNumHeaders">SerialNumber</h4>
+    <div class="BarcodeManImg"></div>
     <hr />
     <div class="row justify-content-center">
         <div class="col-md-4">
             <form asp-action="Create">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
+                <div class="form-group snColor">
                     <label asp-for="SerialNumberId" class="control-label"></label>
                     <input asp-for="SerialNumberId" class="form-control" style="text-align:center;opacity:0.85;" />
                     <span asp-validation-for="SerialNumberId" class="text-danger"></span>
                 </div>
-                <div class="form-group" id="subinvInputDiv">
+                <div class="form-group snColor" id="subinvInputDiv">
                     <label asp-for="SubinventoryId" class="control-label"></label>
                     <select asp-for="SubinventoryId" class="searchDropdown" id="selectSubinv" style="width:100%;">
                         <option selected disabled>Select Subinventory</option>
@@ -31,7 +36,7 @@
                     <span asp-validation-for="SubinventoryId" class="text-danger"></span>
                 </div>
 
-                <div class="form-group" id="partNumInputDiv">
+                <div class="form-group snColor" id="partNumInputDiv">
                     <label asp-for="PartId" class="control-label"></label>
                     <select asp-for="PartId" class="searchDropdown" id="selectPartId" style="width:100%;">
                         <option selected disabled>Select Part</option>
@@ -45,35 +50,44 @@
                     </select>
                     <span asp-validation-for="PartId" class="text-danger"></span>
                 </div>
-                <div class="form-group" id="InvIdDiv" >
+                <div class="form-group" id="InvIdDiv" hidden>
                     <label asp-for="CustomInventoryId" class="control-label"></label>
                     <input asp-for="CustomInventoryId" class="form-control" id="invId" />
                     <span asp-validation-for="CustomInventoryId" class="text-danger"></span>
                 </div>
-                <input type="submit" value="Create" class="btn btn-primary hvr-glow btn-lg" style="width:45%;" />
+                <div>
+                    <a class="hvr-icon-back hvr-shadow" style="width:7rem;height:5rem;border-radius:12px;border: 1px solid #000000;background-color:#858f9b;" asp-action="Index"><img class="fa fa-chevron-circle-left hvr-icon" src="/img/Back.png" style="height:5rem;" /></a>
+                    <input type="submit" value="Create" class="btn btn-lg hvr-shadow" style="width:7rem;height:5rem;border-radius:12px;border: 1px solid #000000;background-color:#709e6f;color: white;" />
+                </div>
             </form>
         </div>
-    </div>
-    <div class="form-group" style="background-color:lightseagreen;padding: 5px; margin: 10px auto; width: fit-content;border:1px solid black;border-radius:40px;">
-        <a class="hvr-backward" asp-action="Index"><img src="~/img/LeftArrow.png" style="height:50px;" /></a>
     </div>
 </div>
 
 
-
 <script>
-
-
-    
-
+    document.body.style.backgroundImage = "url(/img/HopperDuos.jpg)";
+    document.body.style.backgroundSize = "cover";
+    document.body.style.backgroundPosition = "center";
+    // Auto-populate Subinventory input field w/ user's
+    var subinv = document.getElementById("getSubInv").innerHTML;
+    var subinvList = document.getElementById("selectSubinv").querySelectorAll("option");
+    for (var i = 0; i < subinvList.length; i++) {
+        if (subinvList[i].value == subinv) {
+            document.getElementById("selectSubinv").selectedIndex = i;
+            break;
+        }
+    }
 
     // IF ACCESSING SERIALNUMBER/EDIT THRU INVENTORY/EDIT
     // Get the url.
     var pathArray = window.location.pathname.split('/');
     // Get the last part of url.
     var tokens = pathArray[pathArray.length - 1];
+    console.log(tokens.substr(0, 6));
+    console.log(tokens.substr(0, 3));
     // If this part of the url is more than 6 chars, auto-fill form.
-    if (tokens.length > 6) {
+    if (tokens.substr(0, 6) == "REMVAN") {
         console.log(tokens.substr(0, 8) + tokens.substr(8));
         //document.getElementById("partNumInputDiv").hidden = true;
         document.getElementById("selectPartId").value = tokens.substr(8);
@@ -81,17 +95,25 @@
         //document.getElementById("subinvInputDiv").hidden = true;
         document.getElementById("selectSubinv").value = tokens.substr(0, 8);
 
-        //document.getElementById("InvIdDiv").hidden = true;
+        ////.getElementById("InvIdDiv").hidden = true;
         document.getElementById("invId").value = tokens.substr(0, 8) + tokens.substr(8);
     }
-    else {
-        document.getElementById("selectPartId").onchange = function () {
-            document.getElementById("invId").value = document.getElementById("selectSubinv").value + document.getElementById("selectPartId").value;
-        };
-        document.getElementById("selectSubinv").onchange = function () {
-            document.getElementById("invId").value = document.getElementById("selectSubinv").value + document.getElementById("selectPartId").value;
-        };
+    else if (tokens.substr(0, 3) == "WHS") {
+        document.getElementById("partNumInputDiv").hidden = true;
+        document.getElementById("selectPartId").value = tokens.substr(3);
+
+        document.getElementById("subinvInputDiv").hidden = true;
+        document.getElementById("selectSubinv").value = tokens.substr(0, 3);
+
+        document.getElementById("InvIdDiv").hidden = true;
+        document.getElementById("invId").value = tokens.substr(0, 3) + tokens.substr(3);
     }
+    document.getElementById("selectPartId").onchange = function () {
+        document.getElementById("invId").value = document.getElementById("selectSubinv").value + document.getElementById("selectPartId").value;
+    };
+    document.getElementById("selectSubinv").onchange = function () {
+        document.getElementById("invId").value = document.getElementById("selectSubinv").value + document.getElementById("selectPartId").value;
+    };
 </script>
 
 @section Scripts {

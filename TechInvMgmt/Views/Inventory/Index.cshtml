@@ -1,6 +1,4 @@
 ﻿@model IEnumerable<TechInvMgmt.Models.Inventory>
-@using Microsoft.AspNetCore.Identity
-@inject UserManager<Employee> UserManager
 
 @{
     ViewData["Title"] = "Index";
@@ -35,18 +33,18 @@
         @foreach (var item in Model)
         {
             <tr class="hvr-forward">
-                <td>
-                    <a class="btn" asp-action="Edit" asp-route-id="@item.InventoryId" style="width:100%;">
+                <td style="background-color:#80558c;">
+                    <a class="btn" asp-action="Edit" asp-route-id="@item.InventoryId" style="width:100%;color:wheat;">
                         @Html.DisplayFor(modelItem => item.SubinventoryId)
                     </a>
                 </td>
-                <td>
+                <td style="background-color: #ccac88;">
                     <a class="btn" asp-action="Edit" asp-route-id="@item.InventoryId" style="width:100%;">
                         @Html.DisplayFor(modelItem => item.PartId)
                     </a>
                 </td>
-                <td>
-                    <a class="btn" asp-action="Edit" asp-route-id="@item.InventoryId" style="width:100%;">
+                <td style="background-color:#989898;">
+                    <a class="btn" asp-action="Edit" asp-route-id="@item.InventoryId" style="width:100%;font-size: 1rem;color:wheat;">
                         @Html.DisplayFor(modelItem => item.Quantity)
                     </a>
                 </td>
@@ -56,4 +54,8 @@
 </table>
 
 
-
+<script>
+    document.body.style.backgroundImage = "url(/img/CementFloorbg.jpg)";
+    document.body.style.backgroundPosition = "center";
+    document.body.style.backgroundSize = "cover";
+</script>

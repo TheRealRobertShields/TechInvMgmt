@@ -25,18 +25,18 @@
         {
 
             <tr class="hvr-forward">
-                <td>
-                    <a class="btn" asp-action="Edit" asp-route-id="@item.SubinventoryId" style="width:100%;">
+                <td style="background-color: #80558c;">
+                    <a class="btn" asp-action="Edit" asp-route-id="@item.SubinventoryId" style="width:100%;color: wheat;">
                         @Html.DisplayFor(modelItem => item.SubinventoryId)
                     </a>
                 </td>
-                <td>
-                    <a class="btn" asp-action="Edit" asp-route-id="@item.SubinventoryId" style="width:100%;">
+                <td style="background-color: #690707;">
+                    <a class="btn" asp-action="Edit" asp-route-id="@item.SubinventoryId" style="width:100%;color:wheat;">
                         @foreach (Employee e in employees)
                         {
-                            if (item.EmployeeId == e.Id)
+                            if (item.SubinventoryId == e.SubinventoryId)
                             {
-                                <p>@e.FirstName @e.LastName</p>
+                                <div style="width:100%;display:inline-block;">@e.FirstName @e.LastName</div>
                             }
                         }
                     </a>
@@ -45,3 +45,8 @@
         }
     </tbody>
 </table>
+<script>
+    document.body.style.backgroundImage = "url(/img/Van09bg.jpg)";
+    document.body.style.backgroundSize = "cover";
+    document.body.style.backgroundPosition = "center";
+</script>

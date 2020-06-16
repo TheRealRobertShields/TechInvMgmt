@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -44,21 +45,28 @@ namespace TechInvMgmt.Controllers
             return View();
         }
 
-        
+
         public async Task<IActionResult> MyInventory()
         {
-            List<Part> partsList = new List<Part>();
-
-            partsList = await (from part in _context.Parts
-                               select part).ToListAsync();
-            partsList.Insert(0, new Part { PartId = "", PartName = "Select" });
-
-            ViewBag.ListofParts = partsList;
-
-
-            return View(await _context.Inventory.ToListAsync());
+            var emp = User.Identity.Name;
+            string subinv = "RobertIsTheBest";
+            foreach (Employee employee in await _context.Employees.ToListAsync())
+            {
+                if (employee.UserName == User.Identity.Name)
+                {
+                    subinv = employee.SubinventoryId;
+                }
+            }
+            List<Inventory> subinvParts = new List<Inventory>();
+            subinvParts = await (from inv in _context.Inventory where inv.SubinventoryId == subinv
+                                 select inv).ToListAsync();
+            return View(subinvParts);
         }
-        
+        public async Task<IActionResult> ReplenishList()
+        {
+            return View();
+        }
+
 
         // GET: Inventory/Details/5
         public async Task<IActionResult> Details(string id)

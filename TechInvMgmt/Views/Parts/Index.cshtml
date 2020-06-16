@@ -9,7 +9,7 @@
 
 <div class="nav justify-content-center">
     <div style="width: 100%; text-align:center;">
-        <h1 id="header">Parts</h1>
+        <h1 id="header" class="partHeaders">Parts</h1>
     </div>
 </div>
 
@@ -27,7 +27,7 @@
                 @Html.DisplayNameFor(model => model.PartName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PartIsSerialized)
+                @Html.DisplayNameFor(model => model.PartCategory)
             </th>
         </tr>
     </thead>
@@ -35,29 +35,46 @@
         @foreach (var item in Model)
         {
         <tr class="hvr-forward">
-            <td>
+            <td style="background-color:#ccac88;">
                 <a class="btn" asp-action="Edit" asp-route-id="@item.PartId" style="width:100%;">
                     @Html.DisplayFor(modelItem => item.PartId)
                 </a>
             </td>
-            <td>
+            <td style="background-color:#ccac88;">
                 <a class="btn" asp-action="Edit" asp-route-id="@item.PartId" style="width:100%;">
                     @Html.DisplayFor(modelItem => item.PartName)
                 </a>
             </td>
-            <td>
+            <td style="background-color:#ccac88;">
                 <a class="btn" asp-action="Edit" asp-route-id="@item.PartId" style="width:100%;">
-                    @if (item.PartIsSerialized == true)
-                    {
-                        <div>Yes</div>
-                    }
-                    else
-                    {
-                        <div>No</div>
-                    }
+                    @Html.DisplayFor(modelItem => item.PartCategory)
                 </a>
             </td>
+            @*
+        @if (item.PartIsSerialized == true)
+        {
+            <td style="background-color: #91c5b2;">
+                <a class="btn" asp-action="Edit" asp-route-id="@item.PartId" style="width:100%;background-color:#91c5b2;">
+                    <div>Yes</div>
+                </a>
+            </td>
+        }
+        else
+        {
+            <td style="background-color: #cc948a;">
+                <a class="btn" asp-action="Edit" asp-route-id="@item.PartId" style="width:100%;background-color:#cc948a;">
+                    <div>No</div>
+                </a>
+            </td>
+        }
+            *@
+
         </tr>
         }
     </tbody>
 </table>
+<script>
+    document.body.style.backgroundImage = "url(/img/Partbg.jpg)";
+    document.body.style.backgroundPosition = "center";
+    document.body.style.backgroundSize = "cover";
+</script>

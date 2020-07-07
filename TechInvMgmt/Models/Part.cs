@@ -16,17 +16,17 @@ namespace TechInvMgmt.Models
         /// </summary>
         [Key]
         [Required]
-        [Display(Name = "Part Number")]
+        [Display(Name = "Id/Number")]
         public string PartId { get; set; }
 
         [Required]
-        [Display(Name = "Part Name")]
+        [Display(Name = "Name")]
         public string PartName { get; set; }
 
-        [Display(Name = "Part Description")]
+        [Display(Name = "Description")]
         public string PartDescription { get; set; }
 
-        [Display(Name = "Part Category")]
+        [Display(Name = "Category")]
         public string PartCategory { get; set; }
 
         [Required]

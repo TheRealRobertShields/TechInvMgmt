@@ -12,7 +12,7 @@ namespace TechInvMgmt.Models
     {
         [Key]
         [Required]
-        [Display(Name = "Subinventory Id")]
+        [Display(Name = "Subinventory")]
         public string SubinventoryId { get; set; }
 
 

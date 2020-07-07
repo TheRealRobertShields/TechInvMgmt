@@ -19,7 +19,7 @@ namespace TechInvMgmt.Models
         public string InventoryId { get; set; }
 
         [Required]
-        [Display(Name = "Subinventory")]
+        [Display(Name = "Subinv")]
         public string SubinventoryId { get; set; }
 
         [Required]
@@ -28,7 +28,7 @@ namespace TechInvMgmt.Models
 
         [Required]
         [Range(0, Double.PositiveInfinity)]
-        [Display(Name = "Quantity")]
+        [Display(Name = "Qty")]
         public int Quantity { get; set; }
 
     }

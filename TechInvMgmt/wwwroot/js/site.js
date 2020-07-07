@@ -10,28 +10,7 @@ $(document).ready(function () {
         responsive: true
     });
 
-    /*
-    // DATATABLES
-    var invHeader = document.getElementById("header");
-    if (typeof (invHeader) != 'undefined' && invHeader != null) {
-        if (invHeader.innerText == "MY INVENTORY") {
-            var subinv = document.getElementById("getSubInv").innerText;
-            $('#tableOfStuff').DataTable({
-                responsive: true,
-                "search": {
-                    "search": subinv
-                }
-            });
-            document.getElementById("tableOfStuff_filter").style.display = "none";
-            document.getElementById("header").textContent = subinv;
-        }
-        else {
-            $('#tableOfStuff').DataTable({
-                responsive: true
-            });
-        }
-    }
-    */
+
 
     
     

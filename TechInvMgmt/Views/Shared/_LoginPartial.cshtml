@@ -7,27 +7,27 @@
 
 
 
-<ul class="navbar-nav" style="list-style-type:none; display: flex;background-color: #00000030;padding-left: 1rem;border-radius: 10px;">
+<ul class="navbar-nav" >
 @if (SignInManager.IsSignedIn(User))
 {
     <li class="nav-item" style="width:fit-content;">
-        <a class="btn text-light hvr-icon-spin" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" style="text-align:center; padding-left: 0;">
+        <a class="btn text-dark hvr-icon-spin" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" style="text-align:center; padding-left: 0;">
             <img class="nav-icon fa fa-refresh hvr-icon" src="~/img/Smile.png" />  @User.Identity.Name <div id="getSubInv">@UserManager.GetUserAsync(User).Result?.SubinventoryId</div>
         </a>
     </li>
     <li class="nav-item" style="width:fit-content;">
         <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" >
-            <button type="submit" class="btn text-light hvr-icon-shrink" style="padding-left:0px;"><img class="nav-icon fa fa-frown-o hvr-icon" src="~/img/Logout.png" /> Logout</button>
+            <button type="submit" class="btn text-dark hvr-icon-shrink" style="padding-left:0px;"><img class="nav-icon fa fa-frown-o hvr-icon" src="~/img/Logout.png" /> Logout</button>
         </form>
     </li>
 }
 else
 {
     <li class="nav-item" style="width:fit-content;">
-        <a class="nav-link text-light hvr-bob" asp-area="Identity" asp-page="/Account/Register"><img class="nav-icon" src="~/img/Register.png" /> Register</a>
+        <a class="nav-link text-dark hvr-bob" asp-area="Identity" asp-page="/Account/Register"><img class="nav-icon" src="~/img/Register.png" /> Register</a>
     </li>
     <li class="nav-item" style="width:fit-content;">
-        <a class="nav-link text-light hvr-bob" asp-area="Identity" asp-page="/Account/Login"><img class="nav-icon" src="~/img/Login.png" /> Login</a>
+        <a class="nav-link text-dark hvr-bob" asp-area="Identity" asp-page="/Account/Login"><img class="nav-icon" src="~/img/Login.png" /> Login</a>
     </li>
 }
 </ul>

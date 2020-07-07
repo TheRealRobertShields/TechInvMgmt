@@ -19,7 +19,7 @@ namespace TechInvMgmt.Models
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
-        [Display(Name = "Subinventory")]
+        [Display(Name = "Subinv")]
         public string SubinventoryId { get; set; }
 
         [Required]

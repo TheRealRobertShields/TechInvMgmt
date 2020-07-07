@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -62,10 +63,21 @@ namespace TechInvMgmt.Controllers
                                  select inv).ToListAsync();
             return View(subinvParts);
         }
-        public async Task<IActionResult> ReplenishList()
+
+        public async Task<IActionResult> ReplenishListAsync()
         {
-            return View();
+            List<Part> partsList = new List<Part>();
+
+            partsList = await(from part in _context.Parts
+                              select part).ToListAsync();
+            partsList.Insert(0, new Part { PartId = "", PartName = "Select" });
+
+            ViewBag.ListofParts = partsList;
+
+
+            return View(await _context.Inventory.ToListAsync());
         }
+
 
 
         // GET: Inventory/Details/5

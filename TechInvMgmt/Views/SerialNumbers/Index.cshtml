@@ -9,16 +9,16 @@
     </div>
 
 
-<table id="tableOfStuff" class="display compact cell-border hover" style="text-align:center;">
+<table class="table table-striped breakpoint-lg myTables" style="text-align:center;background-color:white;width:75vw;margin: 0 auto;">
     <thead>
         <tr>
-            <th>
+            <th style="width:33%;">
                 @Html.DisplayNameFor(model => model.SerialNumberId)
             </th>
-            <th>
+            <th style="width:33%;">
                 @Html.DisplayNameFor(model => model.PartId)
             </th>
-            <th>
+            <th style="width:33%;">
                 @Html.DisplayNameFor(model => model.SubinventoryId)
             </th>
         </tr>
@@ -49,4 +49,6 @@
     document.body.style.backgroundImage = "url(/img/HopperDuos.jpg)"
     document.body.style.backgroundSize = "cover";
     document.body.style.backgroundPosition = "center";
+
+
 </script>

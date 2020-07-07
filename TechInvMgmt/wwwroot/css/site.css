@@ -1,6 +1,14 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
+
+.table th, .table td {
+     padding: 0 !important; 
+}
+.myTables {
+    box-shadow: 0px 0px 30px -5px #000000;
+}
+
 #myInv {
     font-size: 15px;
     font-weight: 600;
@@ -11,14 +19,10 @@ a.navbar-brand {
     text-align: center;
 }
 
-/*
-#theBody{
-    background-image: url("../img/WHStransparent.png");
-    background-position:center;
-    background-size:cover;
-}
-*/
 
+.bodyContainer {
+    margin: 2rem 3% 2rem 3%;
+}
 
 
 
@@ -75,7 +79,7 @@ a.navbar-brand {
 
 .select2-search--dropdown .select2-search__field {
     background-color: #eaeff7 !important;
-    width: 33% !important;
+    width: 75% !important;
     border-radius: 20px !important;
 }
 

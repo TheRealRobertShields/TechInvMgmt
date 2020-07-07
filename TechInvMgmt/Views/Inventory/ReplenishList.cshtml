@@ -1,1 +1,126 @@
-﻿
+﻿@model IEnumerable<TechInvMgmt.Models.Inventory>
+@inject TechInvMgmt.Data.ApplicationDbContext context
+@{
+    ViewData["Title"] = "Replenish";
+    List<Subinventory> subinventories = await TechInvMgmt.Data.SubinventoryDb.GetSubinvParts(context);
+    List<Part> parts = await TechInvMgmt.Data.PartDb.GetPartsAsync(context);
+
+    bool alternateRowColor = true;
+    var RowColor_Subinv = "80558c";
+    var RowColor_Part = "ccac88";
+    var RowColor_Qty = "989898";
+    var everyOtherRowColor_Subinv = "93739c";
+    var everyOtherRowColor_Part = "d2bba2";
+    var everyOtherRowColor_Qty = "a7a7a7";
+    var bgColor_Subinv = "";
+    var bgColor_Part = "";
+    var bgColor_Qty = "";
+}
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success alert-dismissible" role="alert">@TempData["Message"]</div>
+}
+
+<div class="nav justify-content-center" style="width: 100%; text-align:center;padding-bottom:1%;">
+    <h1 id="header" style="width:100%;">Replenish</h1>
+    <select class="searchDropdown" id="search" style="width:180px;text-align:center;margin:auto;">
+        <option selected disabled>Select Subinventory</option>
+        @foreach (Subinventory s in subinventories)
+        {
+            <option value="@s.SubinventoryId">@s.ToString()</option>
+        }
+    </select>
+</div>
+
+<table class="table table-striped breakpoint-lg myTables" style="text-align:center;background-color:white;width:75vw;margin: 0 auto;" id="replenishTable">
+    <thead>
+        <tr>
+            <th style="width:33%;">
+                @Html.DisplayNameFor(model => model.SubinventoryId)
+            </th>
+            <th style="width:33%;">
+                @Html.DisplayNameFor(model => model.PartId)
+            </th>
+            <th style="width:33%;">
+                Qty
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            if (alternateRowColor)
+            {
+                alternateRowColor = false;
+                bgColor_Subinv = RowColor_Subinv;
+                bgColor_Part = RowColor_Part;
+                bgColor_Qty = RowColor_Qty;
+            }
+            else
+            {
+                alternateRowColor = true;
+                bgColor_Subinv = everyOtherRowColor_Subinv;
+                bgColor_Part = everyOtherRowColor_Part;
+                bgColor_Qty = everyOtherRowColor_Qty;
+            }
+            if (item.SubinventoryId != "WHS")
+            {
+                <tr class="hvr-forward">
+                    <td style="background-color:#@bgColor_Subinv;">
+                        <a class="btn" asp-action="Edit" asp-route-id="@item.InventoryId" style="width:100%;color:wheat;">
+                            @Html.DisplayFor(modelItem => item.SubinventoryId)
+                        </a>
+                    </td>
+                    <td style="background-color: #@bgColor_Part;">
+                        <a class="btn" asp-action="Edit" asp-route-id="@item.InventoryId" style="width:100%;">
+                            @Html.DisplayFor(modelItem => item.PartId)
+                        </a>
+                    </td>
+                    <td style="background-color:#@bgColor_Qty;">
+                        <a class="btn" asp-action="Edit" asp-route-id="@item.InventoryId" style="width:100%;font-size: 1rem;color:wheat;">
+                            @foreach (var p in parts)
+                            {
+                                if (item.PartId == p.PartId)
+                                {
+                                    int replenishQty = p.RemoteBaseStock - item.Quantity;
+                                    <div>@replenishQty</div>
+                                }
+                            }
+                        </a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<script>
+    var searchValue = document.getElementById("search");
+    var listOfRows = document.querySelectorAll("tr");
+
+    // hide all rows to begin
+    for (var i = listOfRows.length - 1; i > 0; i--) {
+        listOfRows[i].style.display = "none";
+    }
+
+    // whenever search box is changed
+    searchValue.onchange = function () {
+        // check the user input
+        console.log("USER INPUT: " + searchValue.value.trim());
+        // make sure each row is displaying
+        for (var i = listOfRows.length - 1; i > 0; i--) {
+            listOfRows[i].style.display = "table-row";
+        }
+        // hide each row that does NOT contain the user input
+        for (var i = listOfRows.length-1; i > 0; i--) {
+            if (listOfRows[i].firstChild.nextSibling.firstChild.nextSibling.textContent.trim() != searchValue.value.toUpperCase().trim()) {
+                listOfRows[i].style.display = "none";
+            }
+        }
+    };
+
+    document.body.style.backgroundImage = "url(/img/CementFloorbg.jpg)";
+    document.body.style.backgroundPosition = "center";
+    document.body.style.backgroundSize = "cover";
+</script>

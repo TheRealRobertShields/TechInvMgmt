@@ -7,7 +7,7 @@ namespace TechInvMgmt.Models
     {
         [Key]
         [Required]
-        [Display(Name = "Serial Number")]
+        [Display(Name = "SN")]
         public string SerialNumberId { get; set; }
 
 
@@ -17,7 +17,7 @@ namespace TechInvMgmt.Models
 
 
         [Required]
-        [Display(Name = "Subinventory")]
+        [Display(Name = "Subinv")]
         public string SubinventoryId { get; set; }
 
         [Required]

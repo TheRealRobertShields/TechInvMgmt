@@ -1,15 +1,27 @@
 ﻿@model IEnumerable<TechInvMgmt.Models.SerialNumber>
+@inject TechInvMgmt.Data.ApplicationDbContext context
 
 @{
     ViewData["Title"] = "Index";
+    List<Part> parts = await TechInvMgmt.Data.PartDb.GetPartsAsync(context);
 }
 
-    <div style="width: 100%; text-align:center;">
-        <h1 id="header" class="serialNumHeaders">Serial Numbers</h1>
+<div style="width: 100%; text-align:center;">
+    <h1 id="header" class="tablePageHeader">Serial Numbers</h1>
+</div>
+
+<div>
+    <div class="dropdown-toggle" href="#" style="float:left;">
+        <a class="nav-link hvr-sweep-to-right" data-toggle="collapse" data-target="#mySearch" style="padding:5px;text-align:center;background-color:#ffffff99;"><img class="nav-icon" src="~/img/Search.png" style="height:25px;" /> </a>
     </div>
+    <ul class="collapse" id="mySearch" style="margin-bottom:0px;float:left;list-style-type:none;padding:0;">
+        <li>
+            <input id="mySearchInput" placeholder="Search table" onkeyup="mySearchFilter()" style="text-align:center;background-color:#ffffff99;height:35px;border:none;" />
+        </li>
+    </ul>
+</div>
 
-
-<table class="table table-striped breakpoint-lg myTables" style="text-align:center;background-color:white;width:75vw;margin: 0 auto;">
+<table class="table myTables" id="indexTable" style="text-align:center;background-color:white;margin: 0 auto;">
     <thead>
         <tr>
             <th style="width:33%;">
@@ -24,31 +36,156 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr class="hvr-forward">
+    @foreach (var item in Model) {
+        <tr>
             <td style="background-color:#858f9b;">
-                <a class="btn" asp-action="Edit" asp-route-id="@item.SerialNumberId" style="width:100%;color:wheat;">
+                <a class="btn hvr-underline-from-center wide" asp-action="Edit" asp-route-id="@item.SerialNumberId">
                     @Html.DisplayFor(modelItem => item.SerialNumberId)
-                </a>
+                </a> 
             </td>
             <td style="background-color:#ccac88;">
-                <a class="btn" asp-action="Edit" asp-route-id="@item.SerialNumberId" style="width:100%;">
-                    @Html.DisplayFor(modelItem => item.PartId)
+                <a class="btn hvr-underline-from-center wide" asp-action="Edit" asp-route-id="@item.SerialNumberId" data-toggle="modal" data-target="#exampleModal" data-whatever="@item.SerialNumberId">
+                    @foreach (Part p in parts)
+                    {
+                        if (item.PartId == p.PartId)
+                        {
+                            <div style="display:inline-block;color:yellow;text-align:right;">@p.PartName</div>
+                            <div style="display:inline-block;color:white;text-align:left;">@Html.DisplayFor(modelItem => item.PartId)</div>
+                        }
+                    }
                 </a>
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title text-dark" id="exampleModalLabel">@item.SerialNumberId</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">@Html.DisplayNameFor(model => model.PartId):</label>
+                                        <input type="text" class="form-control" id="recipient-name" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                        <div class="collapse" id="collapseExample">
+                                            <div class="card card-body">
+                                                <select style="background-color:#650d0d;color:palegoldenrod;height:35px;font-size:1rem;" data-toggle="collapse" data-target="#collapseSelect" aria-expanded="false" aria-controls="collapseSelect">
+                                                    <option selected disabled>Select part</option>
+                                                    @foreach (Part p in parts)
+                                                    {
+                                                    <option value="@item.PartId">
+                                                        @p.PartName
+                                                        (@item.PartId)
+                                                    </option>
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-primary">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </td>
             <td style="background-color:#80558c;">
-                <a class="btn" asp-action="Edit" asp-route-id="@item.SerialNumberId" style="width:100%;color:wheat;">
+                <a class="btn hvr-underline-from-center wide" asp-action="Edit" asp-route-id="@item.SerialNumberId">
                     @Html.DisplayFor(modelItem => item.SubinventoryId)
                 </a>
             </td>
         </tr>
-}
+    }
     </tbody>
 </table>
+
+<div id="pages">
+</div>
+
+
+
+
+
 <script>
-    document.body.style.backgroundImage = "url(/img/HopperDuos.jpg)"
+    // Set background img
+    document.body.style.backgroundImage = "url(/img/Duos.jpg)"
     document.body.style.backgroundSize = "cover";
-    document.body.style.backgroundPosition = "center";
 
+    // Alternate table row color
+    var numOfCellsToIterateBy = 6; // numOfColumns * 2
+    var tableCells = document.querySelectorAll("td");
+    for (var i = 3; i < tableCells.length; i += numOfCellsToIterateBy) {
+        tableCells[i].style.background = "#9aa3ad";
+        tableCells[i+1].style.background = "#d2bba2";
+        tableCells[i+2].style.background = "#93739c";
+    }
 
+    var listOfRows = document.querySelectorAll("tr");
+
+    // Search all table cells
+    // function triggers onkeyup
+    function mySearchFilter() {
+        // Make sure all rows are displaying
+        for (var i = 0; i < listOfRows.length; i++) {
+            listOfRows[i].style.display = "table-row";
+        }
+        // Filter out unmatching rows
+        var mySearchInput = document.getElementById("mySearchInput").value;
+        for (var i = 1; i < listOfRows.length; i++) {
+            var rowContent = listOfRows[i].innerText.trim();
+            if (!rowContent.includes(mySearchInput.toUpperCase())) {
+                listOfRows[i].style.display = "none";
+            }
+        }
+        if (mySearchInput == "") {
+            console.log("paginating");
+            pagination();
+        }
+    }
+    
+    function pagination() {
+        var rowsPerPage = 10;
+        // If we need pagination
+        if (listOfRows.length - 1 > rowsPerPage) {
+            // Display the first page
+            for (var v = 1; v < listOfRows.length; v++) {
+                listOfRows[v].style.display = "none";
+            }
+
+            // Hide the rest
+            for (var i = 1; i <= rowsPerPage; i++) {
+                listOfRows[i].style.display = "table-row";
+            }
+
+            // If the page btns already exist, don't create duplicates.
+            var page1Btn = document.getElementById("page1Btn");
+            if (page1Btn == null) {
+                // Create the page btns
+                for (var i = 0; i <= (listOfRows.length - 2/*headerRow*/) / rowsPerPage; i++) {
+                    var pageBtn = document.createElement("a");
+                    pageBtn.innerText = i + 1;
+                    pageBtn.style.padding = "10px 15px 10px 15px";
+                    pageBtn.style.background = "#ffffff99";
+                    pageBtn.style.border = "none";
+                    pageBtn.setAttribute("class", "hvr-sweep-to-bottom");
+                    pageBtn.setAttribute("id", "page" + (i + 1) + "Btn");
+                    pageBtn.onclick = function () {
+                        var pageNumber = this.innerText.trim();
+                        for (var x = 1; x < listOfRows.length; x++) {
+                            listOfRows[x].style.display = "none";
+                        }
+                        for (var y = pageNumber * rowsPerPage - (rowsPerPage - 1); y <= pageNumber * rowsPerPage; y++) {
+                            listOfRows[y].style.display = "table-row";
+                        }
+                    };
+                    document.getElementById("pages").appendChild(pageBtn);
+                }
+            }
+        }
+    }
+    pagination();
 </script>

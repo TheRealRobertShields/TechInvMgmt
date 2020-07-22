@@ -4,95 +4,108 @@
     ViewData["Title"] = "Register";
 }
 <div class="justify-content-center" style="width:100%; text-align:center;">
-    <h1>@ViewData["Title"]</h1>
-
+    <h1 style="font-size:10vw;line-height:0.69;">@ViewData["Title"]</h1>
     <div class="row justify-content-center">
         <div class="col-md-4">
             <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-                <h4>Create a new account.</h4>
                 <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group" style="background-color:#f9c784;">
+                <div class="form-group">
                     <label asp-for="Input.FirstName"></label>
-                    <input asp-for="Input.FirstName" class="form-control" id="fName" style="text-align:center;opacity:0.8;" />
+                    <input asp-for="Input.FirstName" class="form-control"/>
                     <span asp-validation-for="Input.FirstName" class="text-danger"></span>
                 </div>
-                <div class="form-group" style="background-color:#f9c784;">
+                <div class="form-group">
                     <label asp-for="Input.LastName"></label>
-                    <input asp-for="Input.LastName" class="form-control" id="lName" style="text-align:center;opacity:0.8;" />
+                    <input asp-for="Input.LastName" class="form-control" style="text-align:center;" />
                     <span asp-validation-for="Input.LastName" class="text-danger"></span>
                 </div>
-                <div class="form-group" style="background-color:#f9c784;">
+                <div class="form-group">
                     <label asp-for="Input.Username"></label>
-                    <input asp-for="Input.Username" readonly class="form-control" id="username" style="text-align:center;opacity:0.8;" />
+                    <input asp-for="Input.Username" class="form-control" style="text-align:center;" />
                     <span asp-validation-for="Input.Username" class="text-danger"></span>
                 </div>
-                <div class="form-group" style="background-color:#f9c784;">
+                <div class="form-group">
                     <label asp-for="Input.Password"></label>
-                    <input asp-for="Input.Password" class="form-control" style="text-align:center;opacity:0.8;" />
+                    <input asp-for="Input.Password" class="form-control" style="text-align:center;" />
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
                 </div>
-                <div class="form-group" style="background-color:#f9c784;">
+                <div class="form-group">
                     <label asp-for="Input.ConfirmPassword"></label>
-                    <input asp-for="Input.ConfirmPassword" class="form-control" style="text-align:center;opacity:0.8;" />
+                    <input asp-for="Input.ConfirmPassword" class="form-control" style="text-align:center;" />
                     <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Input.AccountType"></label><br />
-                    <div class="btn-group btn-group-toggle" data-toggle="buttons" style="width:100%;flex-flow: wrap;">
-                        <label class="btn text-light" onclick="hideSubinvSectionForISP()" style="background-color:#93b7be;">
+                    <label asp-for="Input.AccountType"></label>
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons" style="width:100%;flex-flow:wrap;background-color:#650d0d;border: 2px solid white;">
+                        <label class="btn" onclick="highlightISP()" id="isp" style="margin:0;color:palegoldenrod;">
                             <input asp-for="Input.AccountType" value="ISP" class="form-control" type="radio" autocomplete="off">ISP
                         </label>
-                        <label class="btn text-light" onclick="hideSubinvSectionForFSM()" style="background-color:#a799b7;">
+                        <label class="btn" onclick="highlightFSM()" id="fsm" style="margin:0;color:palegoldenrod;">
                             <input asp-for="Input.AccountType" value="FSM" class="form-control" type="radio" autocomplete="off">FSM
                         </label>
-                        <label class="btn text-light" onclick="showSubinvSection()" style="background-color:#d36135;">
+                        <label class="btn" onclick="highlightTech()" id="tech" style="margin:0;color:palegoldenrod;">
                             <input asp-for="Input.AccountType" value="Tech" class="form-control" type="radio" autocomplete="off" id="techBtn">Tech
                         </label>
                     </div>
                     <br />
                     <span asp-validation-for="Input.AccountType" class="text-danger"></span>
                 </div>
-
-                <button type="submit" class="btn btn-primary">Register</button>
+                <div>
+                    <input type="submit" value="Register" class="btn submitBtn" style="padding: 1rem 2rem 1rem 2rem;border: 2px solid white;" />
+                </div>
+                <hr />
             </form>
         </div>
-    
+        <div class="btn-group dropup" style="position:absolute;bottom:0px;color:black;background-color:white;width:10rem;height:2rem;">
+            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Carina Nebula
+            </button>
+            <div class="dropdown-menu" style="color:black;background-color:white;padding:5px;width:200px;">
+                <p>
+                    Within the tempestuous Carina Nebula lies “Mystic Mountain.” This three-light-year-tall cosmic pinnacle, 
+                    imaged by the Hubble Space Telescope’s Wide Field Camera 3 in 2010, is made up primarily of dust and gas, 
+                    and exhibits signs of intense star-forming activity. The colors in this composite image correspond to the 
+                    glow of oxygen (blue), hydrogen and nitrogen (green) and sulfur (red).
+                </p>
+                <p>
+                    Image Credit: NASA, ESA, M. Livio and the Hubble 20th Anniversary Team (STScI)
+                </p>
+            </div>
+        </div>
     </div>
 </div>
 
 
 <script>
-    var subinvSection = document.getElementById("subinvSection");
-    function showSubinvSection() {
-        subinvSection.hidden = false;
-        document.getElementById("subinvInput").value = "REMVAN";
-        console.log(subinvSection.hidden);
+    document.body.style.backgroundImage = "url(/img/CarinaNebula.jpg)";
+    document.body.style.backgroundPosition = "center";
+    document.body.style.backgroundSize = "cover";
+    function highlightISP() {
+        document.getElementById("isp").style.backgroundColor = "palegoldenrod";
+        document.getElementById("isp").style.color = "#650d0d";
+        document.getElementById("fsm").style.backgroundColor = "transparent";
+        document.getElementById("fsm").style.color = "palegoldenrod";
+        document.getElementById("tech").style.backgroundColor = "transparent";
+        document.getElementById("tech").style.color = "palegoldenrod";
     }
-    function hideSubinvSectionForISP() {
-        subinvSection.hidden = true;
-        document.getElementById("subinvInput").value = "NONE";
-        console.log(subinvSection.hidden);
+    function highlightFSM() {
+        document.getElementById("isp").style.backgroundColor = "transparent";
+        document.getElementById("isp").style.color = "palegoldenrod";
+        document.getElementById("fsm").style.backgroundColor = "palegoldenrod";
+        document.getElementById("fsm").style.color = "#650d0d";
+        document.getElementById("tech").style.backgroundColor = "transparent";
+        document.getElementById("tech").style.color = "palegoldenrod";
     }
-    function hideSubinvSectionForFSM() {
-        subinvSection.hidden = true;
-        document.getElementById("subinvInput").value = "NONE";
-        console.log(subinvSection.hidden);
+    function highlightTech() {
+        document.getElementById("isp").style.backgroundColor = "transparent";
+        document.getElementById("isp").style.color = "palegoldenrod";
+        document.getElementById("fsm").style.backgroundColor = "transparent";
+        document.getElementById("fsm").style.color = "palegoldenrod";
+        document.getElementById("tech").style.backgroundColor = "palegoldenrod";
+        document.getElementById("tech").style.color = "#650d0d";
     }
-    document.getElementById("fName").onchange = function () {
-        var fName = document.getElementById("fName").value;
-        var fInitial = fName.substring(0, 1);
-        var lName = document.getElementById("lName").value;
-        console.log(fName + " " + fInitial + " " + lName);
-        document.getElementById("username").value = fInitial + lName;
-    };
-    document.getElementById("lName").onchange = function () {
-        var fName = document.getElementById("fName").value;
-        var fInitial = fName.substring(0, 1);
-        var lName = document.getElementById("lName").value;
-        console.log(fName + " " + fInitial + " " + lName);
-        document.getElementById("username").value = fInitial + lName;
-    };
+
 </script>
 
 @section Scripts {

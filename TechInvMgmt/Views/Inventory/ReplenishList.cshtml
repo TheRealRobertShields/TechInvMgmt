@@ -23,7 +23,7 @@
 }
 
 <div class="nav justify-content-center" style="width: 100%; text-align:center;padding-bottom:1%;">
-    <h1 id="header" style="width:100%;">Replenish</h1>
+    <h1 id="header" class="tablePageHeader">Replenish</h1>
     <select class="searchDropdown" id="search" style="width:180px;text-align:center;margin:auto;">
         <option selected disabled>Select Subinventory</option>
         @foreach (Subinventory s in subinventories)
@@ -33,7 +33,18 @@
     </select>
 </div>
 
-<table class="table table-striped breakpoint-lg myTables" style="text-align:center;background-color:white;width:75vw;margin: 0 auto;" id="replenishTable">
+<div>
+    <div class="dropdown-toggle" href="#" style="float:left;">
+        <a class="nav-link hvr-sweep-to-right" data-toggle="collapse" data-target="#mySearch" style="padding:5px;text-align:center;background-color:#ffffff99;"><img class="nav-icon" src="~/img/Search.png" style="height:25px;" /> </a>
+    </div>
+    <ul class="collapse" id="mySearch" style="margin-bottom:0px;float:left;list-style-type:none;padding:0;">
+        <li>
+            <input id="mySearchInput" placeholder="Search table" onkeyup="mySearchFilter()" style="text-align:center;background-color:#ffffff99;height:35px;border:none;" />
+        </li>
+    </ul>
+</div>
+
+<table class="table myTables" id="indexTable" style="text-align:center;background-color:white;margin: 0 auto;">
     <thead>
         <tr>
             <th style="width:33%;">
@@ -113,7 +124,7 @@
             listOfRows[i].style.display = "table-row";
         }
         // hide each row that does NOT contain the user input
-        for (var i = listOfRows.length-1; i > 0; i--) {
+        for (var i = listOfRows.length - 1; i > 0; i--) {
             if (listOfRows[i].firstChild.nextSibling.firstChild.nextSibling.textContent.trim() != searchValue.value.toUpperCase().trim()) {
                 listOfRows[i].style.display = "none";
             }
@@ -123,4 +134,35 @@
     document.body.style.backgroundImage = "url(/img/CementFloorbg.jpg)";
     document.body.style.backgroundPosition = "center";
     document.body.style.backgroundSize = "cover";
+
+    // Alternate table row color
+    var numOfCellsToIterateBy = 6; // numOfColumns * 2
+    var tableCells = document.querySelectorAll("td");
+    for (var i = 3; i < tableCells.length; i += numOfCellsToIterateBy) {
+        tableCells[i].style.background = "#93739c";
+        tableCells[i + 1].style.background = "#d2bba2";
+        tableCells[i + 2].style.background = "#a7a7a7";
+    }
+
+    var listOfRows = document.querySelectorAll("tr");
+
+    // Search all table cells
+    // function triggers onkeyup
+    function mySearchFilter() {
+        // Make sure all rows are displaying
+        for (var i = 0; i < listOfRows.length; i++) {
+            listOfRows[i].style.display = "table-row";
+        }
+        // Filter out unmatching rows
+        var mySearchInput = document.getElementById("mySearchInput").value;
+        for (var i = 1; i < listOfRows.length; i++) {
+            var rowContent = listOfRows[i].innerText.trim();
+            if (!rowContent.includes(mySearchInput.toUpperCase())) {
+                listOfRows[i].style.display = "none";
+            }
+        }
+        if (mySearchInput == "") {
+            pagination();
+        }
+    }
 </script>

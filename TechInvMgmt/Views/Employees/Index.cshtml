@@ -7,21 +7,32 @@
 
 <div class="nav justify-content-center">
     <div style="width: 100%; text-align:center;">
-        <h1 id="header">Employees</h1>
+        <h1 id="header" class="tablePageHeader">Employees</h1>
     </div>
 </div>
 
 
-<table id="tableOfStuff" class="display compact cell-border hover" style="text-align:center;">
+<div>
+    <div class="dropdown-toggle" href="#" style="float:left;">
+        <a class="nav-link hvr-sweep-to-right" data-toggle="collapse" data-target="#mySearch" style="padding:5px;text-align:center;background-color:#ffffff99;"><img class="nav-icon" src="~/img/Search.png" style="height:25px;" /> </a>
+    </div>
+    <ul class="collapse" id="mySearch" style="margin-bottom:0px;float:left;list-style-type:none;padding:0;">
+        <li>
+            <input id="mySearchInput" placeholder="Search table" onkeyup="mySearchFilter()" style="text-align:center;background-color:#ffffff99;height:35px;border:none;" />
+        </li>
+    </ul>
+</div>
+
+<table class="table myTables" id="indexTable" style="text-align:center;background-color:white;margin: 0 auto;">
     <thead>
         <tr>
-            <th>
+            <th style="width:33%;">
                 Name
             </th>
-            <th>
+            <th style="width:33%;">
                 @Html.DisplayNameFor(model => model.SubinventoryId)
             </th>
-            <th>
+            <th style="width:33%;">
                 AccountType
             </th>
         </tr>
@@ -30,32 +41,32 @@
         @foreach (var item in Model)
         {
             <tr class="hvr-forward">
-                <td style="background-color: #f0ad4e;">
-                    <a class="btn" asp-action="Edit" asp-controller="Employees" asp-route-id="@item.Id" style="width:100%;">
+                <td style="background-color:#8e0b0b;">
+                    <a class="btn" asp-action="Edit" asp-controller="Employees" asp-route-id="@item.Id" style="width:100%;color:white;">
                         @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
                     </a>
                 </td>
                 <td style="background-color:#80558c;">
-                    <a class="btn" asp-action="Edit" asp-controller="Employees" asp-route-id="@item.Id" style="width:100%;color:wheat;">
+                    <a class="btn" asp-action="Edit" asp-controller="Employees" asp-route-id="@item.Id" style="width:100%;color:white;">
                         @Html.DisplayFor(modelItem => item.SubinventoryId)
                     </a>
                 </td>
                 <td style="background-color:#989898;">
                     @if (item.AccountType == "Tech")
                     {
-                        <a class="btn" asp-action="Edit" asp-controller="Employees" asp-route-id="@item.Id" style="width:100%;color:wheat;">
+                        <a class="btn" asp-action="Edit" asp-controller="Employees" asp-route-id="@item.Id" style="width:100%;color:white;">
                             Tech
                         </a>
                     }
                     else if (item.AccountType == "ISP")
                     {
-                        <a class="btn" asp-action="Edit" asp-controller="Employees" asp-route-id="@item.Id" style="width:100%;color:wheat;">
+                        <a class="btn" asp-action="Edit" asp-controller="Employees" asp-route-id="@item.Id" style="width:100%;color:white;">
                             ISP
                         </a>
                     }
                     else
                     {
-                        <a class="btn" asp-action="Edit" asp-controller="Employees" asp-route-id="@item.Id" style="width:100%;color:wheat;">
+                        <a class="btn" asp-action="Edit" asp-controller="Employees" asp-route-id="@item.Id" style="width:100%;color:white;">
                             ADMIN
                         </a>
                     }
@@ -65,8 +76,85 @@
     </tbody>
 </table>
 
+<div id="pages">
+</div>
+
 <script>
     document.body.style.backgroundImage = "url(/img/CementFloorbg.jpg)";
     document.body.style.backgroundPosition = "center";
     document.body.style.backgroundSize = "cover";
+
+    // Alternate table row color
+    var numOfCellsToIterateBy = 6; // numOfColumns * 2
+    var tableCells = document.querySelectorAll("td");
+    for (var i = 3; i < tableCells.length; i += numOfCellsToIterateBy) {
+        tableCells[i].style.background = "#ca5d5d";
+        tableCells[i + 1].style.background = "#93739c";
+        tableCells[i + 2].style.background = "#b3b3b3";
+    }
+
+    var listOfRows = document.querySelectorAll("tr");
+
+    // Search all table cells
+    // function triggers onkeyup
+    function mySearchFilter() {
+        // Make sure all rows are displaying
+        for (var i = 0; i < listOfRows.length; i++) {
+            listOfRows[i].style.display = "table-row";
+        }
+        // Filter out unmatching rows
+        var mySearchInput = document.getElementById("mySearchInput").value;
+        for (var i = 1; i < listOfRows.length; i++) {
+            var rowContent = listOfRows[i].innerText.trim();
+            if (!rowContent.includes(mySearchInput.toUpperCase())) {
+                listOfRows[i].style.display = "none";
+            }
+        }
+        if (mySearchInput == "") {
+            console.log("paginating");
+            pagination();
+        }
+    }
+
+    function pagination() {
+        var rowsPerPage = 10;
+        // If we need pagination
+        if (listOfRows.length - 1 > rowsPerPage) {
+            // Display the first page
+            for (var v = 1; v < listOfRows.length; v++) {
+                listOfRows[v].style.display = "none";
+            }
+
+            // Hide the rest
+            for (var i = 1; i <= rowsPerPage; i++) {
+                listOfRows[i].style.display = "table-row";
+            }
+
+            // If the page btns already exist, don't create duplicates.
+            var page1Btn = document.getElementById("page1Btn");
+            if (page1Btn == null) {
+                // Create the page btns
+                for (var i = 0; i <= (listOfRows.length - 2/*headerRow*/) / rowsPerPage; i++) {
+                    var pageBtn = document.createElement("a");
+                    pageBtn.innerText = i + 1;
+                    pageBtn.style.padding = "10px 15px 10px 15px";
+                    pageBtn.style.background = "#ffffff99";
+                    pageBtn.style.border = "none";
+                    pageBtn.setAttribute("class", "hvr-sweep-to-bottom");
+                    pageBtn.setAttribute("id", "page" + (i + 1) + "Btn");
+                    pageBtn.onclick = function () {
+                        var pageNumber = this.innerText.trim();
+                        for (var x = 1; x < listOfRows.length; x++) {
+                            listOfRows[x].style.display = "none";
+                        }
+                        for (var y = pageNumber * rowsPerPage - (rowsPerPage - 1); y <= pageNumber * rowsPerPage; y++) {
+                            listOfRows[y].style.display = "table-row";
+                        }
+                    };
+                    document.getElementById("pages").appendChild(pageBtn);
+                }
+            }
+        }
+    }
+    pagination();
 </script>

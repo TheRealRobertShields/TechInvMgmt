@@ -24,41 +24,34 @@
                     <!--Only show nav links to other views if user is authenticated -->
                     @if (User.Identity.IsAuthenticated)
                     {
-                <ul class="navbar-nav flex-grow-1">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item dropdown" >
+                            <div class="dropdown-toggle" href="#">
+                                <a class="nav-link text-dark hvr-sweep-to-top" data-toggle="collapse" data-target="#tablesmenu" style="text-align:center;"><img class="nav-icon" src="~/img/Tables.png" style="height:35px;"/> Tables</a>
+                            </div>
+                            <ul class="collapse" id="tablesmenu" style="z-index:1;list-style-type:none;padding:0px;box-shadow: 0px 12px 15px -5px #000000;background-color:white;">
+                                <li><a class="nav-link btn hvr-sweep-to-right" asp-action="Index" asp-controller="Parts" style="padding:5px;width:100%;border-bottom: 1px dotted;"><img class="nav-icon" src="~/img/Parts.png" style="height:24px;" /><div class="text-dark"> Parts </div></a></li>
+                                <li><a class="nav-link btn hvr-sweep-to-right" asp-action="Index" asp-controller="SerialNumbers" style="padding:5px;width:100%;border-bottom: 1px dotted;"><img class="nav-icon" src="~/img/Barcode.png" style="height:24px;" /><div class="text-dark"> Serial Numbers </div></a></li>
+                                <li><a class="nav-link btn hvr-sweep-to-right" asp-action="Index" asp-controller="Inventory" style="padding:5px;width:100%;border-bottom: 1px dotted;"><img class="nav-icon" src="~/img/Inventory.png" style="height:24px;" /><div class="text-dark"> Inventory </div></a></li>
+                                <li><a class="nav-link btn hvr-sweep-to-right" asp-action="Index" asp-controller="Subinventories" style="padding:5px;width:100%;border-bottom: 1px dotted;"><img class="nav-icon" src="~/img/Van.png" style="height:24px;" /><div class="text-dark"> Subinventories </div></a></li>
+                                <li><a class="nav-link btn hvr-sweep-to-right" asp-action="Index" asp-controller="Employees" style="padding:5px;width:100%;border-bottom: 1px dotted;"><img class="nav-icon" src="~/img/Employees.png" style="height:24px;" /><div class="text-dark"> Employees </div></a></li>
+                                <li><a class="nav-link btn hvr-sweep-to-right" asp-action="ReplenishList" asp-controller="Inventory" style="padding:5px;width:100%;"><img class="nav-icon" src="~/img/Employees.png" style="height:24px;" /><div class="text-dark"> Replenish </div></a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown" >
+                            <div class="dropdown-toggle" href="#">
+                                <a class="nav-link text-dark hvr-sweep-to-top" data-toggle="collapse" data-target="#addmenu" style="text-align:center;"><img class="nav-icon" src="~/img/AddNew.png" style="height:35px;"/> Add</a>
+                            </div>
+                            <ul class="collapse" id="addmenu" style="z-index:1;list-style-type:none;padding:0px;box-shadow: 0px 12px 15px -5px #000000;background-color:white;">
+                                <li><a class="nav-link btn hvr-sweep-to-right" asp-action="Create" asp-controller="Parts" style="padding:5px;width:100%;border-bottom: 1px dotted;"><img class="nav-icon" src="~/img/Parts.png" style="height:24px;" /><div class="text-dark"> Part </div></a></li>
+                                <li><a class="nav-link btn hvr-sweep-to-right" asp-action="Create" asp-controller="SerialNumbers" style="padding:5px;width:100%;border-bottom: 1px dotted;"><img class="nav-icon" src="~/img/Barcode.png" style="height:24px;" /><div class="text-dark"> Serial Number </div></a></li>
+                                <li><a class="nav-link btn hvr-sweep-to-right" asp-action="Create" asp-controller="Inventory" style="padding:5px;width:100%;border-bottom: 1px dotted;"><img class="nav-icon" src="~/img/Inventory.png" style="height:24px;" /><div class="text-dark"> Inventory </div></a></li>
+                                <li><a class="nav-link btn hvr-sweep-to-right" asp-action="Create" asp-controller="Subinventories" style="padding:5px;width:100%;border-bottom: 1px dotted;"><img class="nav-icon" src="~/img/Van.png" style="height:24px;" /><div class="text-dark"> Subinventory </div></a></li>
+                                <li><a class="nav-link btn hvr-sweep-to-right" href="https://techinvmgmt.azurewebsites.net/Identity/Account/Register" style="padding:5px;width:100%;"><img class="nav-icon" src="~/img/Register.png" style="height:24px;" /><div class="text-dark"> Employee </div></a></li>
 
-                    <li class="nav-item dropdown" style="width:fit-content;">
-                        <div class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <a class="nav-link text-dark hvr-bob" style="text-align:center;"><img class="nav-icon" src="~/img/NumberedList.png" style="height:35px;"/> Tables</a>
-                        </div>
-                        <ul class="dropdown-menu" style=" margin-top: 2px; padding: 10px; width: 200px; box-shadow: 0px 12px 15px -5px #000000; background-color: #ffffff;">
-                            <li><a class="nav-link btn hvr-forward" asp-action="Index" asp-controller="Parts" style="text-align: left;"><img class="nav-icon" src="~/img/Parts.png" style="height:24px;" /><div class="text-dark"> Parts </div></a></li>
-                            <li><a class="nav-link btn hvr-forward" asp-action="Index" asp-controller="SerialNumbers" style="text-align: left;"><img class="nav-icon" src="~/img/Barcode.png" style="height:24px;" /><div class="text-dark"> Serial Numbers </div></a></li>
-                            <li><a class="nav-link btn hvr-forward" asp-action="Index" asp-controller="Inventory" style="text-align: left;"><img class="nav-icon" src="~/img/Inventory.png" style="height:24px;" /><div class="text-dark"> Inventory </div></a></li>
-                            <li><a class="nav-link btn hvr-forward" asp-action="Index" asp-controller="Subinventories" style="text-align: left;"><img class="nav-icon" src="~/img/Van.png" style="height:24px;" /><div class="text-dark"> Subinventories </div></a></li>
-                            <li><a class="nav-link btn hvr-forward" asp-action="Index" asp-controller="Employees" style="text-align: left;"><img class="nav-icon" src="~/img/Employees.png" style="height:24px;" /><div class="text-dark"> Employees </div></a></li>
-                            <li><a class="nav-link btn hvr-forward" asp-action="ReplenishList" asp-controller="Inventory" style="text-align: left;"><img class="nav-icon" src="~/img/Employees.png" style="height:24px;" /><div class="text-dark"> Replenish </div></a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item dropdown" style="width:fit-content;">
-                        <div class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <a class="nav-link text-dark hvr-bob" style="text-align:center;"><img class="nav-icon" src="~/img/PlusLined.png" style="height:35px;"/> Add</a>
-                        </div>
-                        <ul class="dropdown-menu" style=" margin-top: 2px; padding: 10px; width: 200px; box-shadow: 0px 12px 15px -5px #000000; background-color: #ffffff;">
-                            <li><a class="nav-link btn hvr-forward" asp-action="Create" asp-controller="Parts" style="text-align: left;"><img class="nav-icon" src="~/img/Parts.png" style="height:24px;" /><div class="text-dark"> Part </div></a></li>
-                            <li><a class="nav-link btn hvr-forward" asp-action="Create" asp-controller="SerialNumbers" style="text-align: left;"><img class="nav-icon" src="~/img/Barcode.png" style="height:24px;" /><div class="text-dark"> Serial Number </div></a></li>
-                            <li><a class="nav-link btn hvr-forward" asp-action="Create" asp-controller="Inventory" style="text-align: left;"><img class="nav-icon" src="~/img/Inventory.png" style="height:24px;" /><div class="text-dark"> Inventory </div></a></li>
-                            <li><a class="nav-link btn hvr-forward" asp-action="Create" asp-controller="Subinventories" style="text-align: left;"><img class="nav-icon" src="~/img/Van.png" style="height:24px;" /><div class="text-dark"> Subinventory </div></a></li>
-                            <li><a class="nav-link btn hvr-forward" href="https://techinvmgmt.azurewebsites.net/Identity/Account/Register" style="text-align: left;"><img class="nav-icon" src="~/img/Register.png" style="height:24px;" /><div class="text-dark"> Employee </div></a></li>
-
-                        </ul>
-                    </li>
-
-
-
-
-
-                </ul>
+                            </ul>
+                        </li>
+                    </ul>
                     }
                 </div>
             </div>
@@ -67,7 +60,7 @@
 
 
     <div class="bodyContainer">
-        <main role="main" class="pb-3" style="padding-top:30px;">
+        <main role="main" class="pb-3" style="padding-top:2rem;">
             @RenderBody()
         </main>
     </div>

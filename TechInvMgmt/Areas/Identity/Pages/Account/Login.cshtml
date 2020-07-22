@@ -5,52 +5,76 @@
     ViewData["Title"] = "Log in";
 }
 <div class="justify-content-center" style="width:100%; text-align:center;">
-    <h1>@ViewData["Title"]</h1>
+    <h1 style="font-size:10vw;line-height:0.69;">@ViewData["Title"]</h1>
     <div class="row justify-content-center">
         <div class="col-md-4">
             <section>
                 <form id="account" method="post">
-                    <h4>Use a local account to log in.</h4>
                     <hr />
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group" >
                         <label asp-for="Input.Username"></label>
-                        <input asp-for="Input.Username" class="form-control" style="text-align:center;background-color:#f9c784;" />
+                        <input asp-for="Input.Username" class="form-control" style="text-align:center;" />
                         <span asp-validation-for="Input.Username" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="Input.Password"></label>
-                        <input asp-for="Input.Password" class="form-control" style="text-align:center;background-color:#f9c784;" />
+                        <input asp-for="Input.Password" class="form-control" style="text-align:center;" />
                         <span asp-validation-for="Input.Password" class="text-danger"></span>
                     </div>
-
                     <div class="checkbox">
-                        <label asp-for="Input.RememberMe">
+                        <label class="text-light" asp-for="Input.RememberMe">
                             <input asp-for="Input.RememberMe" />
                             @Html.DisplayNameFor(m => m.Input.RememberMe)
                         </label>
                     </div>
+                    <div style="padding:15px;">
+                        <input type="submit" value="Log In" class="btn submitBtn" style="padding: 1rem 2rem 1rem 2rem;border: 2px solid white;"/>
+                    </div>
 
-                    <button type="submit" class="btn btn-primary">Log in</button>
+                    <hr />
 
-                    <div style="padding-top:20px;">
+                    <div>
                         <p>
-                            <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                            <a class="text-light" id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
                         </p>
                         <p>
-                            <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+                            <a class="text-light" asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
                         </p>
                         <p>
-                            <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
+                            <a class="text-light" id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
                         </p>
                     </div>
-                        
                 </form>
             </section>
         </div>
-    
+        <div class="btn-group dropup" style="position:absolute;bottom:0px;color:black;background-color:white;width:10rem;height:2rem;">
+            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Pillars of Creation
+            </button>
+            <div class="dropdown-menu" style="color:black;background-color:white;padding:5px;">
+                <p>
+                    These towering tendrils of cosmic dust and gas sit at the heart of M16, or the Eagle Nebula. The aptly named Pillars of Creation, featured in this stunning Hubble image, are part of an active star-forming region within the nebula and hide newborn stars in their wispy columns.
+
+                    Although this is not Hubble’s first image of this iconic feature of the Eagle Nebula, it is the most detailed. The blue colors in the image represent oxygen, red is sulfur, and green represents both nitrogen and hydrogen. The pillars are bathed in the scorching ultraviolet light from a cluster of young stars located just outside the frame. The winds from these stars are slowly eroding the towers of gas and dust.
+
+                    The nebula, discovered in 1745 by the Swiss astronomer Jean-Philippe Loys de Chéseaux, is located 7,000 light-years from Earth in the constellation Serpens.
+                </p>
+                <p>
+                    Credits: NASA, ESA and the Hubble Heritage Team (STScI/AURA)
+                </p>
+            </div>
+        </div>
     </div>
 </div>
+
+<script>
+    document.body.style.backgroundImage = "url(/img/EagleNebula.jpg)";
+    document.body.style.backgroundPosition = "center";
+    document.body.style.backgroundSize = "cover";
+</script>
+
+
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }

@@ -1,8 +1,27 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
-/*FORM-STYLING*/
 
+
+.paginationBtn {
+    padding: 10px 15px;
+    background: rgba(255, 255, 255, 0.6);
+    border: none;
+    margin-left: 1px;
+    cursor:pointer
+}
+
+.paginationBtn:hover {
+    background: white;
+}
+
+#pages {
+    overflow: hidden;
+    padding: 12px 0px 12px 0px;
+    float: left;
+}
+
+/*FORM-STYLING*/
 *:focus {
     outline: none;
     border: none;
@@ -17,7 +36,7 @@ for details on configuring this project to bundle and minify static web assets. 
 
 .form-control {
     background-clip: inherit;
-    border: 2px solid #ffffff;
+    border: 1px solid #ffffff;
 }
 
 .form-group {

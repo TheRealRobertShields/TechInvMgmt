@@ -7,10 +7,8 @@
 
 
 
-<div class="nav justify-content-center">
-    <div style="width: 100%; text-align:center;">
-        <h1 id="header" class="tablePageHeader">Parts</h1>
-    </div>
+<div style="width: 100%; text-align:center;">
+    <h1 id="header" class="tablePageHeader">Parts</h1>
 </div>
 
 <div>
@@ -24,6 +22,8 @@
     </ul>
 </div>
 
+<div id="pages">
+</div>
 
 
 <table class="table myTables" id="indexTable" style="text-align:center;background-color:white;margin: 0 auto;">
@@ -43,29 +43,27 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr class="hvr-forward">
-            <td style="background-color:#ccac88;">
-                <a class="btn" asp-action="Edit" asp-route-id="@item.PartId" style="width:100%;color:white;">
-                    @Html.DisplayFor(modelItem => item.PartId)
-                </a>
-            </td>
-            <td style="background-color:#ccac88;">
-                <a class="btn" asp-action="Edit" asp-route-id="@item.PartId" style="width:100%;color:yellow;">
-                    @Html.DisplayFor(modelItem => item.PartName)
-                </a>
-            </td>
-            <td style="background-color:#ccac88;">
-                <a class="btn" asp-action="Edit" asp-route-id="@item.PartId" style="width:100%;color:white;">
-                    @Html.DisplayFor(modelItem => item.PartCategory)
-                </a>
-            </td>
-        </tr>
+            <tr class="hvr-forward">
+                <td style="background-color:#ccac88;">
+                    <a class="btn" asp-action="Edit" asp-route-id="@item.PartId" style="width:100%;color:white;">
+                        @Html.DisplayFor(modelItem => item.PartId)
+                    </a>
+                </td>
+                <td style="background-color:#ccac88;">
+                    <a class="btn" asp-action="Edit" asp-route-id="@item.PartId" style="width:100%;color:yellow;">
+                        @Html.DisplayFor(modelItem => item.PartName)
+                    </a>
+                </td>
+                <td style="background-color:#ccac88;">
+                    <a class="btn" asp-action="Edit" asp-route-id="@item.PartId" style="width:100%;color:white;">
+                        @Html.DisplayFor(modelItem => item.PartCategory)
+                    </a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>
 
-<div id="pages">
-</div>
 
 <script>
     document.body.style.backgroundImage = "url(/img/Cardboard.jpg)";
@@ -108,12 +106,12 @@
         var rowsPerPage = 10;
         // If we need pagination
         if (listOfRows.length - 1 > rowsPerPage) {
-            // Display the first page.
+            // Display the first page
             for (var v = 1; v < listOfRows.length; v++) {
                 listOfRows[v].style.display = "none";
             }
 
-            // Hide the rest.
+            // Hide the rest
             for (var i = 1; i <= rowsPerPage; i++) {
                 listOfRows[i].style.display = "table-row";
             }
@@ -125,12 +123,14 @@
                 for (var i = 0; i <= (listOfRows.length - 2/*headerRow*/) / rowsPerPage; i++) {
                     var pageBtn = document.createElement("a");
                     pageBtn.innerText = i + 1;
-                    pageBtn.style.padding = "10px 15px 10px 15px";
-                    pageBtn.style.background = "#ffffff99";
-                    pageBtn.style.border = "none";
-                    pageBtn.setAttribute("class", "hvr-sweep-to-bottom");
-                    pageBtn.setAttribute("id", "page" + (i+1) + "Btn");
+                    pageBtn.setAttribute("class", "paginationBtn");
+                    pageBtn.setAttribute("id", "page" + (i + 1) + "Btn");
                     pageBtn.onclick = function () {
+                        var allPaginationBtns = document.getElementById("pages").querySelectorAll("a");
+                        for (var i = 0; i < allPaginationBtns.length; i++) {
+                            allPaginationBtns[i].style.backgroundColor = "#ffffff99";
+                        }
+                        this.style.background = "white";
                         var pageNumber = this.innerText.trim();
                         for (var x = 1; x < listOfRows.length; x++) {
                             listOfRows[x].style.display = "none";
@@ -142,8 +142,8 @@
                     document.getElementById("pages").appendChild(pageBtn);
                 }
             }
-            
         }
     }
     pagination();
+    document.getElementById("page1Btn").style.backgroundColor = "white";
 </script>

@@ -23,7 +23,7 @@
 <div id="pages">
 </div>
 
-<table class="table myTables" id="indexTable" style="text-align:center;background-color:white;margin: 0 auto;">
+<table class="myTables wide" id="indexTable" style="text-align:center;background-color:white;margin: 0 auto;">
     <thead>
         <tr>
             <th style="width:33%;">
@@ -42,12 +42,12 @@
         {
             <tr>
                 <td style="background-color:#858f9b;">
-                    <a class="btn hvr-underline-from-center wide" asp-action="Edit" asp-route-id="@item.SerialNumberId">
+                    <a class="myBtn hvr-underline-from-center wide font-White" asp-action="Edit" asp-route-id="@item.SerialNumberId">
                         @Html.DisplayFor(modelItem => item.SerialNumberId)
                     </a>
                 </td>
                 <td style="background-color:#ccac88;">
-                    <a class="btn hvr-underline-from-center wide" asp-action="Edit" asp-route-id="@item.SerialNumberId">
+                    <a class="myBtn hvr-underline-from-center wide font-White" asp-action="Edit" asp-route-id="@item.SerialNumberId">
                         @foreach (Part p in parts)
                         {
                             if (item.PartId == p.PartId)
@@ -59,7 +59,7 @@
                     </a>
                 </td>
                 <td style="background-color:#80558c;">
-                    <a class="btn hvr-underline-from-center wide" asp-action="Edit" asp-route-id="@item.SerialNumberId">
+                    <a class="myBtn hvr-underline-from-center wide font-White" asp-action="Edit" asp-route-id="@item.SerialNumberId">
                         @Html.DisplayFor(modelItem => item.SubinventoryId)
                     </a>
                 </td>
@@ -71,8 +71,7 @@
 
 <script>
     // Set background img
-    document.body.style.backgroundImage = "url(/img/Duos.jpg)"
-    document.body.style.backgroundSize = "cover";
+    document.body.style.backgroundColor = "#858f9b";
 
     // Alternate table row color
     var numOfCellsToIterateBy = 6; // numOfColumns * 2

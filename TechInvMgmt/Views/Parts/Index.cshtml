@@ -26,7 +26,7 @@
 </div>
 
 
-<table class="table myTables" id="indexTable" style="text-align:center;background-color:white;margin: 0 auto;">
+<table class="myTables wide" id="indexTable" style="text-align:center;background-color:white;margin: 0 auto;">
     <thead>
         <tr>
             <th style="width:33%;">
@@ -43,19 +43,19 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr class="hvr-forward">
+            <tr>
                 <td style="background-color:#ccac88;">
-                    <a class="btn" asp-action="Edit" asp-route-id="@item.PartId" style="width:100%;color:white;">
+                    <a class="myBtn hvr-underline-from-center wide font-White" asp-action="Edit" asp-route-id="@item.PartId">
                         @Html.DisplayFor(modelItem => item.PartId)
                     </a>
                 </td>
                 <td style="background-color:#ccac88;">
-                    <a class="btn" asp-action="Edit" asp-route-id="@item.PartId" style="width:100%;color:yellow;">
+                    <a class="myBtn hvr-underline-from-center wide" asp-action="Edit" asp-route-id="@item.PartId" style="color:yellow;">
                         @Html.DisplayFor(modelItem => item.PartName)
                     </a>
                 </td>
                 <td style="background-color:#ccac88;">
-                    <a class="btn" asp-action="Edit" asp-route-id="@item.PartId" style="width:100%;color:white;">
+                    <a class="myBtn hvr-underline-from-center wide font-White" asp-action="Edit" asp-route-id="@item.PartId">
                         @Html.DisplayFor(modelItem => item.PartCategory)
                     </a>
                 </td>
@@ -66,7 +66,7 @@
 
 
 <script>
-    document.body.style.backgroundImage = "url(/img/Cardboard.jpg)";
+    document.body.style.backgroundColor = "#ccac88";
     document.body.style.backgroundSize = "cover";
 
 

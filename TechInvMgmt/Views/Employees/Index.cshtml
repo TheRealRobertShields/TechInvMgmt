@@ -22,8 +22,10 @@
         </li>
     </ul>
 </div>
+<div id="pages">
+</div>
 
-<table class="table myTables" id="indexTable" style="text-align:center;background-color:white;margin: 0 auto;">
+<table class="myTables wide" id="indexTable" style="text-align:center;background-color:white;margin: 0 auto;">
     <thead>
         <tr>
             <th style="width:33%;">
@@ -40,33 +42,33 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr class="hvr-forward">
+            <tr>
                 <td style="background-color:#8e0b0b;">
-                    <a class="btn" asp-action="Edit" asp-controller="Employees" asp-route-id="@item.Id" style="width:100%;color:white;">
+                    <a class="myBtn wide font-White hvr-underline-from-center" asp-action="Edit" asp-controller="Employees" asp-route-id="@item.Id">
                         @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
                     </a>
                 </td>
                 <td style="background-color:#80558c;">
-                    <a class="btn" asp-action="Edit" asp-controller="Employees" asp-route-id="@item.Id" style="width:100%;color:white;">
+                    <a class="myBtn wide font-White hvr-underline-from-center" asp-action="Edit" asp-controller="Employees" asp-route-id="@item.Id">
                         @Html.DisplayFor(modelItem => item.SubinventoryId)
                     </a>
                 </td>
                 <td style="background-color:#989898;">
                     @if (item.AccountType == "Tech")
                     {
-                        <a class="btn" asp-action="Edit" asp-controller="Employees" asp-route-id="@item.Id" style="width:100%;color:white;">
+                        <a class="myBtn wide font-White hvr-underline-from-center" asp-action="Edit" asp-controller="Employees" asp-route-id="@item.Id">
                             Tech
                         </a>
                     }
                     else if (item.AccountType == "ISP")
                     {
-                        <a class="btn" asp-action="Edit" asp-controller="Employees" asp-route-id="@item.Id" style="width:100%;color:white;">
+                        <a class="myBtn wide font-White hvr-underline-from-center" asp-action="Edit" asp-controller="Employees" asp-route-id="@item.Id">
                             ISP
                         </a>
                     }
                     else
                     {
-                        <a class="btn" asp-action="Edit" asp-controller="Employees" asp-route-id="@item.Id" style="width:100%;color:white;">
+                        <a class="myBtn wide font-White hvr-underline-from-center" asp-action="Edit" asp-controller="Employees" asp-route-id="@item.Id">
                             ADMIN
                         </a>
                     }
@@ -76,13 +78,9 @@
     </tbody>
 </table>
 
-<div id="pages">
-</div>
 
 <script>
-    document.body.style.backgroundImage = "url(/img/CementFloorbg.jpg)";
-    document.body.style.backgroundPosition = "center";
-    document.body.style.backgroundSize = "cover";
+    document.body.style.backgroundColor = "#8e0b0b";
 
     // Alternate table row color
     var numOfCellsToIterateBy = 6; // numOfColumns * 2
@@ -137,12 +135,14 @@
                 for (var i = 0; i <= (listOfRows.length - 2/*headerRow*/) / rowsPerPage; i++) {
                     var pageBtn = document.createElement("a");
                     pageBtn.innerText = i + 1;
-                    pageBtn.style.padding = "10px 15px 10px 15px";
-                    pageBtn.style.background = "#ffffff99";
-                    pageBtn.style.border = "none";
-                    pageBtn.setAttribute("class", "hvr-sweep-to-bottom");
+                    pageBtn.setAttribute("class", "paginationBtn");
                     pageBtn.setAttribute("id", "page" + (i + 1) + "Btn");
                     pageBtn.onclick = function () {
+                        var allPaginationBtns = document.getElementById("pages").querySelectorAll("a");
+                        for (var i = 0; i < allPaginationBtns.length; i++) {
+                            allPaginationBtns[i].style.backgroundColor = "#ffffff99";
+                        }
+                        this.style.background = "white";
                         var pageNumber = this.innerText.trim();
                         for (var x = 1; x < listOfRows.length; x++) {
                             listOfRows[x].style.display = "none";
@@ -157,4 +157,5 @@
         }
     }
     pagination();
+    document.getElementById("page1Btn").style.backgroundColor = "white";
 </script>

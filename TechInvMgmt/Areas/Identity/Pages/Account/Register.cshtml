@@ -37,7 +37,7 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="Input.AccountType"></label>
-                    <div class="btn-group btn-group-toggle" data-toggle="buttons" style="width:100%;flex-flow:wrap;background-color:#650d0d;border: 2px solid white;">
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons" style="width:100%;flex-flow:wrap;background-color:#afafaf;">
                         <label class="btn" onclick="highlightISP()" id="isp" style="margin:0;color:palegoldenrod;">
                             <input asp-for="Input.AccountType" value="ISP" class="form-control" type="radio" autocomplete="off">ISP
                         </label>
@@ -52,7 +52,7 @@
                     <span asp-validation-for="Input.AccountType" class="text-danger"></span>
                 </div>
                 <div>
-                    <input type="submit" value="Register" class="btn submitBtn" style="padding: 1rem 2rem 1rem 2rem;border: 2px solid white;" />
+                    <input type="submit" value="Register" class="btn submitBtn" style="padding: 1rem 2rem 1rem 2rem;border: 1px solid white;" />
                 </div>
                 <hr />
             </form>
@@ -82,27 +82,18 @@
     document.body.style.backgroundPosition = "center";
     document.body.style.backgroundSize = "cover";
     function highlightISP() {
-        document.getElementById("isp").style.backgroundColor = "palegoldenrod";
         document.getElementById("isp").style.color = "#650d0d";
-        document.getElementById("fsm").style.backgroundColor = "transparent";
         document.getElementById("fsm").style.color = "palegoldenrod";
-        document.getElementById("tech").style.backgroundColor = "transparent";
         document.getElementById("tech").style.color = "palegoldenrod";
     }
     function highlightFSM() {
-        document.getElementById("isp").style.backgroundColor = "transparent";
         document.getElementById("isp").style.color = "palegoldenrod";
-        document.getElementById("fsm").style.backgroundColor = "palegoldenrod";
         document.getElementById("fsm").style.color = "#650d0d";
-        document.getElementById("tech").style.backgroundColor = "transparent";
         document.getElementById("tech").style.color = "palegoldenrod";
     }
     function highlightTech() {
-        document.getElementById("isp").style.backgroundColor = "transparent";
         document.getElementById("isp").style.color = "palegoldenrod";
-        document.getElementById("fsm").style.backgroundColor = "transparent";
         document.getElementById("fsm").style.color = "palegoldenrod";
-        document.getElementById("tech").style.backgroundColor = "palegoldenrod";
         document.getElementById("tech").style.color = "#650d0d";
     }
 

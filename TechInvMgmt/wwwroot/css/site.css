@@ -22,9 +22,10 @@ for details on configuring this project to bundle and minify static web assets. 
 }
 
 /*FORM-STYLING*/
-*:focus {
+*:focus, *:active {
     outline: none;
     border: none;
+    box-shadow:none;
 }
 
 .select2-container--default .select2-selection--single {
@@ -36,7 +37,6 @@ for details on configuring this project to bundle and minify static web assets. 
 
 .form-control {
     background-clip: inherit;
-    border: 1px solid #ffffff;
 }
 
 .form-group {
@@ -44,7 +44,7 @@ for details on configuring this project to bundle and minify static web assets. 
     margin: 10px auto;
     background-color: white;
     color: black;
-    box-shadow: 0px 0px 30px -5px #000000;
+    box-shadow: 0px 0px 5px 0px #27ff00;
     text-transform: uppercase;
     font-weight: 600;
     font-size: 0.765625rem;
@@ -52,13 +52,11 @@ for details on configuring this project to bundle and minify static web assets. 
 
     .form-group input,
     .form-group input:focus {
-        background-color: #650d0d;
-        color: palegoldenrod;
-        border: 2px solid #ffffff;
+        background-color: #afafaf;
+        border:none;
     }
 
 .submitBtn {
-    background-color: #650d0d;
     color: palegoldenrod;
 }
 
@@ -166,8 +164,6 @@ textarea:-webkit-autofill:focus,
 select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
-    -webkit-text-fill-color: palegoldenrod;
-    -webkit-box-shadow: 0 0 0px 1000px #650d0d inset;
     transition: background-color 5000s ease-in-out 0s;
 }
 

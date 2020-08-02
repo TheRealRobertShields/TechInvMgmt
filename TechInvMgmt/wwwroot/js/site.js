@@ -4,23 +4,18 @@
 // Write your JavaScript code.
 $(document).ready(function () {
 
-    // dropdown lists for CREATE forms
+    // dropdown lists for forms
     $('.searchDropdown').select2();
 
-    $('#exampleModal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget) // Button that triggered the modal
-        var recipient = button.data('whatever') // Extract info from data-* attributes
-        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-        var modal = $(this)
-        modal.find('.modal-title').text(recipient)
-        modal.find('.modal-body input').val(recipient)
-    })
-
-
-
     
-    
+    var navDropDownLinks = document.getElementById("tablesmenu").querySelectorAll("li");
+    var spanTopPosition = 0; 
+    for (var i = 0; i < navDropDownLinks.length; i++) {
+        console.log(spanTopPosition);
+        var hoverTip = navDropDownLinks[i].querySelector("span")
+        hoverTip.style.top = spanTopPosition + "px";
+        spanTopPosition += 45;
+    }
 });
 
 

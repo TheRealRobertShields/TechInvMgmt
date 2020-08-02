@@ -1,44 +1,7 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
-.hide {
-    z-index: -1;
-    display: none;
-    background-color: lightgrey;
-    position: relative;
-    left: 0%;
-    padding: 12px;
-    height: 45px;
-    color: black;
-    vertical-align:middle;
-    animation-name: hoverTipAnimination;
-    animation-duration: 100ms;
-    animation-timing-function: ease-out;
-    animation-fill-mode: forwards;
-}
-@keyframes hoverTipAnimination {
-    0% {
-        left: 0%;
-        opacity: 0;
-        position: absolute;
-    }
-    100% {
-        left: 100%;
-        opacity: 1;
-        position: absolute;
-    }
-}
-.myNavImg {
-    margin: 10px auto;
-}
-.myDIV:hover + .hide {
-    display: inline-flex;
-}
-.myDIV:hover {
-    transition: all 100ms linear;
-    transform: translateX(3px);
-    transition-timing-function:ease-out;
-}
+
 
 
 
@@ -159,6 +122,8 @@ for details on configuring this project to bundle and minify static web assets. 
 
 .myTables {
     /*box-shadow: 0px 0px 50px 10px white;*/
+    z-index: -3;
+    position: relative;
 }
 
 .tablePageHeader {
@@ -259,6 +224,47 @@ select:-webkit-autofill:focus {
     #tablesmenu, #addmenu {
         position: relative;
     }
+.hide {
+    background-color: lightgrey;
+    position: relative;
+    left: 0%;
+    padding: 12px;
+    height: 38px;
+    color: black;
+    vertical-align: middle;
+    animation-name: hoverTipAnimination;
+    animation-duration: 100ms;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+}
+
+@keyframes hoverTipAnimination {
+    0% {
+        left: 0%;
+        opacity: 0;
+        position: absolute;
+    }
+
+    100% {
+        left: 100%;
+        opacity: 1;
+        position: absolute;
+    }
+} 
+
+.myNavImg {
+    margin: 10px auto;
+}
+
+.myDIV:hover + .hide {
+    display: inline-flex;
+}
+
+.myDIV:hover {
+    transition: all 100ms linear;
+    transform: translateX(3px);
+    transition-timing-function: ease-out;
+}
 
     @media (min-width: 991px) {
         html {
@@ -267,7 +273,49 @@ select:-webkit-autofill:focus {
         #tablesmenu, #addmenu {
             position: absolute;
         }
+        .hide {
+            z-index: -1;
+            display: none;
+            background-color: lightgrey;
+            position: relative;
+            left: 0%;
+            padding: 12px;
+            height: 38px;
+            color: black;
+            vertical-align: middle;
+            animation-name: hoverTipAnimination;
+            animation-duration: 100ms;
+            animation-timing-function: ease-out;
+            animation-fill-mode: forwards;
+        }
 
+        @keyframes hoverTipAnimination {
+            0% {
+                left: 0%;
+                opacity: 0;
+                position: absolute;
+            }
+
+            100% {
+                left: 100%;
+                opacity: 1;
+                position: absolute;
+            }
+        }
+
+        .myNavImg {
+            margin: 10px auto;
+        }
+
+        .myDIV:hover + .hide {
+            display: inline-flex;
+        }
+
+        .myDIV:hover {
+            transition: all 100ms linear;
+            transform: translateX(3px);
+            transition-timing-function: ease-out;
+        }
     }
 
     .border-top {

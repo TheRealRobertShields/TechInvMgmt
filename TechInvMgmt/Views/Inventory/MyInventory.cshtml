@@ -13,15 +13,26 @@
 <div class="nav justify-content-center" style="width: 100%; text-align:center;">
     <h1 id="header">My Inventory</h1>
 </div>
+<div>
+    <div class="dropdown-toggle" href="#" style="float:left;">
+        <a class="nav-link hvr-sweep-to-right" data-toggle="collapse" data-target="#mySearch" style="padding:5px;text-align:center;background-color:#ffffff99;"><img class="nav-icon" src="~/img/Search.png" style="height:25px;" /> </a>
+    </div>
+    <ul class="collapse" id="mySearch" style="margin-bottom:0px;float:left;list-style-type:none;padding:0;">
+        <li>
+            <input id="mySearchInput" placeholder="Search table" onkeyup="mySearchFilter()" style="text-align:center;background-color:#ffffff99;height:35px;border:none;" />
+        </li>
+    </ul>
+</div>
+<div id="pages">
+</div>
 
-
-<table id="tableOfStuff" class="display compact cell-border hover" style="text-align:center;">
+<table class="myTables wide" id="indexTable" style="text-align:center;background-color:white;margin: 0 auto;">
     <thead>
         <tr>
-            <th>
+            <th style="width:50%;">
                 @Html.DisplayNameFor(model => model.PartId)
             </th>
-            <th>
+            <th style="width:50%;">
                 @Html.DisplayNameFor(model => model.Quantity)
             </th>
         </tr>
@@ -29,14 +40,14 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr class="hvr-forward">
+            <tr>
                 <td style="background-color: #ccac88;">
-                    <a class="btn" asp-action="Edit" asp-route-id="@item.InventoryId" style="width:100%;">
+                    <a class="myBtn wide font-White hvr-underline-from-center" asp-action="Edit" asp-route-id="@item.InventoryId">
                         @Html.DisplayFor(modelItem => item.PartId)
                     </a>
                 </td>
                 <td style="background-color:#989898;">
-                    <a class="btn" asp-action="Edit" asp-route-id="@item.InventoryId" style="width:100%;font-size: 1rem;color:wheat;">
+                    <a class="myBtn wide font-White hvr-underline-from-center" asp-action="Edit" asp-route-id="@item.InventoryId">
                         @Html.DisplayFor(modelItem => item.Quantity)
                     </a>
                 </td>
@@ -48,7 +59,81 @@
 
 
 <script>
-    document.body.style.backgroundImage = "url(/img/CementFloorbg.jpg)";
-    document.body.style.backgroundPosition = "center";
-    document.body.style.backgroundSize = "cover";
+    document.body.style.backgroundColor = "#989898";
+
+    // Alternate table row color
+    var numOfCellsToIterateBy = 4; // numOfColumns * 2
+    var tableCells = document.querySelectorAll("td");
+    for (var i = 2; i < tableCells.length; i += numOfCellsToIterateBy) {
+        tableCells[i].style.background = "#d2bba2";
+        tableCells[i + 1].style.background = "#a7a7a7";
+    }
+
+    var listOfRows = document.querySelectorAll("tr");
+
+    // Search all table cells
+    // function triggers onkeyup
+    function mySearchFilter() {
+        // Make sure all rows are displaying
+        for (var i = 0; i < listOfRows.length; i++) {
+            listOfRows[i].style.display = "table-row";
+        }
+        // Filter out unmatching rows
+        var mySearchInput = document.getElementById("mySearchInput").value;
+        for (var i = 1; i < listOfRows.length; i++) {
+            var rowContent = listOfRows[i].innerText.trim();
+            if (!rowContent.includes(mySearchInput.toUpperCase())) {
+                listOfRows[i].style.display = "none";
+            }
+        }
+        if (mySearchInput == "") {
+            console.log("paginating");
+            pagination();
+        }
+    }
+
+    function pagination() {
+        var rowsPerPage = 10;
+        // If we need pagination
+        if (listOfRows.length - 1 > rowsPerPage) {
+            // Display the first page
+            for (var v = 1; v < listOfRows.length; v++) {
+                listOfRows[v].style.display = "none";
+            }
+
+            // Hide the rest
+            for (var i = 1; i <= rowsPerPage; i++) {
+                listOfRows[i].style.display = "table-row";
+            }
+
+            // If the page btns already exist, don't create duplicates.
+            var page1Btn = document.getElementById("page1Btn");
+            if (page1Btn == null) {
+                // Create the page btns
+                for (var i = 0; i <= (listOfRows.length - 2/*headerRow*/) / rowsPerPage; i++) {
+                    var pageBtn = document.createElement("a");
+                    pageBtn.innerText = i + 1;
+                    pageBtn.setAttribute("class", "paginationBtn");
+                    pageBtn.setAttribute("id", "page" + (i + 1) + "Btn");
+                    pageBtn.onclick = function () {
+                        var allPaginationBtns = document.getElementById("pages").querySelectorAll("a");
+                        for (var i = 0; i < allPaginationBtns.length; i++) {
+                            allPaginationBtns[i].style.backgroundColor = "#ffffff99";
+                        }
+                        this.style.background = "white";
+                        var pageNumber = this.innerText.trim();
+                        for (var x = 1; x < listOfRows.length; x++) {
+                            listOfRows[x].style.display = "none";
+                        }
+                        for (var y = pageNumber * rowsPerPage - (rowsPerPage - 1); y <= pageNumber * rowsPerPage; y++) {
+                            listOfRows[y].style.display = "table-row";
+                        }
+                    };
+                    document.getElementById("pages").appendChild(pageBtn);
+                }
+            }
+        }
+    }
+    pagination();
+    document.getElementById("page1Btn").style.backgroundColor = "white";
 </script>

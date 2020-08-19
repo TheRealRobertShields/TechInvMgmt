@@ -27,27 +27,27 @@
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item dropdown" >
                             <div class="dropdown-toggle" href="#">
-                                <a class="nav-link text-dark hvr-sweep-to-top" data-toggle="collapse" data-target="#tablesmenu" style="text-align:center;width:51px;"><img class="nav-icon" src="~/img/Tables.png" style="height:35px;"/></a>
+                                <a class="nav-link text-dark" data-toggle="collapse" data-target="#tablesmenu"><img class="nav-icon" src="~/img/Tables.png"/><span>Tables</span></a>
                             </div>
-                            <ul class="collapse" id="tablesmenu" style="list-style-type:none;padding:0px;box-shadow: 0px 12px 15px -5px #000000;background-color:white;width:50px;">
-                                <li><div class="myDIV"><a asp-action="MyInventory" asp-controller="Inventory" style="width:100%;display:flex;"><img class="myNavImg" src="~/img/Inventory.png" /></a></div><span class="hide">My Inventory</span></li>
-                                <li><div class="myDIV"><a asp-action="Index" asp-controller="Parts" style="width:100%;display:flex;"><img class="myNavImg" src="~/img/Parts.png" /></a></div><span class="hide">Parts</span></li>
-                                <li><div class="myDIV"><a asp-action="Index" asp-controller="SerialNumbers" style="width:100%;display:flex;"><img class="myNavImg" src="~/img/Barcode.png" /></a></div><span class="hide">SerialNumbers</span></li>
-                                <li><div class="myDIV"><a asp-action="Index" asp-controller="Inventory" style="width:100%;display:flex;"><img class="myNavImg" src="~/img/Inventory.png" /></a></div><span class="hide">Inventory</span></li>
-                                <li><div class="myDIV"><a asp-action="Index" asp-controller="Subinventories" style="width:100%;display:flex;"><img class="myNavImg" src="~/img/Van.png" /></a></div><span class="hide">Subinventories</span></li>
-                                <li><div class="myDIV"><a asp-action="Index" asp-controller="Employees" style="width:100%;display:flex;"><img class="myNavImg" src="~/img/Employees.png" /></a></div><span class="hide">Employees</span></li>
-                                <li><div class="myDIV"><a asp-action="ReplenishList" asp-controller="Inventory" style="width:100%;display:flex;"><img class="myNavImg" src="~/img/Inventory.png" /></a></div><span class="hide">ReplenishList</span></li>
+                            <ul class="collapse" id="tablesmenu" style="list-style-type:none;padding:0px;box-shadow: 0px 12px 15px -5px #000000;background-color:white;width:50px;z-index:1;">
+                                <li class="dottedBorderBottom"><div class="myDIV"><a asp-action="MyInventory" asp-controller="Inventory" style="width:100%;display:flex;"><img class="myNavImg" src="~/img/Inventory.png" /></a></div><span class="hide">My Inv</span></li>
+                                <li class="dottedBorderBottom"><div class="myDIV"><a asp-action="Index" asp-controller="Parts" style="width:100%;display:flex;"><img class="myNavImg" src="~/img/Parts.png" /></a></div><span class="hide">Parts</span></li>
+                                <li class="dottedBorderBottom"><div class="myDIV"><a asp-action="Index" asp-controller="SerialNumbers" style="width:100%;display:flex;"><img class="myNavImg" src="~/img/Barcode.png" /></a></div><span class="hide">Serial#</span></li>
+                                <li class="dottedBorderBottom"><div class="myDIV"><a asp-action="Index" asp-controller="Inventory" style="width:100%;display:flex;"><img class="myNavImg" src="~/img/Inventory.png" /></a></div><span class="hide">Inventory</span></li>
+                                <li class="dottedBorderBottom"><div class="myDIV"><a asp-action="Index" asp-controller="Subinventories" style="width:100%;display:flex;"><img class="myNavImg" src="~/img/Van.png" /></a></div><span class="hide">Subinvs</span></li>
+                                <li class="dottedBorderBottom"><div class="myDIV"><a asp-action="Index" asp-controller="Employees" style="width:100%;display:flex;"><img class="myNavImg" src="~/img/Employees.png" /></a></div><span class="hide">Employees</span></li>
+                                <li><div class="myDIV"><a asp-action="ReplenishList" asp-controller="Inventory" style="width:100%;display:flex;"><img class="myNavImg" src="~/img/Inventory.png" /></a></div><span class="hide">Replenish</span></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown" >
                             <div class="dropdown-toggle" href="#">
-                                <a class="nav-link text-dark hvr-sweep-to-top" data-toggle="collapse" data-target="#addmenu" style="text-align:center;width:51px;"><img class="nav-icon" src="~/img/AddNew.png" style="height:35px;"/></a>
+                                <a class="nav-link text-dark" data-toggle="collapse" data-target="#addmenu"><img class="nav-icon" src="~/img/AddNew.png"/><span>Add</span></a>
                             </div>
-                            <ul class="collapse" id="addmenu" style="z-index:1;list-style-type:none;padding:0px;box-shadow: 0px 12px 15px -5px #000000;background-color:white;width:50px;">
-                                <li><a class="nav-link btn hvr-sweep-to-right wide" asp-action="Create" asp-controller="Parts" style="border-bottom: 1px dotted;"><img class="nav-icon" src="~/img/Parts.png" style="height:24px;" /></a></li>
-                                <li><a class="nav-link btn hvr-sweep-to-right wide" asp-action="Create" asp-controller="SerialNumbers" style="border-bottom: 1px dotted;"><img class="nav-icon" src="~/img/Barcode.png" style="height:24px;" /></a></li>
-                                <li><a class="nav-link btn hvr-sweep-to-right wide" asp-action="Create" asp-controller="Inventory" style="border-bottom: 1px dotted;"><img class="nav-icon" src="~/img/Inventory.png" style="height:24px;" /></a></li>
-                                <li><a class="nav-link btn hvr-sweep-to-right wide" asp-action="Create" asp-controller="Subinventories" style="border-bottom: 1px dotted;"><img class="nav-icon" src="~/img/Van.png" style="height:24px;" /></a></li>
+                            <ul class="collapse" id="addmenu" style="list-style-type:none;padding:0px;box-shadow: 0px 12px 15px -5px #000000;background-color:white;width:50px;z-index:1">
+                                <li><a class="nav-link btn hvr-sweep-to-right wide" asp-action="Create" asp-controller="Parts" style="border-bottom: 1px dotted;"><img class="nav-icon" src="~/img/Parts.png" style="height:24px;" /></a><span class="hide">Add Part</span></li>
+                                <li><a class="nav-link btn hvr-sweep-to-right wide" asp-action="Create" asp-controller="SerialNumbers" style="border-bottom: 1px dotted;"><img class="nav-icon" src="~/img/Barcode.png" style="height:24px;" /></a><span class="hide">Add Serial#</span></li>
+                                <li><a class="nav-link btn hvr-sweep-to-right wide" asp-action="Create" asp-controller="Inventory" style="border-bottom: 1px dotted;"><img class="nav-icon" src="~/img/Inventory.png" style="height:24px;" /></a><span class="hide">Add to Inv</span></li>
+                                <li><a class="nav-link btn hvr-sweep-to-right wide" asp-action="Create" asp-controller="Subinventories" style="border-bottom: 1px dotted;"><img class="nav-icon" src="~/img/Van.png" style="height:24px;" /></a><span class="hide">Add Subinv</span></li>
                                 <li><a class="nav-link btn hvr-sweep-to-right wide" href="https://techinvmgmt.azurewebsites.net/Identity/Account/Register"><img class="nav-icon" src="~/img/Register.png" style="height:24px;" /></a></li>
 
                             </ul>

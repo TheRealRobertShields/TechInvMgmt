@@ -1,17 +1,43 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
+h1, h2, h3, h4, h5, h6 {
+    color: black;
+}
 
+.dottedBorderBottom {
+    border-bottom: 1px dotted;
+}
 
+#filesHandlerGroup {
+    width: 21rem;
+    margin: 0 auto;
+    padding: 0.5rem;
+    background-color: cornflowerblue;
+}
+
+#commense, #commense:active, .fileInput {
+    padding: 5px;
+    color: black;
+    border: none;
+    background-color: green;
+    border-radius:0px;
+}
+    #commense:hover {
+        color: green;
+        background-color: black;
+    }
 
 
 
 .paginationBtn {
     padding: 10px 15px;
-    background: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.4);
     border: none;
     margin-left: 1px;
-    cursor: pointer
+    cursor: pointer;
+    float: left;
+    display: inline-block;
 }
 
 .paginationBtn:hover {
@@ -20,8 +46,9 @@ for details on configuring this project to bundle and minify static web assets. 
 
 #pages {
     overflow: hidden;
-    padding: 12px 0px 12px 0px;
+    padding: 5px 0px 0px 0px;
     float: left;
+    width: 100%;
 }
 
 /*FORM-STYLING*/
@@ -121,9 +148,9 @@ for details on configuring this project to bundle and minify static web assets. 
 
 
 .myTables {
-    /*box-shadow: 0px 0px 50px 10px white;*/
-    z-index: -3;
+    /* box-shadow: 0px 0px 50px 10px white; */
     position: relative;
+    margin: 0 auto;
 }
 
 .tablePageHeader {
@@ -225,13 +252,10 @@ select:-webkit-autofill:focus {
         position: relative;
     }
 .hide {
-    background-color: lightgrey;
     position: relative;
-    left: 0%;
-    padding: 12px;
-    height: 38px;
-    color: black;
-    vertical-align: middle;
+    padding: 12px 3px 12px 3px;
+    height: 44px;
+    font-size: 25px;
     animation-name: hoverTipAnimination;
     animation-duration: 100ms;
     animation-timing-function: ease-out;
@@ -276,30 +300,29 @@ select:-webkit-autofill:focus {
         .hide {
             z-index: -1;
             display: none;
-            background-color: lightgrey;
             position: relative;
-            left: 0%;
-            padding: 12px;
-            height: 38px;
-            color: black;
-            vertical-align: middle;
+            padding: 12px 3px 12px 3px;
+            height: 44px;
+            font-size: 25px;
             animation-name: hoverTipAnimination;
-            animation-duration: 100ms;
+            animation-duration: 300ms;
             animation-timing-function: ease-out;
             animation-fill-mode: forwards;
         }
 
         @keyframes hoverTipAnimination {
             0% {
-                left: 0%;
+                left: 150%;
                 opacity: 0;
                 position: absolute;
+                transform: rotateX(0deg);
             }
 
             100% {
                 left: 100%;
                 opacity: 1;
                 position: absolute;
+                transform: rotateX(360deg);
             }
         }
 
@@ -312,46 +335,10 @@ select:-webkit-autofill:focus {
         }
 
         .myDIV:hover {
-            transition: all 100ms linear;
+            transition: all 300ms linear;
             transform: translateX(3px);
             transition-timing-function: ease-out;
         }
     }
 
-    .border-top {
-        border-top: 1px solid #e5e5e5;
-    }
-
-    .border-bottom {
-        border-bottom: 1px solid #e5e5e5;
-    }
-
-    .box-shadow {
-        box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.40);
-    }
-
-    button.accept-policy {
-        font-size: 1rem;
-        line-height: inherit;
-    }
-
-    /* Sticky footer styles
--------------------------------------------------- */
-    html {
-        position: relative;
-        min-height: 100%;
-    }
-
-    body {
-        /* Margin bottom by footer height */
-        margin-bottom: 60px;
-        letter-spacing: 0px;
-    }
-
-    .footer {
-        position: absolute;
-        bottom: 0;
-        width: 50%;
-        white-space: nowrap;
-        line-height: 60px; /* Vertically center the text there */
-    }
+  

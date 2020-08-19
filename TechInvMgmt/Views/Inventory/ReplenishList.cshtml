@@ -1,168 +1,151 @@
-﻿@model IEnumerable<TechInvMgmt.Models.Inventory>
-@inject TechInvMgmt.Data.ApplicationDbContext context
-@{
-    ViewData["Title"] = "Replenish";
-    List<Subinventory> subinventories = await TechInvMgmt.Data.SubinventoryDb.GetSubinvParts(context);
-    List<Part> parts = await TechInvMgmt.Data.PartDb.GetPartsAsync(context);
-
-    bool alternateRowColor = true;
-    var RowColor_Subinv = "80558c";
-    var RowColor_Part = "ccac88";
-    var RowColor_Qty = "989898";
-    var everyOtherRowColor_Subinv = "93739c";
-    var everyOtherRowColor_Part = "d2bba2";
-    var everyOtherRowColor_Qty = "a7a7a7";
-    var bgColor_Subinv = "";
-    var bgColor_Part = "";
-    var bgColor_Qty = "";
+﻿@{
+    ViewData["Title"] = "Van Count";
 }
 
-@if (TempData["Message"] != null)
-{
-    <div class="alert alert-success alert-dismissible" role="alert">@TempData["Message"]</div>
-}
-
-<div class="nav justify-content-center" style="width: 100%; text-align:center;padding-bottom:1%;">
-    <h1 id="header" class="tablePageHeader">Replenish</h1>
-    <select class="searchDropdown" id="search" style="width:180px;text-align:center;margin:auto;">
-        <option selected disabled>Select Subinventory</option>
-        @foreach (Subinventory s in subinventories)
-        {
-            <option value="@s.SubinventoryId">@s.ToString()</option>
-        }
-    </select>
+<div class="nav justify-content-center" style="width: 100%; text-align:center;">
+    <h1 id="header" class="tablePageHeader">REMVAN COUNTER</h1>
 </div>
 
-<div>
-    <div class="dropdown-toggle" href="#" style="float:left;">
-        <a class="nav-link hvr-sweep-to-right" data-toggle="collapse" data-target="#mySearch" style="padding:5px;text-align:center;background-color:#ffffff99;"><img class="nav-icon" src="~/img/Search.png" style="height:25px;" /> </a>
-    </div>
-    <ul class="collapse" id="mySearch" style="margin-bottom:0px;float:left;list-style-type:none;padding:0;">
-        <li>
-            <input id="mySearchInput" placeholder="Search table" onkeyup="mySearchFilter()" style="text-align:center;background-color:#ffffff99;height:35px;border:none;" />
-        </li>
-    </ul>
+<div id="filesHandlerGroup">
+    <input type="file" id="file1" accept=".csv" class="fileInput"><br /><br />
+    <button type="button" id="commense">Do my work for me</button>
 </div>
 
-<table class="table myTables" id="indexTable" style="text-align:center;background-color:white;margin: 0 auto;">
+<table class="myTables" id="indexTable" style="text-align:center;background-color:white;margin: 0 auto;">
     <thead>
         <tr>
-            <th style="width:33%;">
-                @Html.DisplayNameFor(model => model.SubinventoryId)
+            <th style="width:50%;">
+                Part#
             </th>
-            <th style="width:33%;">
-                @Html.DisplayNameFor(model => model.PartId)
-            </th>
-            <th style="width:33%;">
+            <th style="width:50%;">
                 Qty
             </th>
         </tr>
     </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            if (alternateRowColor)
-            {
-                alternateRowColor = false;
-                bgColor_Subinv = RowColor_Subinv;
-                bgColor_Part = RowColor_Part;
-                bgColor_Qty = RowColor_Qty;
-            }
-            else
-            {
-                alternateRowColor = true;
-                bgColor_Subinv = everyOtherRowColor_Subinv;
-                bgColor_Part = everyOtherRowColor_Part;
-                bgColor_Qty = everyOtherRowColor_Qty;
-            }
-            if (item.SubinventoryId != "WHS")
-            {
-                <tr class="hvr-forward">
-                    <td style="background-color:#@bgColor_Subinv;">
-                        <a class="btn" asp-action="Edit" asp-route-id="@item.InventoryId" style="width:100%;color:wheat;">
-                            @Html.DisplayFor(modelItem => item.SubinventoryId)
-                        </a>
-                    </td>
-                    <td style="background-color: #@bgColor_Part;">
-                        <a class="btn" asp-action="Edit" asp-route-id="@item.InventoryId" style="width:100%;">
-                            @Html.DisplayFor(modelItem => item.PartId)
-                        </a>
-                    </td>
-                    <td style="background-color:#@bgColor_Qty;">
-                        <a class="btn" asp-action="Edit" asp-route-id="@item.InventoryId" style="width:100%;font-size: 1rem;color:wheat;">
-                            @foreach (var p in parts)
-                            {
-                                if (item.PartId == p.PartId)
-                                {
-                                    int replenishQty = p.RemoteBaseStock - item.Quantity;
-                                    <div>@replenishQty</div>
-                                }
-                            }
-                        </a>
-                    </td>
-                </tr>
-            }
-        }
+    <tbody id="tableRows">
     </tbody>
 </table>
 
 <script>
-    var searchValue = document.getElementById("search");
-    var listOfRows = document.querySelectorAll("tr");
 
-    // hide all rows to begin
-    for (var i = listOfRows.length - 1; i > 0; i--) {
-        listOfRows[i].style.display = "none";
-    }
+    document.body.style.backgroundColor = "#add9ff";
 
-    // whenever search box is changed
-    searchValue.onchange = function () {
-        // check the user input
-        console.log("USER INPUT: " + searchValue.value.trim());
-        // make sure each row is displaying
-        for (var i = listOfRows.length - 1; i > 0; i--) {
-            listOfRows[i].style.display = "table-row";
-        }
-        // hide each row that does NOT contain the user input
-        for (var i = listOfRows.length - 1; i > 0; i--) {
-            if (listOfRows[i].firstChild.nextSibling.firstChild.nextSibling.textContent.trim() != searchValue.value.toUpperCase().trim()) {
-                listOfRows[i].style.display = "none";
+    document.getElementById("file1").addEventListener("change", (event) => {
+        file1 = event.target.files[0];
+        console.log(file1);
+    });
+    document.getElementById("commense").addEventListener("click", () => {
+        if (file1) {
+            var fileReader = new FileReader();
+            fileReader.readAsBinaryString(file1);
+            var file1data;
+            fileReader.onload = (event) => {
+                file1data = event.target.result;
+                console.log(file1data.substr(0, 10));
+                // Call processData()
+                processData(file1data);
             }
         }
-    };
+    });
 
-    document.body.style.backgroundImage = "url(/img/CementFloorbg.jpg)";
-    document.body.style.backgroundPosition = "center";
-    document.body.style.backgroundSize = "cover";
+    function processData(file1data) {
 
-    // Alternate table row color
-    var numOfCellsToIterateBy = 6; // numOfColumns * 2
-    var tableCells = document.querySelectorAll("td");
-    for (var i = 3; i < tableCells.length; i += numOfCellsToIterateBy) {
-        tableCells[i].style.background = "#93739c";
-        tableCells[i + 1].style.background = "#d2bba2";
-        tableCells[i + 2].style.background = "#a7a7a7";
-    }
+        var techCount = file1data;
 
-    var listOfRows = document.querySelectorAll("tr");
+        document.getElementById("header").textContent = techCount.substr(0, 8);
+        // Let's make arrays for columns: PART#, SQR, and COUNT.
+        var colPart = new Array();
+        var colQty = new Array();
 
-    // Search all table cells
-    // function triggers onkeyup
-    function mySearchFilter() {
-        // Make sure all rows are displaying
-        for (var i = 0; i < listOfRows.length; i++) {
-            listOfRows[i].style.display = "table-row";
-        }
-        // Filter out unmatching rows
-        var mySearchInput = document.getElementById("mySearchInput").value;
-        for (var i = 1; i < listOfRows.length; i++) {
-            var rowContent = listOfRows[i].innerText.trim();
-            if (!rowContent.includes(mySearchInput.toUpperCase())) {
-                listOfRows[i].style.display = "none";
+
+
+        for (var i = 0; i < colPart.length; i++) {
+            var indexOfCount = techCount.search(colPart[i]);
+            var numOfDigits = 1;
+            if (techCount.substr(indexOfCount + colPart[i].length + 2, 1) != ",") {
+                numOfDigits++;
             }
+            if (techCount.substr(indexOfCount + colPart[i].length + 3, 1) != ",") {
+                numOfDigits++;
+            }
+            var count = parseInt(techCount.substr(indexOfCount + colPart[i].length + 1, numOfDigits));
+            colCount.push(count);
         }
-        if (mySearchInput == "") {
-            pagination();
+        console.log(colQty);
+        populateDataTable(colPart, colQty);
+    }
+
+    function populateDataTable(colPart, colSQR, colCount) {
+        var duplicates = 0;
+        for (var i = 0; i < colPart.length; i++) {
+
+
+            // Check for duplicate PARTS
+            if (colPart[i] != colPart[i + 1] && colPart[i + 1] != null) {
+                var newRow = document.createElement("tr");
+                document.getElementById("tableRows").appendChild(newRow);
+
+                // Part#
+                var partCell = document.createElement("td");
+                partCell.innerHTML = colPart[i];
+                partCell.style.backgroundColor = "#ccac88";
+                partCell.style.padding = "0.75rem 0 0.75rem 0";
+                partCell.style.border = "1px dotted grey";
+                newRow.appendChild(partCell);
+                // SQR
+                var SQRCell = document.createElement("td");
+                SQRCell.innerHTML = colSQR[i] + duplicates;
+                SQRCell.style.backgroundColor = "#a0a0a0";
+                SQRCell.style.padding = "0.75rem 0 0.75rem 0";
+                SQRCell.style.border = "1px dotted grey";
+                newRow.appendChild(SQRCell);
+                // Count
+                var countCell = document.createElement("td");
+                countCell.innerHTML = colCount[i];
+                countCell.style.backgroundColor = "#c7c7c7";
+                countCell.style.padding = "0.75rem 0 0.75rem 0";
+                countCell.style.border = "1px dotted grey";
+                newRow.appendChild(countCell);
+                // Variance
+                var varianceCell = document.createElement("td");
+                varianceCell.style.backgroundColor = "#8bbb8b";
+                varianceCell.style.padding = "0.75rem 0 0.75rem 0";
+                varianceCell.style.border = "1px dotted grey";
+                var varianceValue = 0;
+                var SQRValue = parseInt(SQRCell.textContent.trim());
+                var countValue = parseInt(countCell.textContent.trim());
+                if (SQRValue > countValue) {
+                    varianceValue = countValue - SQRValue;
+                    varianceCell.style.backgroundColor = "#ff8f8f";
+                }
+                if (SQRValue < countValue) {
+                    varianceValue = "+" + (countValue - SQRValue);
+                    varianceCell.style.backgroundColor = "#ff8f8f";
+                }
+                varianceCell.innerHTML = varianceValue;
+                newRow.appendChild(varianceCell);
+                // Fixed?
+                var fixedCell = document.createElement("td");
+                fixedCell.style.backgroundColor = "#b8b8ff";
+                fixedCell.style.padding = "0.75rem 0 0.75rem 0";
+                fixedCell.style.border = "1px dotted grey";
+                if (SQRValue > countValue) {
+                    fixedCell.innerHTML = "☐ issue " + Math.abs(varianceValue);
+                }
+                else if (SQRValue < countValue) {
+                    fixedCell.innerHTML = "☐ transfer " + Math.abs(varianceValue);
+                }
+                else {
+                    fixedCell.innerHTML = "✓";
+                }
+                newRow.appendChild(fixedCell);
+                duplicates = 0;
+            }
+            else if (colPart[i] == colPart[i + 1]) {
+                duplicates++;
+            }
+            document.getElementById("filesHandlerGroup").style.display = "none";
         }
     }
+
 </script>

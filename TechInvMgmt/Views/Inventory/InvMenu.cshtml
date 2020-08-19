@@ -1,50 +1,34 @@
-﻿
-
-@{
+﻿@{
     ViewData["Title"] = "Van Count";
 }
-
-<input type="file" id="fileUpload" accept=".csv">
-<br>
-<br>
-<button type="button" id="uploadFile">Upload</button>
-
-<br>
-<br>
-<br>
-<br>
-
-
-
-
-
-
-
 
 <div class="nav justify-content-center" style="width: 100%; text-align:center;">
     <h1 id="header" class="tablePageHeader">REMVAN COUNTER</h1>
 </div>
 
-<div>
-    <div class="dropdown-toggle" href="#" style="float:left;">
-        <a class="nav-link hvr-sweep-to-right" data-toggle="collapse" data-target="#mySearch" style="padding:5px;text-align:center;background-color:#ffffff99;"><img class="nav-icon" src="~/img/Search.png" style="height:25px;" /> </a>
-    </div>
-    <ul class="collapse" id="mySearch" style="margin-bottom:0px;float:left;list-style-type:none;padding:0;">
-        <li>
-            <input id="mySearchInput" placeholder="Search table" onkeyup="mySearchFilter()" style="text-align:center;background-color:#ffffff99;height:35px;border:none;" />
-        </li>
-    </ul>
+<div id="filesHandlerGroup">
+        <input type="file" id="file1" accept=".csv" class="fileInput"><br /><br />
+        <input type="file" id="file2" accept=".csv" class="fileInput"><br /><br />
+        <button type="button" id="commense">Do my work for me</button>
 </div>
-<div id="pages">
-</div>
-<table class="myTables wide" id="indexTable" style="text-align:center;background-color:white;margin: 0 auto;">
+
+<table class="myTables" id="indexTable" style="text-align:center;background-color:white;margin: 0 auto;">
     <thead>
         <tr>
-            <th style="width:50%;">
+            <th style="width:20%;">
                 Part#
             </th>
-            <th style="width:50%;">
-                Qty
+            <th style="width:20%;">
+                SQR
+            </th>
+            <th style="width:20%;">
+                Count
+            </th>
+            <th style="width:20%;">
+                Var
+            </th>
+            <th style="width:20%;">
+                fixed?
             </th>
         </tr>
     </thead>
@@ -52,143 +36,297 @@
     </tbody>
 </table>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 <script>
     document.body.style.backgroundColor = "#add9ff";
 
-    var listOfRows;
-    document.getElementById("fileUpload").addEventListener("change", (event) => {
-        selectedFile = event.target.files[0];
-        console.log(selectedFile);
+    document.getElementById("file1").addEventListener("change", (event) => {
+        file1 = event.target.files[0];
+        console.log(file1);
     });
-    document.getElementById("uploadFile").addEventListener("click", () => {
-        if (selectedFile) {
+    document.getElementById("file2").addEventListener("change", (event) => {
+        file2 = event.target.files[0];
+        console.log(file2);
+    });
+    document.getElementById("commense").addEventListener("click", () => {
+        if (file1) {
             var fileReader = new FileReader();
-            fileReader.readAsBinaryString(selectedFile);
+            fileReader.readAsBinaryString(file1);
+            var file1data;
             fileReader.onload = (event) => {
-                var data = event.target.result;
-                processData(data);
+                file1data = event.target.result;
+                console.log(file1data.substr(0, 10));
+            }
+        }
+        if (file2) {
+            var fileReader = new FileReader();
+            fileReader.readAsBinaryString(file2);
+            var file2data;
+            fileReader.onload = (event) => {
+                file2data = event.target.result;
+                console.log(file2data.substr(0, 10));
+                // Call processData()
+                processData(file1data, file2data);
             }
         }
     });
 
-    function processData(data) {
-        var listOfPartAndQty = new Array();
-        while (data.search("DNS LACEY WA") != -1) {
-            // Get Part Number
-            var indexOfNewLine = data.search("DNS LACEY WA");
-            data = data.substr(indexOfNewLine, data.length - indexOfNewLine);
-            for (var i = 0; i < 2; i++) {
-                var sepIndex = data.search(",");
-                data = data.substr(sepIndex + 1, data.length - sepIndex);
-            }
-            listOfPartAndQty.push(data.substr(1, data.search(",") - 2));
-
-            // Get Quantity for Part Number
-            var sepIndex = data.search("REMVAN");
-            data = data.substr(sepIndex + 1, data.length - sepIndex);
-            for (var i = 0; i < 2; i++) {
-                var sepIndex = data.search(",");
-                data = data.substr(sepIndex + 1, data.length - sepIndex);
-            }
-            listOfPartAndQty.push(data.substr(1, data.search(",") - 2));
+    function processData(file1data, file2data) {
+        // We want to start with the SQR file.
+        // Let's identify which file is the SQR file.
+        if (file1data.search('"') == 0) {
+            var SQRdata = file1data;
+            var techCount = file2data;
         }
-        console.log(listOfPartAndQty);
-        displayResults(listOfPartAndQty);
+        else {
+            var SQRdata = file2data;
+            var techCount = file1data;
+        }
+        document.getElementById("header").textContent = techCount.substr(0, 8);
+        // Let's make arrays for columns: PART#, SQR, and COUNT.
+        var colPart = new Array();
+        var colSQR = new Array();
+        var colCount = new Array();
+
+        while (SQRdata.search("DNS LACEY WA") != -1) {
+            // Get Part Number
+            var newLine = SQRdata.search("DNS LACEY WA");
+            SQRdata = SQRdata.substr(newLine, SQRdata.length - newLine);
+            for (var i = 0; i < 2; i++) {
+                var sepIndex = SQRdata.search(",");
+                SQRdata = SQRdata.substr(sepIndex + 1, SQRdata.length - sepIndex);
+            }
+            colPart.push(SQRdata.substr(1, SQRdata.search(",") - 2));
+            // Get Quantity for Part Number
+            var sepIndex = SQRdata.search("REMVAN");
+            SQRdata = SQRdata.substr(sepIndex + 1, SQRdata.length - sepIndex);
+            for (var i = 0; i < 2; i++) {
+                var sepIndex = SQRdata.search(",");
+                SQRdata = SQRdata.substr(sepIndex + 1, SQRdata.length - sepIndex);
+            }
+            colSQR.push(parseInt(SQRdata.substr(1, SQRdata.search(",") - 2)));
+        }
+        console.log(colPart);
+        console.log(colSQR);
+        // colPart and colSQR are now populated with data.
+
+        for (var i = 0; i < colPart.length; i++) {
+            var indexOfCount = techCount.search(colPart[i]);
+            var numOfDigits = 1;
+            if (techCount.substr(indexOfCount + colPart[i].length + 2, 1) != ",") {
+                numOfDigits++;
+            }
+            if (techCount.substr(indexOfCount + colPart[i].length + 3, 1) != ",") {
+                numOfDigits++;
+            }
+            var count = parseInt(techCount.substr(indexOfCount + colPart[i].length + 1, numOfDigits));
+            colCount.push(count);
+        }
+        console.log(colCount);
+        populateDataTable(colPart, colSQR, colCount);
     }
 
-    function displayResults(listOfPartAndQty) {
-        var resultTable = document.getElementById("tableRows");
+    function populateDataTable(colPart, colSQR, colCount) {
         var duplicates = 0;
-        for (var i = 0; i < listOfPartAndQty.length; i++) {
+        for (var i = 0; i < colPart.length; i++) {
 
-            // Get the PART and QTY
-            var part = listOfPartAndQty[i];
-            var qty = parseInt(listOfPartAndQty[i + 1]);
 
             // Check for duplicate PARTS
-            if (part != listOfPartAndQty[i + 2] && listOfPartAndQty[i + 2] != null) {
-
-                // Create new ROW
+            if (colPart[i] != colPart[i + 1] && colPart[i + 1] != null) {
                 var newRow = document.createElement("tr");
-                resultTable.appendChild(newRow);
+                document.getElementById("tableRows").appendChild(newRow);
 
-                // Create new CELLS
+                // Part#
                 var partCell = document.createElement("td");
-                partCell.setAttribute("id", "partRow" + i)
+                partCell.innerHTML = colPart[i];
                 partCell.style.backgroundColor = "#ccac88";
-                partCell.style.padding = "0.75rem";
-                var qtyCell = document.createElement("td");
-                qtyCell.setAttribute("id", "qtyRow" + i)
-                qtyCell.style.backgroundColor = "#989898";
-                qtyCell.style.padding = "0.75rem";
+                partCell.style.padding = "0.75rem 0 0.75rem 0";
+                partCell.style.border = "1px dotted grey";
                 newRow.appendChild(partCell);
-                newRow.appendChild(qtyCell);
-
-                partCell.innerHTML = part;
-                console.log("money     " + duplicates);
-                qtyCell.innerHTML = parseInt(qty + duplicates);
+                // SQR
+                var SQRCell = document.createElement("td");
+                SQRCell.innerHTML = colSQR[i] + duplicates;
+                SQRCell.style.backgroundColor = "#a0a0a0";
+                SQRCell.style.padding = "0.75rem 0 0.75rem 0";
+                SQRCell.style.border = "1px dotted grey";
+                newRow.appendChild(SQRCell);
+                // Count
+                var countCell = document.createElement("td");
+                countCell.innerHTML = colCount[i];
+                countCell.style.backgroundColor = "#c7c7c7";
+                countCell.style.padding = "0.75rem 0 0.75rem 0";
+                countCell.style.border = "1px dotted grey";
+                newRow.appendChild(countCell);
+                // Variance
+                var varianceCell = document.createElement("td");
+                varianceCell.style.backgroundColor = "#8bbb8b";
+                varianceCell.style.padding = "0.75rem 0 0.75rem 0";
+                varianceCell.style.border = "1px dotted grey";
+                var varianceValue = 0;
+                var SQRValue = parseInt(SQRCell.textContent.trim());
+                var countValue = parseInt(countCell.textContent.trim());
+                if (SQRValue > countValue) {
+                    varianceValue = countValue - SQRValue;
+                    varianceCell.style.backgroundColor = "#ff8f8f";
+                }
+                if (SQRValue < countValue) {
+                    varianceValue = "+" + (countValue - SQRValue);
+                    varianceCell.style.backgroundColor = "#ff8f8f";
+                }
+                varianceCell.innerHTML = varianceValue;
+                newRow.appendChild(varianceCell);
+                // Fixed?
+                var fixedCell = document.createElement("td");
+                fixedCell.style.backgroundColor = "#b8b8ff";
+                fixedCell.style.padding = "0.75rem 0 0.75rem 0";
+                fixedCell.style.border = "1px dotted grey";
+                if (SQRValue > countValue) {
+                    fixedCell.innerHTML = "☐ issue " + Math.abs(varianceValue);
+                }
+                else if (SQRValue < countValue) {
+                    fixedCell.innerHTML = "☐ transfer " + Math.abs(varianceValue);
+                }
+                else {
+                    fixedCell.innerHTML = "✓";
+                }
+                newRow.appendChild(fixedCell);
                 duplicates = 0;
             }
-            else if (part == listOfPartAndQty[i+2]) {
+            else if (colPart[i] == colPart[i + 1]) {
                 duplicates++;
-                console.log(part + "   " + listOfPartAndQty[i + 2]);
             }
-            i++;
-            listOfRows = document.querySelectorAll("tr");
-        }
-
-        // Alternate table row color
-        var numOfCellsToIterateBy = 4; // numOfColumns * 2
-        var tableCells = document.querySelectorAll("td");
-        for (var i = 2; i < tableCells.length; i += numOfCellsToIterateBy) {
-            tableCells[i].style.background = "#d2bba2";
-            tableCells[i + 1].style.background = "#a7a7a7";
+            document.getElementById("filesHandlerGroup").style.display = "none";
         }
     }
 
 
 
-    // Search all table cells
-    // function triggers onkeyup
-    function mySearchFilter() {
-        // Make sure all rows are displaying
-        for (var i = 0; i < listOfRows.length; i++) {
-            listOfRows[i].style.display = "table-row";
+
+
+
+
+    /*
+
+        var listOfRows;
+        document.getElementById("fileUpload").addEventListener("change", (event) => {
+            selectedFile = event.target.files[0];
+            console.log(selectedFile);
+        });
+        document.getElementById("uploadFile").addEventListener("click", () => {
+            if (selectedFile) {
+                var fileReader = new FileReader();
+                fileReader.readAsBinaryString(selectedFile);
+                fileReader.onload = (event) => {
+                    var data = event.target.result;
+                    processData(data);
+                }
+            }
+        });
+
+        function processData(data) {
+            var listOfPartAndQty = new Array();
+            while (data.search("DNS LACEY WA") != -1) {
+                // Get Part Number
+                var indexOfNewLine = data.search("DNS LACEY WA");
+                data = data.substr(indexOfNewLine, data.length - indexOfNewLine);
+                for (var i = 0; i < 2; i++) {
+                    var sepIndex = data.search(",");
+                    data = data.substr(sepIndex + 1, data.length - sepIndex);
+                }
+                listOfPartAndQty.push(data.substr(1, data.search(",") - 2));
+
+                // Get Quantity for Part Number
+                var sepIndex = data.search("REMVAN");
+                data = data.substr(sepIndex + 1, data.length - sepIndex);
+                for (var i = 0; i < 2; i++) {
+                    var sepIndex = data.search(",");
+                    data = data.substr(sepIndex + 1, data.length - sepIndex);
+                }
+                listOfPartAndQty.push(data.substr(1, data.search(",") - 2));
+            }
+            console.log(listOfPartAndQty);
+            displayResults(listOfPartAndQty);
         }
-        // Filter out unmatching rows
-        var mySearchInput = document.getElementById("mySearchInput").value;
-        for (var i = 1; i < listOfRows.length; i++) {
-            var rowContent = listOfRows[i].innerText.trim();
-            if (!rowContent.includes(mySearchInput.toUpperCase())) {
-                listOfRows[i].style.display = "none";
+
+        function displayResults(listOfPartAndQty) {
+            var resultTable = document.getElementById("tableRows");
+            var duplicates = 0;
+            for (var i = 0; i < listOfPartAndQty.length; i++) {
+
+                // Get the PART and QTY
+                var part = listOfPartAndQty[i];
+                var qty = parseInt(listOfPartAndQty[i + 1]);
+
+                // Check for duplicate PARTS
+                if (part != listOfPartAndQty[i + 2] && listOfPartAndQty[i + 2] != null) {
+
+                    // Create new ROW
+                    var newRow = document.createElement("tr");
+                    resultTable.appendChild(newRow);
+
+                    // Create new CELLS
+                    var partCell = document.createElement("td");
+                    partCell.setAttribute("id", "partRow" + i)
+                    partCell.style.backgroundColor = "#ccac88";
+                    partCell.style.padding = "0.75rem";
+                    var qtyCell = document.createElement("td");
+                    qtyCell.setAttribute("id", "qtyRow" + i)
+                    qtyCell.style.backgroundColor = "#989898";
+                    qtyCell.style.padding = "0.75rem";
+                    newRow.appendChild(partCell);
+                    newRow.appendChild(qtyCell);
+
+                    partCell.innerHTML = part;
+                    console.log("money     " + duplicates);
+                    qtyCell.innerHTML = parseInt(qty + duplicates);
+                    duplicates = 0;
+                }
+                else if (part == listOfPartAndQty[i + 2]) {
+                    duplicates++;
+                    console.log(part + "   " + listOfPartAndQty[i + 2]);
+                }
+                i++;
+                listOfRows = document.querySelectorAll("tr");
+            }
+
+            // Alternate table row color
+            var numOfCellsToIterateBy = 4; // numOfColumns * 2
+            var tableCells = document.querySelectorAll("td");
+            for (var i = 2; i < tableCells.length; i += numOfCellsToIterateBy) {
+                tableCells[i].style.background = "#d2bba2";
+                tableCells[i + 1].style.background = "#a7a7a7";
             }
         }
-        if (mySearchInput == "") {
-            console.log("paginating");
+
+
+
+        // Search all table cells
+        // function triggers onkeyup
+        function mySearchFilter() {
+            // Make sure all rows are displaying
+            for (var i = 0; i < listOfRows.length; i++) {
+                listOfRows[i].style.display = "table-row";
+            }
+            // Filter out unmatching rows
+            var mySearchInput = document.getElementById("mySearchInput").value;
+            for (var i = 1; i < listOfRows.length; i++) {
+                var rowContent = listOfRows[i].innerText.trim();
+                if (!rowContent.includes(mySearchInput.toUpperCase())) {
+                    listOfRows[i].style.display = "none";
+                }
+            }
+            if (mySearchInput == "") {
+                console.log("paginating");
+            }
+            // Alternate table row color
+            var numOfCellsToIterateBy = 4; // numOfColumns * 2
+            var tableCells = document.querySelectorAll("td");
+            for (var i = 2; i < tableCells.length; i += numOfCellsToIterateBy) {
+                tableCells[i].style.background = "#d2bba2";
+                tableCells[i + 1].style.background = "#a7a7a7";
+            }
         }
-        // Alternate table row color
-        var numOfCellsToIterateBy = 4; // numOfColumns * 2
-        var tableCells = document.querySelectorAll("td");
-        for (var i = 2; i < tableCells.length; i += numOfCellsToIterateBy) {
-            tableCells[i].style.background = "#d2bba2";
-            tableCells[i + 1].style.background = "#a7a7a7";
-        }
-    }
 
 
 
-   
+    */
 </script>
